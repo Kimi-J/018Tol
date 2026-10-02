@@ -661,16 +661,76 @@ p{margin:0 0 1.15em}
 .dig__line,.sky__l,.candle__l,.syl__l,.zwei__l,.well__l{pointer-events:none}
 .well__svg,.zwei__graves,.sky__canvas,.candle__canvas,.dig__canvas,.tl__svg{pointer-events:none}
 
-/* ---------- 图像占位槽（供后续图像生成 AI 替换） ---------- */
-.slot{position:relative;background:var(--paper-2);border:1px solid var(--paper-3);border-radius:1px;
-  display:grid;place-items:center;text-align:center;overflow:hidden;margin-block:clamp(1.6rem,4vh,3rem);
-  max-width:100%}
-.slot::after{content:"";position:absolute;inset:0;
+/* ---------- 通往专题页的入口（心灵辩证法） ----------
+   放在该屏引文下方，与「呼吸时刻」同一套纸墨语言。
+   形态沿用主按钮的墨线框，但用更大字号与长箭头，让它明显是"门"而不是普通按钮。 */
+.go-deep{max-width:32em;margin-top:clamp(2.2rem,6vh,3.6rem)}
+.go-deep__say{font-size:clamp(1rem,1.5vw,1.22rem);line-height:1.85;color:var(--ink-2);
+  margin:0 0 1.6rem;max-width:26em}
+.go-deep__btn{position:relative;display:inline-flex;align-items:center;gap:.9rem;
+  padding:.9rem 1.3rem;border:1px solid var(--ink-2);border-radius:1px;
+  text-decoration:none;background:transparent;overflow:hidden;
+  transition:filter var(--t-ui) var(--ease-ui),border-color var(--t-ui) var(--ease-ui)}
+.go-deep__btn::before{content:"";position:absolute;inset:0;background:var(--ink-1);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform 320ms var(--ease-trans)}
+.go-deep__btn > *{position:relative;z-index:1}
+.go-deep__btn:hover{filter:brightness(1.02);border-color:var(--ink-0)}
+.go-deep__btn:hover::before{transform:scaleX(1)}
+.go-deep__cn{font-family:var(--font-display);font-size:clamp(1rem,1.5vw,1.2rem);color:var(--ink-0);
+  white-space:nowrap;transition:color 240ms linear}
+.go-deep__ru{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;color:var(--ink-3);
+  white-space:nowrap;transition:color 240ms linear}
+.go-deep__ar{width:19px;height:19px;flex:none;fill:none;stroke:var(--ink-2);stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform 320ms var(--ease-trans),stroke 240ms linear}
+.go-deep__btn:hover .go-deep__cn,.go-deep__btn:hover .go-deep__ru{color:var(--paper-1)}
+.go-deep__btn:hover .go-deep__ar{stroke:var(--paper-1);transform:translateX(4px)}
+.go-deep__btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.go-deep__meta{margin:1rem 0 0;color:var(--ink-4)}
+@media (max-width:600px){
+  .go-deep__btn{display:flex;flex-wrap:wrap;gap:.5rem .9rem}
+  .go-deep__ru{width:100%;order:3;letter-spacing:.12em}
+}
+
+/* ---------- 图像占位槽（供后续图像生成 AI 替换） ----------
+   替换方式：把槽内的 <span class="slot__label">…</span> 换成 <img>，**保留 .slot 外壳**。
+
+   两个坑，都实测踩过：
+   ① 宽高比不要写在内联 style 上 —— 替换时容易连外壳一起删掉，图片随即撑破版面
+      （实测图片会撑到 1036–2400px）。统一由下面的 [data-slot] 规则提供。
+   ② 不要用 grid-template-rows:100% 去"撑高"容器：那会让槽内的 <img> 反过来
+      撑大网格行，而 aspect-ratio 只在高度为 auto 时生效，两者互斥
+      （实测 SLOT-08 因此被算成 12.6:1、高度塌到 71px；其余 9 个只是碰巧没触发）。
+      正确做法：尺寸只由 aspect-ratio + width 决定，槽内元素一律绝对定位、不参与布局。 */
+.slot{position:relative;display:block;overflow:hidden;border-radius:1px;
+  background:var(--paper-2);border:1px solid var(--paper-3);
+  margin-block:clamp(1.6rem,4vh,3rem);max-width:100%;
+  aspect-ratio:var(--ar,16/9);width:min(var(--w,100%),100%);
+  /* 关键：父级若是 flex 容器，超容量时会被压缩到忽略 aspect-ratio（实测 SLOT-08
+     在 .zwei__sticky 这个 100svh 的 flex 列容器里被压成 71px 高）。 */
+  flex:none}
+/* 槽内已有图：去掉底纹与边框，交给图片自身 */
+.slot:has(img){background:transparent;border-color:transparent}
+.slot::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:repeating-linear-gradient(135deg,rgba(107,97,82,.10) 0 1px,transparent 1px 11px)}
-.slot__label{position:relative;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
-  color:var(--ink-3);padding:1rem 1.2rem;line-height:1.9;max-width:34em}
+.slot:has(img)::after{content:none}
+/* 槽内元素：绝对定位居中，不参与尺寸计算 */
+.slot__label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(34em,92%);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  color:var(--ink-3);line-height:1.9;text-align:center}
 .slot__label b{display:block;color:var(--ink-2);font-weight:400;letter-spacing:.12em;margin-bottom:.3rem}
-.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* 每个槽位的宽高比与宽度 —— 与 plan/05、plan/06 的表格一一对应 */
+.slot[data-slot="SLOT-01"]{--ar:3/4;  --w:clamp(200px,23vw,320px)}
+.slot[data-slot="SLOT-02"]{--ar:16/9; --w:min(720px,66vw)}
+.slot[data-slot="SLOT-03"]{--ar:4/3;  --w:min(860px,82vw)}
+.slot[data-slot="SLOT-04"]{--ar:21/9; --w:100%}
+.slot[data-slot="SLOT-05"]{--ar:4/5;  --w:clamp(220px,28vw,380px);margin-left:auto}
+.slot[data-slot="SLOT-06"]{--ar:1/1;  --w:min(560px,56vw)}
+.slot[data-slot="SLOT-07"]{--ar:3/1;  --w:100%}
+.slot[data-slot="SLOT-08"]{--ar:16/9; --w:min(900px,84vw)}
+.slot[data-slot="SLOT-09"]{--ar:3/2;  --w:min(1000px,88vw)}
+.slot[data-slot="SLOT-10"]{--ar:4/3;  --w:min(760px,74vw);margin-left:auto}
 
 /* ---------- 降级 ---------- */
 @media (prefers-reduced-motion:reduce){
@@ -712,8 +772,11 @@ p{margin:0 0 1.15em}
       他五岁听说它，八十二岁葬在它上面。
     </p>
     <p class="mini" style="margin-top:3.2rem">向下滚动 —— 开始挖掘</p>
-    <div class="slot" data-slot="SLOT-01" style="aspect-ratio:3/4;width:clamp(200px,23vw,320px);margin-top:3rem">
-      <span class="slot__label"><b>SLOT-01 · 3:4</b>青年托尔斯泰肖像（1848年前后）<br>替换：assets/img/01-tolstoy-1848.jpg<br>提示词见 plan/05-图像生成提示词.md</span>
+    <div class="slot" data-slot="SLOT-01">
+      <img src="assets/img/01-tolstoy-1848.jpg"
+           alt="青年列夫·托尔斯泰肖像"
+           loading="lazy" decoding="async"
+           width="2400" height="3200">
     </div>
   </div>
 </section>
@@ -801,8 +864,11 @@ p{margin:0 0 1.15em}
         <text x="320" y="286" class="estate__note" text-anchor="middle">拆走：运往三十五俄里外的多尔多耶村</text>
       </svg>
       <p class="estate__hint">把光标移到虚线轮廓上</p>
-      <div class="slot" data-slot="SLOT-02" style="aspect-ratio:16/9;width:min(720px,66vw);margin-top:1.6rem">
-        <span class="slot__label"><b>SLOT-02 · 16:9</b>亚斯纳亚波利亚纳庄园旧貌<br>替换：assets/img/02-yasnaya-polyana.jpg</span>
+      <div class="slot" data-slot="SLOT-02">
+        <img src="assets/img/02-yasnaya-polyana.jpg"
+             alt="亚斯纳亚波利亚纳庄园旧貌"
+             loading="lazy" decoding="async"
+             width="3200" height="1800">
       </div>
     </div>
   </div>
@@ -901,18 +967,38 @@ p{margin:0 0 1.15em}
       <ul class="rules__list" id="rulesList"></ul>
     </div>
     <div class="rules" style="padding-top:0">
-      <div class="slot" data-slot="SLOT-10" style="aspect-ratio:4/3;width:min(760px,74vw);margin-left:auto">
-        <span class="slot__label"><b>SLOT-10 · 4:3</b>索菲亚在灯下抄写手稿（不要出现任何数字）<br>替换：assets/img/10-copying.jpg</span>
+      <div class="slot" data-slot="SLOT-10">
+        <img src="assets/img/10-copying.jpg"
+             alt="索菲亚在灯下抄写手稿"
+             loading="lazy" decoding="async"
+             width="2400" height="1800">
       </div>
     </div>
   </div>
 </section>
 
-<section class="breath" data-scene data-scene-var="--p" aria-label="呼吸时刻">
+<section class="breath breath--stack" id="dialectics" data-scene data-scene-var="--p" aria-label="呼吸时刻：心灵辩证法">
   <div class="breath__light" aria-hidden="true" style="--lx:70%;--ly:30%"></div>
-  <div class="breath__q">
-    <p>他感兴趣的不是心理过程的结果，<br>而是过程本身 —— 它的形式、<br>它的规律。</p>
-    <span class="cite"><span class="src">车尔尼雪夫斯基《托尔斯泰伯爵的〈童年〉与〈少年〉。战争小说》，《现代人》1856年第8期</span><span class="conf" data-c="ok" data-note="「心灵辩证法」(диалектика души) 是车尔尼雪夫斯基的命名，托尔斯泰本人从未使用过这个词。术语出自《现代人》1856年第8期的这篇专论，不是《俄国文学果戈理时期概观》（那是另一组文章）。原文为：「Особенность таланта графа Толстого состоит в том, что он не ограничивается изображением результатов психического процесса: его интересует самый процесс, его формы, законы, диалектика души, чтобы выразиться определительным термином.」">已核实</span></span>
+  <div class="inner">
+    <div class="breath__q" style="padding-inline:0">
+      <p>他感兴趣的不是心理过程的结果，<br>而是过程本身 —— 它的形式、<br>它的规律。</p>
+      <span class="cite"><span class="src">车尔尼雪夫斯基《托尔斯泰伯爵的〈童年〉与〈少年〉。战争小说》，《现代人》1856年第8期</span><span class="conf" data-c="ok" data-note="「心灵辩证法」(диалектика души) 是车尔尼雪夫斯基的命名，托尔斯泰本人从未使用过这个词。术语出自《现代人》1856年第8期的这篇专论，不是《俄国文学果戈理时期概观》（那是另一组文章）。原文为：「Особенность таланта графа Толстого состоит в том, что он не ограничивается изображением результатов психического процесса: его интересует самый процесс, его формы, законы, диалектика души, чтобы выразиться определительным термином.」">已核实</span></span>
+    </div>
+
+    <!-- 全站的「精神操作系统」在此被显式安装 —— 通往独立专题页 -->
+    <div class="go-deep">
+      <p class="go-deep__say">这个词后来成了理解他全部作品的钥匙。<br>
+        它是什么、从哪来、在他身上怎么运转 —— 另有一页专门讲。</p>
+      <a class="go-deep__btn" href="心灵辩证法-托尔斯泰.html"
+         title="打开专题页《心灵辩证法 · 列夫·托尔斯泰的思想地形》">
+        <span class="go-deep__cn">进入专题：心灵辩证法</span>
+        <span class="go-deep__ru" aria-hidden="true">ДИАЛЕКТИКА ДУШИ</span>
+        <svg class="go-deep__ar" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h13"/><path d="M12.5 6l6 6-6 6"/>
+        </svg>
+      </a>
+      <p class="go-deep__meta mini">独立页面 · 另开一处思想地形 · 页内有返回入口</p>
+    </div>
   </div>
 </section>
 
@@ -923,8 +1009,11 @@ p{margin:0 0 1.15em}
   <div class="inner">
     <p class="eyebrow"><span class="eyebrow__num">第二乐章 · 深潜 ①</span><span>ВОЙНА И МИР · 1863–1869</span></p>
     <h2>一八〇五年，一个受伤的人<br>躺在战场上，<br>第一次看见了天空</h2>
-    <div class="slot" data-slot="SLOT-03" style="aspect-ratio:4/3;width:min(860px,82vw);margin-top:2.4rem">
-      <span class="slot__label"><b>SLOT-03 · 4:3</b>《战争与和平》手稿的一页（密改稿）<br>替换：assets/img/03-war-and-peace-ms.jpg</span>
+    <div class="slot" data-slot="SLOT-03">
+      <img src="assets/img/03-war-and-peace-ms.jpg"
+           alt="《战争与和平》手稿的一页"
+           loading="lazy" decoding="async"
+           width="2400" height="1800">
     </div>
   </div>
 </section>
@@ -1070,8 +1159,11 @@ p{margin:0 0 1.15em}
       <p class="eyebrow"><span class="eyebrow__num">互动</span><span>БАЛ · СЛЕЖЕНИЕ</span></p>
       <h3>你永远比安娜慢半步</h3>
       <p class="mini" style="max-width:30em">左右移动鼠标、横向滚动或横向拖动。镜头有惯性 —— 它追不上她。等它终于停下来，引文才出现。</p>
-      <div class="slot" data-slot="SLOT-04" style="aspect-ratio:21/9;width:100%">
-        <span class="slot__label"><b>SLOT-04 · 21:9</b>1870年代俄国舞厅的暗色内景（极暗，只有烛光金斑）<br>替换：assets/img/04-ballroom.jpg</span>
+      <div class="slot" data-slot="SLOT-04">
+        <img src="assets/img/04-ballroom.jpg"
+             alt="1870年代俄国舞厅的暗色内景"
+             loading="lazy" decoding="async"
+             width="3780" height="1620">
       </div>
     </div>
     <div class="ball__stage" id="ballStage">
@@ -1303,8 +1395,11 @@ p{margin:0 0 1.15em}
   <div class="inner">
     <p class="eyebrow"><span class="eyebrow__num">第四乐章 · 深潜 ③</span><span>СМЕРТЬ ИВАНА ИЛЬИЧА · 1886</span></p>
     <h2>一八八六年，<br>他写了一个人的死，<br>从葬礼开始，倒着写</h2>
-    <div class="slot" data-slot="SLOT-05" style="aspect-ratio:4/5;width:clamp(220px,28vw,380px);margin-top:2.4rem;margin-left:auto">
-      <span class="slot__label"><b>SLOT-05 · 4:5</b>精神危机时期的托尔斯泰（1880年代初）<br>替换：assets/img/05-tolstoy-crisis.jpg</span>
+    <div class="slot" data-slot="SLOT-05">
+      <img src="assets/img/05-tolstoy-crisis.jpg"
+           alt="精神危机时期的托尔斯泰"
+           loading="lazy" decoding="async"
+           width="2400" height="3000">
     </div>
     <div class="measure" style="margin-top:2rem">
       <p>小说的第一章就是他的葬礼。同事们站在棺木旁边，各自想着「还好死的是他，不是我」。然后时间倒回去，从他的一生开始写。</p>
@@ -1460,8 +1555,11 @@ p{margin:0 0 1.15em}
       <p class="lede">八十二岁。夜里他听见有人在翻他的文件。他穿好衣服，提着箱子，从后门走进树林。他说他要去一个没人认识他的地方，安静地死掉。</p>
       <p>他走了五天。</p>
     </div>
-    <div class="slot" data-slot="SLOT-06" style="aspect-ratio:1/1;width:min(560px,56vw);margin-top:2.4rem">
-      <span class="slot__label"><b>SLOT-06 · 1:1</b>1908年的托尔斯泰彩色人像（依据史上最早彩色摄影之一的风格）<br>替换：assets/img/06-tolstoy-1908-color.jpg</span>
+    <div class="slot" data-slot="SLOT-06">
+      <img src="assets/img/06-tolstoy-1908-color.jpg"
+           alt="1908年的托尔斯泰彩色人像"
+           loading="lazy" decoding="async"
+           width="2400" height="2400">
     </div>
   </div>
 
@@ -1510,8 +1608,11 @@ p{margin:0 0 1.15em}
       </svg>
       <div class="asta__press" id="astaPress" aria-hidden="true"></div>
       <p class="mini" id="astaVoiceNote" style="margin-top:.9rem;color:var(--ink-2);max-width:44em"></p>
-      <div class="slot" data-slot="SLOT-07" style="aspect-ratio:3/1;width:100%">
-        <span class="slot__label"><b>SLOT-07 · 3:1</b>1910年11月的阿斯塔波沃车站（空无一人）<br>替换：assets/img/07-astapovo.jpg</span>
+      <div class="slot" data-slot="SLOT-07">
+        <img src="assets/img/07-astapovo.jpg"
+             alt="1910年的阿斯塔波沃车站"
+             loading="lazy" decoding="async"
+             width="3600" height="1200">
       </div>
     </div>
   </section>
@@ -1554,8 +1655,11 @@ p{margin:0 0 1.15em}
         <span class="cite zwei__cite" data-at=".76"><span class="src">茨威格《世间最美的坟墓》（Das schönste Grab der Welt，《俄罗斯之行》第十七章，1928）</span><span class="conf" data-c="ok" data-note="德文原文逐字检出（Bibliotheca Augustana 德文全文）。中文译本常把拉丁语「nulla crux, nulla corona」（无十字，无花冠）抹去 —— 本站保留。注意现场记载补充了一个常被删掉的细节：葬礼横幅的完整铭文末尾是「亚斯纳亚波利亚纳的农民」，而这段铭文是莫斯科大学生拟稿、由农民自己挑选的。">已核实</span></span>
       </div>
       <p class="zwei__fact mini" data-at=".86">没有墓碑。没有十字架。没有名字。<br>只有一道长方形的土丘，和几株树。</p>
-      <div class="slot" data-slot="SLOT-08" style="aspect-ratio:16/9;width:min(900px,84vw);margin-top:1.4rem;opacity:.85">
-        <span class="slot__label"><b>SLOT-08 · 16:9</b>林中墓地实景（必须什么都没有）<br>替换：assets/img/08-grave.jpg</span>
+      <div class="slot" data-slot="SLOT-08">
+        <img src="assets/img/08-grave.jpg"
+             alt="亚斯纳亚波利亚纳林中的托尔斯泰墓"
+             loading="lazy" decoding="async"
+             width="2880" height="1620">
       </div>
     </div>
   </div>
@@ -1611,8 +1715,11 @@ p{margin:0 0 1.15em}
     <p class="eyebrow"><span class="eyebrow__num">回廊</span><span>ГАЛЕРЕЯ · 自由探索</span></p>
     <h2>走完这条路之后，<br>还有一些房间</h2>
     <p class="mini" style="margin-top:1rem;max-width:32em">这里不按顺序。挑一个进去就行。</p>
-    <div class="slot" data-slot="SLOT-09" style="aspect-ratio:3/2;width:min(1000px,88vw);margin-top:2.4rem">
-      <span class="slot__label"><b>SLOT-09 · 3:2</b>托尔斯泰在田间耕作（列宾一路的现实主义油画风）<br>替换：assets/img/09-ploughing.jpg</span>
+    <div class="slot" data-slot="SLOT-09">
+      <img src="assets/img/09-ploughing.jpg"
+           alt="托尔斯泰在田间耕作"
+           loading="lazy" decoding="async"
+           width="2400" height="1600">
     </div>
   </div>
 

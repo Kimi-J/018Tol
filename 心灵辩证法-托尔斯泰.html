@@ -1,0 +1,4769 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心灵辩证法 · 列夫·托尔斯泰的思想地形</title>
+<meta name="description" content="以“心灵辩证法”为线索，穿过列夫·托尔斯泰的作品、思想与哲学向度。">
+<style>
+/* ============================================================
+   0. 设计令牌
+   ============================================================ */
+:root{
+  --paper-0:#F4EFE4; --paper-1:#EDE6D8; --paper-2:#E3DACA; --paper-3:#D6C9B4;
+  --ink-0:#17140F; --ink-1:#2A251D; --ink-2:#463E33; --ink-3:#6E6455;
+  --sepia:#8A6E4B; --olive:#5B6148; --smoke:#8B8579;
+  --rust:#9C4A2F; --brass:#B08A4A; --slate:#4E6172; --slate-dim:#7A8B99;
+
+  --serif-cn:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --serif-en:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
+
+  --measure:34em;
+  --gut: clamp(20px, 5vw, 96px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; background:#EDE6D8}
+body{
+  margin:0; background:var(--paper-1); color:var(--ink-2);
+  font-family:var(--serif-cn),var(--serif-en);
+  font-size:19px; line-height:1.95;
+  font-kerning:normal; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-weight:600; line-height:1.25; color:var(--ink-0); margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--slate); outline-offset:3px; border-radius:2px}
+::selection{background:rgba(176,138,74,.3)}
+
+/* ============================================================
+   1. 纸与墨的质感层
+   ============================================================ */
+#grain{position:fixed; inset:0; z-index:3; pointer-events:none; opacity:.05; mix-blend-mode:multiply}
+#fiber{position:fixed; inset:0; z-index:3; pointer-events:none; opacity:.028; mix-blend-mode:multiply}
+#vignette{
+  position:fixed; inset:0; z-index:2; pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 50% 8%, rgba(255,252,244,.5), transparent 55%),
+    radial-gradient(140% 110% at 50% 50%, transparent 52%, rgba(74,62,45,.14) 100%);
+}
+#halo{position:fixed; inset:0; z-index:1; pointer-events:none; overflow:hidden}
+.halo-blob{
+  position:absolute; border-radius:50%; filter:blur(70px); opacity:0;
+  will-change:opacity, transform;
+}
+#threads{position:fixed; inset:0; z-index:2; pointer-events:none}
+
+/* ============================================================
+   2. 排版原子
+   ============================================================ */
+.wrap{width:100%; max-width:1220px; margin-inline:auto; padding-inline:var(--gut)}
+.prose{max-width:var(--measure)}
+.prose p + p{margin-top:1.5em}
+.lede{font-size:1.08em; color:var(--ink-1)}
+.meta{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-3); line-height:1.7;
+}
+.meta-cn{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--ink-3)}
+h2.chapter{
+  font-size:clamp(28px,4.4vw,50px); letter-spacing:.02em; margin:0 0 .2em;
+  font-family:var(--serif-cn),var(--serif-display);
+}
+.chapter-no{
+  font-family:var(--mono); font-size:12px; letter-spacing:.3em;
+  color:var(--rust); display:block; margin-bottom:1.1em;
+}
+.rule{height:1px; background:linear-gradient(90deg,var(--sepia),transparent 72%); opacity:.5; border:0}
+.rule-c{height:1px; background:var(--sepia); opacity:.32; border:0}
+
+/* 大引文版式 */
+blockquote.pull{
+  margin:clamp(2.4rem,6vh,4.5rem) 0; padding:0 0 0 clamp(16px,3vw,34px);
+  border-left:2px solid var(--sepia); max-width:30em;
+}
+blockquote.pull p{
+  font-size:clamp(20px,2.5vw,26px); line-height:1.75; letter-spacing:.04em;
+  color:var(--ink-0);
+}
+blockquote.pull cite{
+  display:block; margin-top:1.1em; font-style:normal;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; color:var(--ink-3);
+}
+.src-note{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  color:var(--ink-3); margin-top:.7em; line-height:1.75;
+}
+em.term{font-style:normal; color:var(--rust); font-weight:600}
+em.term-q{font-style:normal; border-bottom:1px solid rgba(156,74,47,.4)}
+
+/* 呼吸点 */
+.breath{
+  padding:clamp(9vh,20vh,24vh) 0; text-align:center;
+}
+.breath q{
+  font-size:clamp(19px,2.6vw,27px); color:var(--ink-1); quotes:"「" "」";
+  letter-spacing:.05em; line-height:1.8; display:block; max-width:24em; margin-inline:auto;
+}
+.breath .meta{display:block; margin-top:2.2em}
+
+/* 侧注 */
+.aside{
+  max-width:24em; padding:clamp(14px,2vw,22px) clamp(16px,2.2vw,26px);
+  background:linear-gradient(180deg, rgba(255,253,247,.6), rgba(255,253,247,.18));
+  border:1px solid rgba(138,110,75,.3); border-left:3px solid var(--brass);
+}
+.aside h4{font-size:14px; letter-spacing:.06em; margin-bottom:.6em; font-family:var(--mono); font-weight:600; color:var(--ink-1)}
+.aside p{font-size:15px; line-height:1.85; color:var(--ink-2)}
+.aside p+p{margin-top:.85em}
+
+/* ============================================================
+   3. 滚动引擎基础（所有入场动画由 JS 插值，CSS 只提供初始不可见）
+   ============================================================ */
+.rv{opacity:0; will-change:opacity,transform}
+.rv.wipe{clip-path:inset(0 0 100% 0)}
+html.no-js .rv{opacity:1 !important; clip-path:none !important; transform:none !important; filter:none !important}
+html.no-js #threads,html.no-js #halo{display:none}
+html.no-js .well{height:auto}
+html.no-js .well-sticky{position:static; height:auto; display:block; padding-block:2rem}
+html.no-js .well-svg{max-height:60vh; margin-inline:auto}
+html.no-js .card{min-height:0}
+html.no-js .card-side{position:static; opacity:1 !important; transform:none !important; pointer-events:auto}
+html.no-js .card-back{display:none}
+html.no-js .duo-slot[data-dim="1"]{opacity:1}
+html.no-js #spine{display:none}
+
+/* ============================================================
+   4. 顶部导航（细线书签式）
+   ============================================================ */
+#nav{
+  position:fixed; top:0; left:0; right:0; z-index:40;
+  display:flex; align-items:center; gap:clamp(10px,2vw,26px);
+  padding:14px var(--gut);
+  background:linear-gradient(180deg, rgba(237,230,216,.94), rgba(237,230,216,.55) 65%, transparent);
+  backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+  transition:transform .5s var(--ease), opacity .4s;
+}
+#nav.hide{transform:translateY(-104%)}
+.brand{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.22em; color:var(--ink-1);
+  text-decoration:none; white-space:nowrap; text-transform:uppercase;
+}
+/* ---- 返回主页（回主页面《绿杖》的入口）---------------------------------
+   与 .icon-btn 同一套语言：方角、细发丝边框、悬停时墨色渗入。
+   窄屏隐藏 "绿杖" 二字，只留「返回主页」+ 箭头，保证 #nav 不溢出。 */
+.back-home{
+  display:inline-flex; align-items:center; gap:7px; flex:none;
+  font-family:var(--mono); font-size:11px; letter-spacing:.1em;
+  color:var(--ink-2); text-decoration:none; white-space:nowrap;
+  padding:7px 11px; border:1px solid rgba(138,110,75,.34);
+  transition:background .22s, border-color .22s, color .22s;
+}
+.back-home svg{
+  width:14px; height:14px; flex:none; fill:none; stroke:currentColor;
+  stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .26s var(--ease);
+}
+.back-home:hover{background:rgba(138,110,75,.12); border-color:var(--sepia); color:var(--ink-0)}
+.back-home:hover svg{transform:translateX(-2.5px)}
+.back-home:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
+.bh-cn{white-space:nowrap}
+.bh-ru{letter-spacing:.16em; color:var(--ink-3); text-transform:uppercase}
+.back-home:hover .bh-ru{color:var(--sepia)}
+@media (max-width:760px){ .bh-ru{display:none} .back-home{padding:6px 9px} }
+
+/* ---- 常驻返回角标 ------------------------------------------------------
+   顶部导航在向下滚动时会自动上滑隐藏（作者原有设计），此时读者若想回主页面
+   就没入口了。所以补一个左下角的小角标：只在 #nav 处于隐藏态、且已经离开
+   首屏之后出现，与顶部导航互斥，不重复占用视线。
+   z-index 41 高于 #nav(40)，落在正文左留白里，不遮正文（窄屏时贴边）。 */
+.back-corner{
+  position:fixed; left:max(12px, calc(var(--gut) * .38)); bottom:22px; z-index:41;
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; white-space:nowrap;
+  color:var(--ink-2); text-decoration:none; padding:7px 11px;
+  background:rgba(244,239,228,.9); backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
+  border:1px solid rgba(138,110,75,.3);
+  opacity:0; transform:translateY(8px); pointer-events:none;
+  transition:opacity .3s var(--ease), transform .3s var(--ease),
+             background .2s, border-color .2s, color .2s;
+}
+.back-corner svg{
+  width:13px; height:13px; flex:none; fill:none; stroke:currentColor;
+  stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;
+}
+.back-corner.on{opacity:1; transform:none; pointer-events:auto}
+.back-corner:hover{background:rgba(237,230,216,.97); border-color:var(--sepia); color:var(--ink-0)}
+.back-corner:hover svg{transform:translateX(-2px)}
+.back-corner:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
+@media (max-width:760px){
+  .back-corner{left:10px; bottom:12px; padding:6px 9px}
+  .back-corner .bh-ru{display:none}
+}
+#nav ol{display:flex; gap:2px; list-style:none; margin:0; padding:0; overflow-x:auto; scrollbar-width:none}
+#nav ol::-webkit-scrollbar{display:none}
+#nav button{
+  appearance:none; background:none; border:0; cursor:pointer; color:var(--ink-3);
+  font-family:var(--mono); font-size:11px; letter-spacing:.1em; padding:8px 9px;
+  position:relative; white-space:nowrap; transition:color .2s;
+}
+#nav button::after{
+  content:""; position:absolute; left:9px; right:9px; bottom:3px; height:1px;
+  background:var(--rust); transform:scaleX(0); transform-origin:left;
+  transition:transform .32s var(--ease);
+}
+#nav button:hover{color:var(--ink-0)}
+#nav button:hover::after{transform:scaleX(.6)}
+#nav button[aria-current="true"]{color:var(--rust)}
+#nav button[aria-current="true"]::after{transform:scaleX(1)}
+.nav-tools{margin-left:auto; display:flex; gap:6px; align-items:center}
+.icon-btn{
+  appearance:none; background:none; border:1px solid rgba(138,110,75,.34); cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; color:var(--ink-2);
+  transition:background .22s, border-color .22s, color .22s;
+}
+.icon-btn:hover{background:rgba(138,110,75,.12); border-color:var(--sepia); color:var(--ink-0)}
+.icon-btn svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+#spine{
+  position:fixed; left:0; top:0; width:2px; height:100%; z-index:39;
+  background:rgba(138,110,75,.16); pointer-events:none;
+}
+#spine i{
+  display:block; width:100%; height:0%;
+  background:linear-gradient(180deg,var(--slate),var(--sepia) 55%,var(--rust));
+  transform-origin:top;
+}
+#spine b{
+  position:absolute; left:5px; top:0; font-family:var(--mono); font-size:10px;
+  letter-spacing:.1em; color:var(--ink-3); transform:translateY(-50%); white-space:nowrap;
+}
+
+/* ============================================================
+   5. 首屏
+   ============================================================ */
+#hero{position:relative; min-height:100svh; display:flex; align-items:center; overflow:hidden}
+#hero .wrap{position:relative; z-index:2; width:100%}
+.hero-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.85fr); gap:clamp(24px,5vw,72px); align-items:center}
+.hero-name{
+  font-family:var(--mono); font-size:clamp(11px,1.2vw,13px); letter-spacing:.42em;
+  color:var(--ink-3); text-transform:uppercase; margin-bottom:1.6em;
+}
+.hero-title{
+  font-size:clamp(44px,9.5vw,112px); line-height:1.02; letter-spacing:.03em;
+  color:var(--ink-0); margin:0 0 .28em; font-weight:600;
+}
+.hero-title .u{position:relative; display:inline-block}
+.hero-title .u::after{
+  content:""; position:absolute; left:-2%; right:-2%; bottom:.1em; height:.055em;
+  background:var(--sepia); opacity:.42; transform:scaleX(0); transform-origin:left;
+  animation:titleUnderline 2.6s 1.4s var(--ease) forwards;
+}
+@keyframes titleUnderline{to{transform:scaleX(1)}}
+.hero-sub{
+  font-family:var(--serif-en),var(--serif-cn); font-size:clamp(13px,1.5vw,16px);
+  letter-spacing:.3em; color:var(--ink-3); text-transform:uppercase; margin-bottom:2.4em;
+}
+.hero-lede{max-width:26em; font-size:clamp(16px,1.6vw,18.5px); line-height:1.95; color:var(--ink-2)}
+.hero-lede b{color:var(--ink-0); font-weight:600}
+
+/* 首屏右侧：墨线刻版（程序生成，非照片） */
+.hero-figure{position:relative; aspect-ratio:1/1; max-width:460px; margin-inline:auto; width:100%}
+.hero-figure svg{width:100%; height:100%; overflow:visible; animation:breathe 15s ease-in-out infinite}
+#inkPlate path,#inkHatch path{transition:opacity .9s var(--ease)}
+.fig-note{
+  margin-top:1.6em; font-family:var(--mono); font-size:11px; line-height:1.95;
+  letter-spacing:.06em; color:var(--ink-3); text-align:center;
+}
+@keyframes breathe{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.018) translateY(-5px)}}
+
+.hero-cue{
+  position:absolute; left:var(--gut); bottom:clamp(22px,5vh,44px); z-index:3;
+  display:flex; align-items:center; gap:14px; color:var(--ink-3);
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+}
+.hero-cue .stem{width:52px; height:1px; background:var(--sepia); opacity:.6; position:relative; overflow:hidden}
+.hero-cue .stem::after{
+  content:""; position:absolute; inset:0; background:var(--rust);
+  transform:translateX(-100%); animation:cue 3.4s 1s ease-in-out infinite;
+}
+@keyframes cue{0%{transform:translateX(-100%)}55%{transform:translateX(0)}100%{transform:translateX(100%)}}
+
+/* ============================================================
+   6. 通用章节骨架
+   ============================================================ */
+section.ch{position:relative; padding:clamp(9vh,17vh,20vh) 0; z-index:4}
+.ch-head{display:grid; grid-template-columns:min-content minmax(0,1fr); gap:clamp(16px,3vw,40px); align-items:start; margin-bottom:clamp(2.2rem,6vh,4.5rem)}
+.ch-num{
+  font-family:var(--mono); font-size:clamp(38px,5vw,76px); line-height:.85; color:var(--ink-0);
+  opacity:.14; font-weight:400; letter-spacing:-.01em;
+  width:min-content; white-space:nowrap;
+}
+.split{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr); gap:clamp(24px,5vw,68px); align-items:start}
+.split-r{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr); gap:clamp(24px,5vw,68px); align-items:start}
+.stack{display:flex; flex-direction:column; gap:clamp(20px,4vh,44px)}
+.pad-l{padding-left:clamp(0px,6vw,110px)}
+
+/* 行内强调 */
+.hl{color:var(--ink-0); font-weight:600; box-shadow:inset 0 -.42em 0 rgba(176,138,74,.24)}
+.hl2{color:var(--rust); font-weight:600}
+.t-a{color:var(--slate); font-weight:600}
+
+/* ============================================================
+   7. 图表 / 图注
+   ============================================================ */
+.fig{margin:0}
+.fig-cap{margin-bottom:clamp(14px,2.4vw,22px); border-top:1px solid rgba(138,110,75,.32); padding-top:12px}
+.fig-cap .meta{display:block; margin-bottom:.5em; color:var(--rust)}
+.fig-cap p{font-size:15px; color:var(--ink-2); max-width:38em; line-height:1.8}
+.fig-cap .hint{color:var(--ink-3); font-size:13.5px}
+
+/* ---- 端点—过程对照器 ---- */
+.endpoint-machine{
+  display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr);
+  gap:clamp(18px,3vw,44px); align-items:end;
+  background:linear-gradient(180deg, rgba(255,253,247,.5), rgba(255,253,247,.05));
+  border:1px solid rgba(138,110,75,.24); padding:clamp(16px,2.4vw,30px);
+}
+.ep-canvas-wrap{position:relative}
+.ep-canvas-wrap svg{display:block; width:100%; height:auto; min-height:150px}
+.ep-readout{
+  min-height:8.5em; padding-bottom:6px;
+  border-left:2px solid var(--sepia); padding-left:clamp(12px,1.8vw,20px);
+}
+.ep-readout .meta{color:var(--slate); display:block; margin-bottom:.7em}
+#epText{font-size:16.5px; line-height:1.85; color:var(--ink-1)}
+.ep-ctrl{grid-column:1/-1; border-top:1px solid rgba(138,110,75,.24); padding-top:clamp(14px,2vw,20px); margin-top:clamp(6px,1.6vw,14px)}
+.ep-ctrl label{display:block; margin-bottom:.85em; color:var(--ink-3)}
+#epRange{
+  -webkit-appearance:none; appearance:none; width:100%; max-width:520px; height:22px;
+  background:transparent; cursor:grab; display:block;
+}
+#epRange:active{cursor:grabbing}
+#epRange::-webkit-slider-runnable-track{height:1px; background:rgba(138,110,75,.5)}
+#epRange::-moz-range-track{height:1px; background:rgba(138,110,75,.5)}
+#epRange::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:13px; height:13px; margin-top:-6px;
+  background:var(--paper-0); border:1.5px solid var(--rust); border-radius:0;
+  transition:transform .18s var(--ease), background .18s;
+}
+#epRange:hover::-webkit-slider-thumb{transform:scale(1.25); background:var(--rust)}
+#epRange::-moz-range-thumb{
+  width:12px; height:12px; background:var(--paper-0); border:1.5px solid var(--rust);
+  border-radius:0;
+}
+.ep-btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:1.1em}
+.btn-ghost{
+  appearance:none; cursor:pointer; background:transparent;
+  border:1px solid rgba(138,110,75,.42); color:var(--ink-2);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+  padding:9px 15px; transition:all .2s var(--ease);
+}
+.btn-ghost:hover{background:rgba(138,110,75,.1); border-color:var(--sepia); color:var(--ink-0)}
+.btn-ghost[aria-pressed="true"]{background:var(--ink-0); border-color:var(--ink-0); color:var(--paper-0)}
+
+/* ---- 手稿规则 ---- */
+.ms{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:clamp(18px,3vw,42px); align-items:start}
+.ms-page{
+  background:linear-gradient(175deg, var(--paper-0), var(--paper-2));
+  border:1px solid rgba(138,110,75,.3);
+  padding:clamp(18px,2.6vw,32px); position:relative;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -32px rgba(42,37,29,.7);
+}
+.ms-page::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:38px;
+  background:linear-gradient(90deg, rgba(138,110,75,.09), transparent);
+  border-right:1px solid rgba(138,110,75,.16);
+}
+.ms-head{display:flex; justify-content:space-between; gap:12px; margin-bottom:1.4em; padding-left:38px}
+.ms-rule{display:flex; flex-direction:column; gap:2px; padding-left:38px}
+.ms-item{
+  appearance:none; background:transparent; border:0; cursor:pointer; text-align:left;
+  width:100%; padding:12px 10px; display:grid; grid-template-columns:2.6em 1fr;
+  align-items:baseline; color:var(--ink-1); position:relative;
+  border-bottom:1px dashed rgba(138,110,75,.26);
+  transition:background .22s, padding-left .22s, color .22s;
+}
+.ms-item:hover{background:rgba(176,138,74,.13); padding-left:18px; color:var(--ink-0)}
+.ms-item[aria-expanded="true"]{background:rgba(176,138,74,.18); color:var(--ink-0)}
+.ms-item[aria-expanded="true"]::after{
+  content:""; position:absolute; left:0; top:14%; bottom:14%; width:2px; background:var(--rust);
+}
+.ms-i{font-family:var(--mono); font-size:12px; color:var(--sepia); letter-spacing:.08em}
+.ms-t{font-size:17px; letter-spacing:.02em}
+.ms-foot{margin-top:1.5em; padding-left:38px; line-height:1.7; font-size:11px}
+.ms-note{
+  border-left:3px solid var(--brass); padding:clamp(14px,2vw,22px) clamp(16px,2.2vw,26px);
+  background:linear-gradient(180deg, rgba(255,253,247,.55), rgba(255,253,247,.1));
+  min-height:11em;
+}
+.ms-note .meta{display:block; margin-bottom:.9em; color:var(--rust)}
+#msNoteBody{font-size:15.5px; line-height:1.9; color:var(--ink-2)}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr; gap:34px}
+  .hero-figure{max-width:290px; order:-1}
+  .split,.split-r{grid-template-columns:1fr; gap:28px}
+  .ch-head{grid-template-columns:1fr; gap:8px}
+  .ch-num{font-size:44px}
+  .pad-l{padding-left:0}
+  body{font-size:17.5px}
+  .endpoint-machine,.ms{grid-template-columns:1fr; gap:22px}
+  .ep-readout{min-height:0}
+  .ms-page::before{width:22px}
+  .ms-head,.ms-rule,.ms-foot{padding-left:26px}
+  #nav .brand{display:none}
+}
+/* ============================================================
+   8. 章节组件样式（第二部分）
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   机械三动作（第 03 章）
+   ------------------------------------------------------------ */
+.sub-h{
+  font-size:clamp(19px,2.4vw,24px); color:var(--ink-0); margin-bottom:.9em;
+  letter-spacing:.01em;
+}
+.sub-h::before{
+  content:""; display:block; width:34px; height:1px; background:var(--rust);
+  opacity:.7; margin-bottom:.85em;
+}
+.mech{
+  border-left:1px solid rgba(138,110,75,.34); padding-left:clamp(14px,2vw,24px);
+  margin:clamp(1.6rem,4vh,2.6rem) 0;
+}
+.mech-n{
+  font-family:var(--mono); font-size:11px; letter-spacing:.22em; color:var(--rust);
+  margin-bottom:.6em;
+}
+.mech h3{font-size:clamp(17px,2.1vw,21px); margin-bottom:.5em}
+.mech p{font-size:16.5px; line-height:1.9; color:var(--ink-2)}
+.hl-para{
+  color:var(--ink-1); border-left:2px solid var(--brass);
+  padding-left:clamp(12px,1.8vw,20px);
+}
+
+/* ------------------------------------------------------------
+   分段控件（通用）
+   ------------------------------------------------------------ */
+.seg{display:flex; flex-wrap:wrap; gap:0; border:1px solid rgba(138,110,75,.36); width:fit-content}
+.seg-col{flex-direction:column; width:100%}
+.seg-b{
+  appearance:none; background:transparent; border:0; cursor:pointer; text-align:left;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.09em; color:var(--ink-2);
+  padding:10px 16px; position:relative; transition:background .22s, color .22s;
+  border-right:1px solid rgba(138,110,75,.24);
+}
+.seg-b:last-child{border-right:0}
+.seg-col .seg-b{border-right:0; border-bottom:1px solid rgba(138,110,75,.24)}
+.seg-col .seg-b:last-child{border-bottom:0}
+.seg-b:hover{background:rgba(138,110,75,.1); color:var(--ink-0)}
+.seg-b[aria-pressed="true"]{background:var(--ink-0); color:var(--paper-0)}
+.seg-b[aria-pressed="true"]::after{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--rust);
+}
+.seg-n{display:block; font-size:10.5px; letter-spacing:.2em; color:var(--rust); margin-bottom:.35em}
+.seg-b[aria-pressed="true"] .seg-n{color:var(--brass)}
+
+/* ------------------------------------------------------------
+   两个声音（第 03 章）
+   ------------------------------------------------------------ */
+.duo{
+  display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+  gap:clamp(18px,3vw,44px); align-items:start;
+  background:linear-gradient(180deg, rgba(255,253,247,.5), rgba(255,253,247,.05));
+  border:1px solid rgba(138,110,75,.24); padding:clamp(16px,2.4vw,30px);
+}
+.duo-track{position:relative; display:flex; flex-direction:column; gap:clamp(18px,3.4vh,34px)}
+.duo-rail{
+  position:absolute; left:0; top:0; bottom:0; width:1px;
+  background:rgba(138,110,75,.28);
+}
+.duo-rail i{
+  position:absolute; left:-2px; width:5px; height:5px; background:var(--rust);
+  border-radius:50%; top:0; transition:top .6s var(--ease);
+}
+.duo-slot{padding-left:clamp(14px,2.2vw,28px); position:relative; transition:opacity .5s var(--ease)}
+.duo-slot::before{
+  content:""; position:absolute; left:-3px; top:9px; width:7px; height:7px;
+  border:1px solid var(--sepia); background:var(--paper-1); border-radius:50%;
+}
+.duo-slot[data-dim="1"]{opacity:.24}
+.duo-tag{margin-bottom:.6em; display:block}
+.duo-slot[data-voice="a"] .duo-tag{color:var(--slate)}
+.duo-slot[data-voice="b"] .duo-tag{color:var(--rust)}
+.duo-line{
+  font-size:clamp(17px,2.1vw,21px); line-height:1.85; letter-spacing:.02em;
+  color:var(--ink-1); transition:color .4s;
+}
+.duo-slot[data-dim="1"] .duo-line{color:var(--ink-3)}
+.duo-ctrl{display:flex; flex-direction:column; gap:clamp(16px,2.6vh,26px)}
+.duo-note{border-left:2px solid var(--sepia); padding-left:clamp(12px,1.8vw,20px)}
+.duo-note .meta{display:block; margin-bottom:.7em; color:var(--rust)}
+#duoNoteBody{font-size:15.5px; line-height:1.9; color:var(--ink-2)}
+
+/* ------------------------------------------------------------
+   三卡细读（第 04 章）
+   ------------------------------------------------------------ */
+.cards{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(14px,2.2vw,26px);
+}
+.card{
+  position:relative; min-height:clamp(260px,34vh,340px);
+  background:linear-gradient(170deg, var(--paper-0), var(--paper-2));
+  border:1px solid rgba(138,110,75,.28); cursor:pointer;
+  transition:box-shadow .32s var(--ease), transform .32s var(--ease), border-color .32s;
+  transform-style:preserve-3d;
+}
+.card:hover{
+  box-shadow:0 22px 44px -30px rgba(42,37,29,.8);
+  border-color:var(--sepia);
+}
+.card-side{
+  position:absolute; inset:0; padding:clamp(18px,2.4vw,28px);
+  display:flex; flex-direction:column;
+  transition:opacity .42s var(--ease), transform .42s var(--ease);
+}
+.card-side .meta{color:var(--rust); display:block; margin-bottom:.8em}
+.card-side h3{font-size:clamp(16px,1.9vw,19px); margin-bottom:.7em}
+.card-front p:not(.meta){font-size:15.5px; line-height:1.85; color:var(--ink-2)}
+.card-back{
+  background:linear-gradient(170deg, rgba(42,37,29,.97), rgba(23,20,15,.99));
+  opacity:0; pointer-events:none; transform:translateY(8px);
+}
+.card-back .meta{color:var(--brass)}
+.card-back h3,.card-back p{color:var(--paper-2)}
+.card-back p:not(.meta){font-size:15px; line-height:1.85; color:rgba(237,230,216,.86)}
+.card-back p + p{margin-top:.9em}
+.card-back b{color:var(--paper-0)}
+.card[data-open="1"] .card-front{opacity:0; transform:translateY(-8px); pointer-events:none}
+.card[data-open="1"] .card-back{opacity:1; transform:none; pointer-events:auto}
+.card-flip{
+  margin-top:auto; font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  color:var(--rust); padding-top:1.1em;
+}
+.card[data-open="1"] .card-flip{color:var(--brass)}
+
+/* ------------------------------------------------------------
+   橡树（第 05 章）
+   ------------------------------------------------------------ */
+.oak{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(18px,3vw,48px); align-items:stretch;
+}
+.oak-stage{
+  position:relative; background:linear-gradient(180deg, rgba(255,253,247,.42), rgba(227,218,202,.5));
+  border:1px solid rgba(138,110,75,.24); overflow:hidden;
+}
+.oak-stage svg{display:block; width:100%; height:100%; min-height:280px}
+.oak-weather{
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(80% 60% at 70% 10%, rgba(255,248,228,.85), transparent 70%);
+  opacity:0; transition:opacity 1.1s var(--ease), background 1.1s var(--ease);
+}
+.oak[data-season="winter"] .oak-weather{opacity:1; background:radial-gradient(90% 70% at 30% 0%, rgba(206,216,226,.75), transparent 72%)}
+.oak[data-season="spring"] .oak-weather{opacity:1; background:radial-gradient(80% 60% at 70% 10%, rgba(255,246,214,.9), transparent 70%)}
+.oak-panel{display:flex; flex-direction:column; gap:clamp(16px,2.6vh,26px)}
+.oak-quote{
+  font-size:clamp(17px,2.1vw,21px); line-height:1.85; color:var(--ink-1);
+  border-left:2px solid var(--sepia); padding-left:clamp(12px,1.8vw,20px);
+  transition:opacity .4s var(--ease);
+}
+.oak-quote b{color:var(--ink-0)}
+.oak-quote .w{color:var(--slate)}
+
+/* ------------------------------------------------------------
+   人物弧线（第 05 章）
+   ------------------------------------------------------------ */
+.arc-grid{
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px; background:rgba(138,110,75,.26);
+  border:1px solid rgba(138,110,75,.26);
+}
+.arc-item{
+  appearance:none; cursor:pointer; text-align:left; border:0;
+  background:var(--paper-1); padding:clamp(14px,2vw,22px);
+  display:flex; flex-direction:column; gap:.7em;
+  transition:background .26s, color .26s; color:var(--ink-1);
+}
+.arc-item:hover{background:var(--paper-0)}
+.arc-item[aria-expanded="true"]{background:var(--ink-0); color:var(--paper-0)}
+.arc-name{font-size:clamp(15px,1.8vw,18px); letter-spacing:.03em; font-weight:600}
+.arc-item[aria-expanded="true"] .arc-name{color:var(--paper-0)}
+.arc-line{
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-3);
+  line-height:1.75;
+}
+.arc-item[aria-expanded="true"] .arc-line{color:var(--brass)}
+.arc-detail{
+  border:1px solid rgba(138,110,75,.26); border-top:0;
+  padding:clamp(16px,2.4vw,28px); background:rgba(255,253,247,.42);
+  min-height:7em;
+}
+.arc-detail p{font-size:16px; line-height:1.9; color:var(--ink-2); max-width:52em}
+.arc-detail p + p{margin-top:.9em}
+.arc-detail .step{
+  display:block; font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+  color:var(--rust); margin-bottom:.5em;
+}
+.arc-detail .stage{margin-bottom:1.2em}
+
+/* ------------------------------------------------------------
+   对位网格（第 06 章）
+   ------------------------------------------------------------ */
+.cp{border:1px solid rgba(138,110,75,.28); padding:clamp(14px,2.2vw,26px); background:rgba(255,253,247,.34)}
+.cp-head{display:flex; justify-content:space-between; margin-bottom:.9em; color:var(--slate)}
+.cp-head span:last-child{color:var(--olive)}
+.cp-grid{
+  display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:4px;
+  margin-bottom:clamp(16px,2.6vh,26px);
+}
+.cp-cell{
+  appearance:none; border:1px solid rgba(138,110,75,.3); cursor:pointer;
+  background:var(--paper-2); padding:0; height:clamp(38px,7vh,60px);
+  position:relative; overflow:hidden; transition:border-color .22s, transform .22s;
+}
+.cp-cell i{
+  position:absolute; left:0; right:0; bottom:0; display:block; height:0%;
+  transition:height .5s var(--ease);
+}
+.cp-cell[data-line="a"] i{background:linear-gradient(180deg, rgba(78,97,114,.5), rgba(78,97,114,.82))}
+.cp-cell[data-line="b"] i{background:linear-gradient(180deg, rgba(91,97,72,.45), rgba(91,97,72,.78))}
+.cp-cell:hover{border-color:var(--rust); transform:translateY(-2px)}
+.cp-cell[data-sel="1"]{border-color:var(--rust); box-shadow:inset 0 0 0 1px var(--rust)}
+.cp-cell span{
+  position:relative; z-index:1; font-family:var(--mono); font-size:10.5px;
+  color:var(--paper-0); mix-blend-mode:difference; letter-spacing:.06em;
+  display:grid; place-items:center; height:100%;
+}
+.cp-detail{border-top:1px solid rgba(138,110,75,.26); padding-top:clamp(12px,2vh,20px); min-height:6.5em}
+.cp-detail .meta{display:block; margin-bottom:.7em; color:var(--rust)}
+.cp-detail p{font-size:15.5px; line-height:1.9; color:var(--ink-2)}
+.cp-detail p + p{margin-top:.7em}
+
+/* ------------------------------------------------------------
+   井（第 07 章）
+   ------------------------------------------------------------ */
+.well{position:relative; height:clamp(320vh,340vh,380vh); background:linear-gradient(180deg, var(--paper-0), #E7DFD1 30%, #C9BFAE 62%, #6E6455 84%, #2A251D)}
+.well-sticky{
+  position:sticky; top:0; height:100svh; overflow:hidden;
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.8fr);
+  gap:clamp(16px,3vw,48px); align-items:center;
+  max-width:1220px; margin-inline:auto; padding-inline:var(--gut);
+}
+.well-svg{width:100%; height:auto; max-height:82svh; grid-column:1; grid-row:1}
+.well-side{grid-column:2; grid-row:1}
+.well-side .meta{display:block; margin-bottom:1em; transition:color .6s}
+.well-text{
+  font-size:clamp(17px,2.1vw,22px); line-height:1.85; letter-spacing:.02em;
+  color:var(--ink-0); transition:color .6s, opacity .4s; min-height:6em;
+}
+.well.late .well-side .meta{color:var(--brass)}
+.well.late .well-text{color:var(--paper-2)}
+.well-text b{color:var(--rust)}
+.well.late .well-text b{color:var(--brass)}
+#wellHoney circle{transition:opacity .5s}
+#wellMice{transition:transform .3s linear}
+#wellMan{transition:transform .3s linear}
+
+/* ------------------------------------------------------------
+   三栏（第 08 章）
+   ------------------------------------------------------------ */
+.tri{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px; background:rgba(138,110,75,.26); border:1px solid rgba(138,110,75,.26);
+}
+.tri-c{background:var(--paper-1); padding:clamp(18px,2.6vw,30px)}
+.tri-c .meta{display:block; color:var(--rust); margin-bottom:1.4em}
+.tri-c h3{
+  font-size:clamp(30px,4.2vw,48px); line-height:1; margin-bottom:.55em;
+  color:var(--ink-0); letter-spacing:.06em;
+}
+.tri-c p{font-size:15.5px; line-height:1.9; color:var(--ink-2)}
+
+/* ------------------------------------------------------------
+   道路（第 08 章）
+   ------------------------------------------------------------ */
+.road{
+  display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  grid-template-rows:auto auto; gap:clamp(16px,2.6vw,30px);
+  border:1px solid rgba(138,110,75,.26); padding:clamp(16px,2.4vw,30px);
+  background:rgba(255,253,247,.34);
+}
+.road-svg{grid-column:1; grid-row:1; width:100%; height:auto; min-height:150px; align-self:center}
+.road-ctrl{grid-column:1; grid-row:2}
+.road-card{grid-column:2; grid-row:1 / span 2; border-left:2px solid var(--brass); padding-left:clamp(14px,2vw,24px)}
+.road-card .meta{display:block; color:var(--rust); margin-bottom:.9em}
+.road-card h4{font-size:clamp(17px,2vw,20px); margin-bottom:.6em}
+.road-card p{font-size:15.5px; line-height:1.9; color:var(--ink-2)}
+#roadRange{
+  -webkit-appearance:none; appearance:none; width:100%; height:22px;
+  background:transparent; cursor:grab; display:block;
+}
+#roadRange::-webkit-slider-runnable-track{height:1px; background:rgba(138,110,75,.5)}
+#roadRange::-moz-range-track{height:1px; background:rgba(138,110,75,.5)}
+#roadRange::-webkit-slider-thumb{
+  -webkit-appearance:none; width:13px; height:13px; margin-top:-6px;
+  background:var(--paper-0); border:1.5px solid var(--rust); border-radius:0;
+  transition:transform .18s var(--ease);
+}
+#roadRange:hover::-webkit-slider-thumb{transform:scale(1.25)}
+#roadRange::-moz-range-thumb{width:12px;height:12px;background:var(--paper-0);border:1.5px solid var(--rust);border-radius:0}
+.road-years{
+  display:flex; justify-content:space-between; margin-top:.7em;
+  font-family:var(--mono); font-size:10.5px; color:var(--ink-3); letter-spacing:.06em;
+}
+.road-years span{flex:1}
+.road-years span:first-child{text-align:left}
+.road-years span:last-child{text-align:right}
+.road-years span:not(:first-child):not(:last-child){text-align:center}
+#roadNodes circle{transition:r .3s, fill .3s}
+#roadNodes text{font-family:var(--mono); font-size:9px; fill:var(--ink-3); letter-spacing:.08em}
+
+/* ------------------------------------------------------------
+   折射（第 09 章）
+   ------------------------------------------------------------ */
+.refract{border-top:1px solid rgba(138,110,75,.3); margin-top:clamp(1.6rem,4vh,2.6rem)}
+.refract-row{
+  display:grid; grid-template-columns:clamp(88px,12vw,140px) minmax(0,1fr);
+  gap:clamp(12px,2vw,26px); padding:clamp(14px,2.2vh,22px) 0;
+  border-bottom:1px solid rgba(138,110,75,.18);
+}
+.refract-where{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; color:var(--rust);
+  padding-top:.35em;
+}
+.refract-row p{font-size:16px; line-height:1.9; color:var(--ink-2)}
+.refract-row b{color:var(--ink-0)}
+
+/* ------------------------------------------------------------
+   争议边界（第 09 章）
+   ------------------------------------------------------------ */
+.honest{border:1px solid rgba(138,110,75,.26); padding:clamp(14px,2.2vw,26px); background:rgba(255,253,247,.34)}
+.honest .seg{margin-bottom:clamp(16px,2.6vh,26px)}
+.honest-list{display:flex; flex-direction:column; gap:0; min-height:14em}
+.honest-item{
+  display:grid; grid-template-columns:1.6em minmax(0,1fr); gap:clamp(10px,1.6vw,18px);
+  padding:clamp(11px,1.8vh,16px) 0; border-bottom:1px dashed rgba(138,110,75,.24);
+}
+.honest-item:last-child{border-bottom:0}
+.honest-mark{
+  font-family:var(--mono); font-size:13px; color:var(--brass); padding-top:.2em;
+}
+.honest-item[data-kind="0"] .honest-mark{color:var(--olive)}
+.honest-item[data-kind="1"] .honest-mark{color:var(--rust)}
+.honest-item[data-kind="2"] .honest-mark{color:var(--ink-3)}
+.honest-item h5{font-size:15.5px; margin-bottom:.35em; color:var(--ink-0); font-weight:600}
+.honest-item p{font-size:14.5px; line-height:1.85; color:var(--ink-2)}
+
+/* ------------------------------------------------------------
+   尾声
+   ------------------------------------------------------------ */
+.coda{background:linear-gradient(180deg, transparent, rgba(214,201,180,.4) 40%, rgba(214,201,180,.62))}
+.coda-inner{max-width:44em; margin-inline:auto; text-align:center}
+.coda-inner > .meta{display:block; margin-bottom:clamp(1.6rem,4vh,2.6rem); color:var(--rust)}
+.coda-h{
+  font-size:clamp(24px,3.6vw,42px); line-height:1.4; letter-spacing:.03em;
+  margin-bottom:clamp(1.8rem,5vh,3rem);
+}
+.coda-p{text-align:left}
+.coda-p p{font-size:17px; line-height:2; color:var(--ink-2)}
+.coda-p p + p{margin-top:1.4em}
+.coda-rule{
+  width:1px; height:clamp(60px,12vh,110px); background:var(--sepia); opacity:.5;
+  margin:clamp(2.4rem,7vh,4.5rem) auto;
+}
+.coda-src{text-align:left; border:1px solid rgba(138,110,75,.28); padding:clamp(18px,2.6vw,30px); background:rgba(255,253,247,.4)}
+.coda-src .meta{display:block; color:var(--rust); margin-bottom:1.2em}
+.coda-src ul{margin:0; padding-left:1.15em; list-style:none}
+.coda-src li{
+  font-size:14.5px; line-height:1.9; color:var(--ink-2); position:relative;
+  padding-left:1em; margin-bottom:.45em;
+}
+.coda-src li::before{
+  content:""; position:absolute; left:0; top:.95em; width:6px; height:1px; background:var(--sepia);
+}
+.colophon{margin-top:clamp(2.4rem,6vh,4rem); text-align:left; border-top:1px solid rgba(138,110,75,.3); padding-top:clamp(16px,2.4vw,26px)}
+.colophon .meta{display:block; color:var(--ink-3); margin-bottom:.9em}
+.colophon p{font-size:13.5px; line-height:2; color:var(--ink-3); font-family:var(--mono); letter-spacing:.02em}
+
+/* ------------------------------------------------------------
+   响应式
+   ------------------------------------------------------------ */
+@media (max-width:1040px){
+  .cards{grid-template-columns:1fr; }
+  .card{min-height:clamp(200px,26vh,260px)}
+  .arc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tri{grid-template-columns:1fr}
+  .road{grid-template-columns:1fr; grid-template-rows:auto auto auto}
+  .road-svg{grid-column:1; grid-row:1}
+  .road-ctrl{grid-column:1; grid-row:2}
+  .road-card{grid-column:1; grid-row:3; border-left:2px solid var(--brass)}
+}
+@media (max-width:900px){
+  .duo,.oak,.well-sticky{grid-template-columns:1fr}
+  .well{height:clamp(280vh,320vh,360vh)}
+  .well-sticky{gap:20px; align-content:center}
+  .well-svg{max-height:46svh; grid-row:1}
+  .well-side{grid-row:2}
+  .well-text{min-height:0; font-size:16.5px}
+  .cp-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .refract-row{grid-template-columns:1fr; gap:6px}
+  .honest-item{grid-template-columns:1.3em minmax(0,1fr)}
+  .coda-inner{text-align:left}
+  .cards{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .arc-grid{grid-template-columns:1fr}
+  .seg{width:100%}
+  .seg-b{flex:1 1 100%}
+  .cp-grid{grid-template-columns:repeat(4,minmax(0,1fr)); gap:3px}
+  .cp-cell{height:44px}
+}
+
+/* ------------------------------------------------------------
+   窄屏：防止任何元素造成横向溢出
+   ------------------------------------------------------------ */
+@media (max-width:760px){
+  :root{--gut:18px}
+  .hero-name{
+    letter-spacing:.16em; font-size:11px; line-height:1.9;
+    overflow-wrap:anywhere;
+  }
+  .hero-sub{letter-spacing:.14em; font-size:12px; overflow-wrap:anywhere}
+  .hero-title{font-size:clamp(40px,13vw,64px)}
+  .hero-lede{font-size:16px}
+  .wrap{padding-inline:var(--gut)}
+  #nav{padding-inline:var(--gut); gap:10px}
+  #nav .brand{display:none}
+  .meta,.meta-cn{overflow-wrap:anywhere}
+  .src-note{overflow-wrap:anywhere}
+  blockquote.pull p{font-size:18px}
+  .coda-src li,.colophon p{overflow-wrap:anywhere}
+  #spine{display:none}
+  .ep-btns{gap:8px}
+  .btn-ghost{padding:9px 12px}
+}
+/* 全局兜底：任何长串（含西里尔字母、拉丁词）都不得撑破版心 */
+body{overflow-wrap:break-word}
+.hero-name,.hero-sub,.meta,.meta-cn,.road-years,.ms-foot,.src-note,.cp-head{overflow-wrap:anywhere}
+
+/* ------------------------------------------------------------
+   减少动效 / 无 JS
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important}
+  .halo-blob{transform:none !important}
+  #portrait{animation:none !important}
+  .hero-cue .stem::after{animation:none !important; transform:none}
+}
+html.no-js .rv{opacity:1 !important; clip-path:none !important; transform:none !important; filter:none !important}
+html.no-js .well{height:auto}
+html.no-js .well-sticky{position:static; height:auto; display:block; padding-block:2rem}
+html.no-js .well-svg{max-height:60vh; margin-inline:auto}
+html.no-js #threads,html.no-js #halo{display:none}
+html.no-js .card{min-height:0}
+html.no-js .card-side{position:static; opacity:1 !important; transform:none !important; pointer-events:auto}
+html.no-js .card-back{display:none}
+
+/* ============================================================
+   阅读推进系统
+   · 可挖点：正文里的隐藏层，点击展开
+   · 细读抽屉：表格行展开为证据
+   · 双态滑块：拖动看同一个人的两种自我描述
+   · 阅读轨迹：全程进度与已积累的线索
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. 可挖点（核心机制）
+   ------------------------------------------------------------ */
+.dig{
+  appearance:none; background:none; border:0; padding:0; margin:0;
+  font:inherit; color:inherit; cursor:pointer; position:relative;
+  display:inline; text-align:left;
+  border-bottom:1px dashed rgba(156,74,47,.55);
+  transition:background .24s var(--ease), border-color .24s, color .24s;
+}
+.dig::after{
+  content:"＋"; font-size:.62em; vertical-align:.42em; margin-left:.2em;
+  color:var(--rust); opacity:.66; transition:transform .28s var(--ease), opacity .24s;
+  display:inline-block; line-height:1;
+}
+.dig:hover{background:rgba(176,138,74,.16); border-bottom-color:var(--rust)}
+.dig:hover::after{opacity:1; transform:scale(1.18)}
+.dig:focus-visible{outline:2px solid var(--slate); outline-offset:3px}
+.dig[aria-expanded="true"]{
+  background:rgba(176,138,74,.13); border-bottom-color:transparent; color:var(--ink-0);
+}
+.dig[aria-expanded="true"]::after{
+  content:"－"; transform:none; opacity:.5;
+}
+
+/* 展开的隐藏层 */
+.dig-out{
+  display:block; overflow:hidden; height:0; opacity:0;
+  transition:height .46s var(--ease), opacity .34s var(--ease), margin .46s var(--ease);
+  margin:0;
+}
+.dig-out > .dig-in{
+  display:grid; grid-template-columns:2px minmax(0,1fr); gap:clamp(10px,1.6vw,18px);
+  padding:clamp(12px,2vh,18px) 0 clamp(4px,1vh,10px);
+}
+.dig-out .dig-bar{background:linear-gradient(180deg,var(--brass),rgba(176,138,74,.1))}
+.dig-out .dig-body{font-size:15.5px; line-height:1.88; color:var(--ink-1)}
+.dig-out .dig-body .lab{
+  display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+  color:var(--rust); margin-bottom:.55em;
+}
+.dig-out .dig-body p + p{margin-top:.7em}
+.dig-out .dig-body b{color:var(--ink-0)}
+.dig-out .dig-body em{font-style:normal; color:var(--sepia)}
+.dig-out .dig-src{
+  display:block; margin-top:.7em; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.05em; color:var(--ink-3); line-height:1.7;
+}
+.dig.open + .dig-out{opacity:1}
+/* 已挖开的标记 */
+.dig[data-seen="1"]{border-bottom-style:solid; border-bottom-color:rgba(91,97,72,.7)}
+.dig[data-seen="1"]::after{color:var(--olive); opacity:.45}
+
+/* 让 <button> 能作为块级块插入段落之间 */
+p > .dig-block{display:block; margin:0}
+.dig-host{display:block}
+
+/* ------------------------------------------------------------
+   2. 挖掘计数器
+   ------------------------------------------------------------ */
+.dig-meter{
+  display:flex; align-items:center; gap:clamp(10px,1.6vw,16px);
+  margin-top:clamp(1.4rem,3.6vh,2.4rem); padding-top:clamp(12px,2vh,18px);
+  border-top:1px solid rgba(138,110,75,.28);
+}
+.dig-meter .dm-track{
+  flex:1; height:2px; background:rgba(138,110,75,.22); position:relative; overflow:hidden;
+  max-width:280px;
+}
+.dig-meter .dm-track i{
+  position:absolute; inset:0; background:linear-gradient(90deg,var(--brass),var(--rust));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .6s var(--ease);
+}
+.dig-meter .dm-txt{
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ink-3);
+  white-space:nowrap;
+}
+.dig-meter.done .dm-txt{color:var(--rust)}
+
+/* ------------------------------------------------------------
+   3. 细读抽屉（表格行 → 展开）
+   ------------------------------------------------------------ */
+.dr{border:1px solid rgba(138,110,75,.28); background:rgba(255,253,247,.34)}
+.dr-head{
+  display:grid; gap:0; padding:clamp(10px,1.6vw,14px) clamp(14px,2vw,22px);
+  border-bottom:1px solid rgba(138,110,75,.28);
+}
+.dr-row{
+  display:grid; width:100%; text-align:left; align-items:baseline;
+  gap:clamp(10px,2vw,22px); padding:clamp(12px,2vh,17px) clamp(14px,2vw,22px);
+  background:none; border:0; border-bottom:1px dashed rgba(138,110,75,.24);
+  cursor:pointer; font:inherit; color:var(--ink-1); position:relative;
+  transition:background .24s, padding-left .28s var(--ease), color .24s;
+}
+.dr-row:last-of-type{border-bottom:0}
+.dr-row:hover{background:rgba(176,138,74,.13); padding-left:calc(clamp(14px,2vw,22px) + 8px)}
+.dr-row[aria-expanded="true"]{background:rgba(176,138,74,.17); color:var(--ink-0)}
+.dr-row::before{
+  content:""; position:absolute; left:0; top:14%; bottom:14%; width:2px;
+  background:var(--rust); transform:scaleY(0); transform-origin:top;
+  transition:transform .3s var(--ease);
+}
+.dr-row[aria-expanded="true"]::before{transform:scaleY(1)}
+.dr-yr{font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--rust)}
+.dr-ttl{font-size:16.5px; letter-spacing:.01em}
+.dr-cue{
+  margin-left:auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+  color:var(--ink-3); white-space:nowrap;
+}
+.dr-row[aria-expanded="true"] .dr-cue{color:var(--brass)}
+.dr-body{
+  overflow:hidden; height:0; opacity:0;
+  transition:height .48s var(--ease), opacity .34s var(--ease);
+  border-bottom:1px dashed rgba(138,110,75,.24);
+}
+.dr-body-in{
+  padding:clamp(14px,2.4vh,22px) clamp(16px,2.4vw,26px) clamp(16px,2.6vh,24px);
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr);
+  gap:clamp(14px,2.4vw,30px); align-items:start;
+}
+.dr-body p{font-size:15.5px; line-height:1.88; color:var(--ink-2)}
+.dr-body p + p{margin-top:.8em}
+.dr-body b{color:var(--ink-0)}
+.dr-ev{
+  border-left:2px solid var(--brass); padding-left:clamp(10px,1.6vw,16px);
+}
+.dr-ev .lab{
+  display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+  color:var(--rust); margin-bottom:.6em;
+}
+.dr-ev q{quotes:"「" "」"; font-size:15px; line-height:1.85; color:var(--ink-1); display:block}
+.dr-ev cite{
+  display:block; margin-top:.7em; font-style:normal; font-family:var(--mono);
+  font-size:10.5px; letter-spacing:.06em; color:var(--ink-3); line-height:1.7;
+}
+
+/* ------------------------------------------------------------
+   4. 双态滑块（同一个人的两种自我描述）
+   ------------------------------------------------------------ */
+.mir{border:1px solid rgba(138,110,75,.28); padding:clamp(16px,2.4vw,30px); background:rgba(255,253,247,.34)}
+.mir-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.85fr); gap:clamp(18px,3vw,42px); align-items:start}
+.mir-side{min-height:9.5em}
+.mir-side .lab{
+  display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+  margin-bottom:.8em; transition:color .5s;
+}
+.mir-side[data-pole="self"] .lab{color:var(--slate)}
+.mir-side[data-pole="real"] .lab{color:var(--rust)}
+.mir-text{
+  font-size:clamp(16.5px,2vw,20px); line-height:1.85; color:var(--ink-1);
+  transition:opacity .3s var(--ease);
+}
+.mir-sep{
+  display:flex; align-items:center; gap:12px; margin:clamp(14px,2.4vh,22px) 0;
+}
+.mir-sep .ln{flex:1; height:1px; background:rgba(138,110,75,.3)}
+.mir-sep .dot{
+  width:7px; height:7px; border:1px solid var(--sepia); transform:rotate(45deg);
+  transition:background .5s, border-color .5s;
+}
+.mir[data-lean="1"] .mir-sep .dot{background:var(--rust); border-color:var(--rust)}
+.mir-ctrl{margin-top:clamp(16px,2.6vh,24px)}
+.mir-ctrl label{display:block; margin-bottom:.9em; color:var(--ink-3)}
+#mirRange{
+  -webkit-appearance:none; appearance:none; width:100%; height:22px;
+  background:transparent; cursor:grab; display:block;
+}
+#mirRange::-webkit-slider-runnable-track{height:1px; background:rgba(138,110,75,.5)}
+#mirRange::-moz-range-track{height:1px; background:rgba(138,110,75,.5)}
+#mirRange::-webkit-slider-thumb{
+  -webkit-appearance:none; width:14px; height:14px; margin-top:-7px;
+  background:var(--paper-0); border:1.5px solid var(--rust); border-radius:0;
+  transition:transform .18s var(--ease), background .18s;
+}
+#mirRange:hover::-webkit-slider-thumb{transform:scale(1.22); background:var(--rust)}
+#mirRange::-moz-range-thumb{width:13px;height:13px;background:var(--paper-0);border:1.5px solid var(--rust);border-radius:0}
+.mir-scale{
+  display:flex; justify-content:space-between; margin-top:.7em;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--ink-3);
+}
+.mir-vis{margin-top:clamp(16px,2.8vh,26px)}
+.mir-vis svg{display:block; width:100%; height:auto; max-height:150px}
+
+/* ------------------------------------------------------------
+   5. 阅读轨迹（右缘线索栏）
+   ------------------------------------------------------------ */
+#rail{
+  position:fixed; right:0; top:0; height:100svh; width:64px; z-index:38;
+  display:flex; flex-direction:column; justify-content:center; gap:2px;
+  pointer-events:none; opacity:0; transition:opacity .6s var(--ease);
+}
+#rail.on{opacity:1}
+#rail .rl{
+  pointer-events:auto; appearance:none; background:none; border:0; cursor:pointer;
+  display:flex; align-items:center; justify-content:flex-end; gap:7px;
+  padding:5px 14px 5px 8px; color:var(--ink-3);
+  transition:color .24s;
+}
+#rail .rl .num{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.1em;
+  opacity:0; transform:translateX(5px); transition:opacity .28s var(--ease), transform .28s var(--ease);
+}
+#rail .rl .tick{
+  width:14px; height:1px; background:rgba(138,110,75,.42);
+  transition:width .3s var(--ease), background .3s;
+}
+#rail .rl:hover{color:var(--ink-0)}
+#rail .rl:hover .num{opacity:1; transform:none}
+#rail .rl:hover .tick{width:22px; background:var(--sepia)}
+#rail .rl[aria-current="true"]{color:var(--rust)}
+#rail .rl[aria-current="true"] .tick{width:26px; background:var(--rust); height:2px}
+#rail .rl[aria-current="true"] .num{opacity:1; transform:none}
+#rail .rl[data-visited="1"] .tick{background:var(--olive)}
+#rail .rl[data-visited="1"][aria-current="true"] .tick{background:var(--rust)}
+/* 已挖开的章节点上加一个小方块 */
+#rail .rl .mark{
+  width:4px; height:4px; background:var(--brass); opacity:0;
+  transform:rotate(45deg) scale(.4); transition:opacity .3s, transform .3s var(--ease);
+}
+#rail .rl[data-dug="1"] .mark{opacity:1; transform:rotate(45deg) scale(1)}
+
+/* 全局进度读数（附在书脊底部） */
+#spine b{transition:color .4s}
+#spine.done b{color:var(--rust)}
+
+/* ------------------------------------------------------------
+   6. 章节转场：墨线推移
+   ------------------------------------------------------------ */
+.ink-wipe{
+  position:absolute; top:clamp(1.2rem,3.5vh,3rem); left:0; right:0;
+  overflow:hidden; display:flex; justify-content:center;
+  pointer-events:none;
+}
+.ink-wipe-in{position:relative; width:min(320px,52vw); display:grid; place-items:center}
+.ink-wipe svg{width:100%; height:auto; overflow:visible; display:block}
+.ink-wipe path{
+  fill:none; stroke:var(--sepia); stroke-width:1.1; stroke-linecap:round;
+  stroke-dasharray:var(--len,600); stroke-dashoffset:var(--len,600);
+  transition:stroke-dashoffset 1.1s var(--ease);
+}
+.ink-wipe.on path{stroke-dashoffset:0}
+.ink-wipe .lb{
+  position:absolute; left:50%; bottom:-1.6em; transform:translateX(-50%);
+  white-space:nowrap;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.24em;
+  color:var(--ink-3); opacity:0; transition:opacity .8s .5s var(--ease);
+}
+.ink-wipe.on .lb{opacity:1}
+
+/* ------------------------------------------------------------
+   7. 下一步提示（吸引继续）
+   ------------------------------------------------------------ */
+.next-hint{
+  display:flex; align-items:baseline; gap:clamp(12px,2vw,22px);
+  margin-top:clamp(2rem,5vh,3.4rem); padding-top:clamp(14px,2.4vh,20px);
+  border-top:1px solid rgba(138,110,75,.26);
+  flex-wrap:wrap;
+}
+.next-hint .nh-lab{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; color:var(--ink-3);
+}
+.next-hint button{
+  appearance:none; background:none; border:0; cursor:pointer; padding:6px 0;
+  font-family:var(--serif-cn),var(--serif-en); font-size:clamp(16px,2vw,19px);
+  color:var(--ink-0); position:relative; text-align:left;
+}
+.next-hint button::after{
+  content:""; position:absolute; left:0; right:0; bottom:2px; height:1px;
+  background:var(--rust); transform:scaleX(0); transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.next-hint button:hover::after{transform:scaleX(1)}
+.next-hint .arrow{
+  font-family:var(--mono); color:var(--rust); transition:transform .34s var(--ease);
+  display:inline-block;
+}
+.next-hint button:hover .arrow{transform:translateX(5px)}
+
+/* ------------------------------------------------------------
+   8. 响应式
+   ------------------------------------------------------------ */
+@media (max-width:1280px){
+  #rail{display:none}
+}
+@media (max-width:900px){
+  .mir-grid{grid-template-columns:1fr; gap:20px}
+  .mir-side{min-height:0}
+  .dr-body-in{grid-template-columns:1fr; gap:16px}
+  .dr-row{grid-template-columns:5.2em minmax(0,1fr); gap:10px}
+  .dr-cue{display:none}
+  .dig-meter{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion: reduce){
+  .dig-out,.dr-body{transition:none}
+  #rail{transition:none}
+}
+html.no-js .dig-out,html.no-js .dr-body{height:auto !important; opacity:1 !important}
+html.no-js .dig::after,html.no-js .dr-cue{display:none}
+html.no-js #rail{display:none}
+html.no-js .ink-wipe path{stroke-dashoffset:0}
+html.no-js .ink-wipe .lb{opacity:1}
+
+</style>
+</head>
+<body class="no-js">
+
+<a href="#definition" style="position:absolute;left:-9999px;top:0;z-index:99;background:var(--ink-0);color:var(--paper-0);padding:10px 16px" onfocus="this.style.left='8px';this.style.top='8px'" onblur="this.style.left='-9999px'">跳到正文</a>
+
+<!-- 质感层 -->
+<svg id="grain" aria-hidden="true"><filter id="fGrain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#fGrain)"/></svg>
+<svg id="fiber" aria-hidden="true"><filter id="fFiber"><feTurbulence type="fractalNoise" baseFrequency=".012 .34" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#fFiber)"/></svg>
+<div id="vignette" aria-hidden="true"></div>
+<div id="halo" aria-hidden="true">
+  <div class="halo-blob" data-blob style="width:52vw;height:52vw;left:-6vw;top:6vh;background:radial-gradient(circle,rgba(255,250,236,.85),transparent 68%)"></div>
+  <div class="halo-blob" data-blob style="width:40vw;height:40vw;right:-4vw;top:52vh;background:radial-gradient(circle,rgba(214,224,232,.5),transparent 68%)"></div>
+  <div class="halo-blob" data-blob style="width:46vw;height:46vw;left:44vw;top:-10vh;background:radial-gradient(circle,rgba(255,246,226,.7),transparent 70%)"></div>
+</div>
+<canvas id="threads" aria-hidden="true"></canvas>
+<div id="spine" aria-hidden="true"><i></i><b>00</b></div>
+<nav id="rail" aria-label="阅读轨迹"></nav>
+
+<!-- 导航 -->
+<nav id="nav" aria-label="章节导航">
+  <a class="back-home" href="index.html" title="返回《绿杖 —— 列夫·托尔斯泰的心灵奥德赛》主页面">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5 9 12l5.5 5.5"/><path d="M4 12h11"/></svg>
+    <span class="bh-cn">返回主页</span><span class="bh-ru" aria-hidden="true">绿杖</span>
+  </a>
+  <a class="brand" href="#hero">Лев Толстой</a>
+  <ol id="navlist"></ol>
+  <div class="nav-tools">
+    <button class="icon-btn" id="btn-motion" aria-label="减少动效" aria-pressed="false" title="减少动效">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/></svg>
+    </button>
+    <button class="icon-btn" id="btn-top" aria-label="回到开头" title="回到开头">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- 常驻返回角标：仅在顶部导航隐藏后出现（由脚本 8 节的滚动处理切换 .on） -->
+<a class="back-corner" id="backCorner" href="index.html" aria-label="返回主页面《绿杖》">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5 9 12l5.5 5.5"/><path d="M4 12h11"/></svg>
+  <span>返回主页</span>
+</a>
+
+<!-- ============ 首屏 ============ -->
+<header id="hero" data-ch="00" data-title="心灵辩证法">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-name">Лев Николаевич Толстой · 1828 — 1910</p>
+        <h1 class="hero-title"><span class="u">心灵</span><br>辩证法</h1>
+        <p class="hero-sub">диалектика души · dialectics of the soul</p>
+        <p class="hero-lede">
+          1856 年，一个二十七岁的批评家读完一位二十八岁军官的几篇小说，写下一句判断：
+          这位作家感兴趣的不是情感的<b>起点</b>与<b>终点</b>，而是<b>过程本身</b>——它的形式，它的规律。
+          <br><br>
+          此后五十四年，托尔斯泰用全部作品证明，也反复推翻这句话。
+        </p>
+      </div>
+      <div class="hero-figure">
+        <svg viewBox="0 0 400 400" aria-hidden="true" id="heroSvg">
+          <defs>
+            <clipPath id="pc"><circle cx="200" cy="200" r="168"/></clipPath>
+            <filter id="inkEdge" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="7" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+            <radialGradient id="plateWash" cx="42%" cy="34%" r="72%">
+              <stop offset="0" stop-color="#FFFCF3" stop-opacity=".95"/>
+              <stop offset="62%" stop-color="#EDE6D8" stop-opacity=".35"/>
+              <stop offset="100%" stop-color="#8A6E4B" stop-opacity=".16"/>
+            </radialGradient>
+          </defs>
+
+          <g clip-path="url(#pc)">
+            <rect x="0" y="0" width="400" height="400" fill="url(#plateWash)"/>
+            <!-- 墨线构成的"面孔"：一组等高线，暗示颅顶、眉骨、鼻梁、须髯的体量 -->
+            <g id="inkPlate" filter="url(#inkEdge)" fill="none" stroke="#2A251D" stroke-linecap="round"></g>
+            <!-- 二次交叉排线：暗部 -->
+            <g id="inkHatch" filter="url(#inkEdge)" fill="none" stroke="#17140F" stroke-opacity=".5" stroke-linecap="round"></g>
+          </g>
+
+          <circle cx="200" cy="200" r="168" fill="none" stroke="#8A6E4B" stroke-opacity=".3" stroke-width="1"/>
+          <circle cx="200" cy="200" r="180" fill="none" stroke="#8A6E4B" stroke-opacity=".14" stroke-width="1" stroke-dasharray="2 7"/>
+        </svg>
+        <p class="fig-note">
+          一个意识的分层：内圈是同一个隆起，<br>
+          腰处收成"8"字，再往外分成两支。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="hero-cue"><span class="stem"></span><span>向下读</span></div>
+</header>
+
+<main id="main">
+<!-- ============================================================
+     01 · 两个末端之间
+     ============================================================ -->
+<section class="ch" id="definition" data-ch="01" data-title="两个末端之间">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">01</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1856 · «Современник» 第十二期 · 一篇书评</p>
+        <h2 class="chapter rv" data-rv-delay="120">两个末端之间</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          一种写法的发明，往往先被读者发现，再被作者承认。
+        </p>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="prose">
+        <p class="rv">
+          1856 年 12 月，彼得堡的《现代人》杂志刊出一篇长书评，评的是三本书：
+          《童年与少年》《战争小说集》——作者是一位二十八岁、刚从塞瓦斯托波尔阵地上下来的退役炮兵军官，
+          列夫·托尔斯泰伯爵。
+        </p>
+        <p class="rv">
+          写书评的人二十七岁，叫尼古拉·车尔尼雪夫斯基。他后来会成为俄国最著名的激进批评家，
+          但此刻他面对的是一个在思想立场上与他相距极远的贵族作家。
+          奇怪的是，正是这个立场不同的人，说清了托尔斯泰到底在写什么。
+        </p>
+
+        <blockquote class="pull rv" data-rv-y="26">
+          <p>托尔斯泰伯爵最感兴趣的，是<span class="hl">心理过程本身</span>，它的形式，它的规律；
+          用一个明确的术语来说，就是<em class="term">心灵辩证法</em>。</p>
+          <cite>车尔尼雪夫斯基 · 1856</cite>
+        </blockquote>
+
+        <p class="rv">
+          如果这句话只说到这里，它就只是一句漂亮的命名。真正的方法论在紧接着的一段里——
+          而这一段，后世的中文介绍常常漏掉：
+        </p>
+
+        <blockquote class="pull rv" data-rv-y="26">
+          <p>通常人们只呈现这条链条的<span class="hl2">两个末端</span>——
+          心理过程的开端与结局；<br>
+          而托尔斯泰伯爵感兴趣的是<span class="hl">过程</span>，<span class="hl">而不是结果</span>。</p>
+          <cite>同上 · 笔者的译文</cite>
+        </blockquote>
+        <p class="src-note">
+          原文：「Обыкновенно представляются 2 крайние звена этой цепи — начало и конец психического процесса,
+          но графа Толстого интересует процесс, а не результат.」<br>
+          中文为笔者据俄文译出。全文见《现代人》1856 年第 12 期。
+        </p>
+      </div>
+
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="120">
+          <h4>这个方法长什么样</h4>
+          <p>
+            想象一个人听见身后一声巨响。<br>
+            <b>普通的写法</b>给两件事：他<span class="t-a">害怕</span>了；他<span class="t-a">逃开</span>了。开端，结局。
+          </p>
+          <p>
+            <b>托尔斯泰的写法</b>给中间那一秒半：他先想「大概不会炸，我白趴下了」，
+            接着闪过的是一整串毫无英雄气概的念头——会炸到谁？落到哪儿？
+            我还欠谁多少钱？他心里那个女人的脸；
+            然后他以为自己被震伤，开始数身边的人，发现喊不出声；
+            土块把他埋住，他伸手去推——然后他死了。
+          </p>
+          <p class="meta-cn" style="margin-top:.9em">据车尔尼雪夫斯基所举《塞瓦斯托波尔故事》例子</p>
+        </aside>
+
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="200">
+          <h4>同一年，同一个人，还说了第二条</h4>
+          <p>
+            车尔尼雪夫斯基认为托尔斯泰的天赋有两条支柱。
+            第一条是上面说的那种对心灵隐秘运动的洞察；
+            第二条他称为「道德感的直接纯洁」（непосредственная чистота нравственного чувства）——
+            一种未被反省和生活经验败坏掉的、几乎少年式的道德判断力。
+          </p>
+          <p>
+            两条支柱放在一起才成立：<b>能看穿一切，却没有因此变得犬儒。</b>
+            这两条后来一直互相撕扯，最终把托尔斯泰撕成了两个人。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <!-- 交互：端点—过程对照器 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 1 · 端点与过程</span>
+        <p>同一段心理，两种叙述的差别。<span class="hint">拖动滑块，或按下面的按钮。</span></p>
+      </figcaption>
+      <div class="endpoint-machine">
+        <div class="ep-canvas-wrap">
+          <svg viewBox="0 0 900 260" preserveAspectRatio="none" aria-hidden="true" id="epSvg">
+            <line x1="0" y1="200" x2="900" y2="200" stroke="var(--sepia)" stroke-opacity=".22" stroke-width="1"/>
+            <path id="epPath" d="" fill="none" stroke="var(--slate)" stroke-width="1.8" stroke-linecap="round"/>
+            <path id="epPathE" d="" fill="none" stroke="var(--rust)" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+            <g id="epDots"></g>
+            <g id="epLabels"></g>
+          </svg>
+        </div>
+        <div class="ep-readout" aria-live="polite">
+          <p class="meta" id="epModeLabel">普通写法 · 两个端点</p>
+          <p id="epText">开端：他害怕了。结局：他逃开了。</p>
+        </div>
+        <div class="ep-ctrl">
+          <label for="epRange" class="meta">过程细节的密度</label>
+          <input id="epRange" type="range" min="0" max="100" value="6" step="1"
+                 aria-describedby="epText">
+          <div class="ep-btns">
+            <button type="button" class="btn-ghost" data-ep="0">只给两端</button>
+            <button type="button" class="btn-ghost" data-ep="50">给一半</button>
+            <button type="button" class="btn-ghost" data-ep="100">照托尔斯泰写</button>
+          </div>
+        </div>
+      </div>
+    </figure>
+
+    <div class="breath">
+      <q class="rv">重要的不是他最后怎么想，而是他<span class="hl">怎么走到</span>那个想法。</q>
+      <span class="meta rv">这条线索将穿过全书</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     02 · 绿棍
+     ============================================================ -->
+<section class="ch" id="origin" data-ch="02" data-title="绿棍">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">02</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1847 · 喀山 → 亚斯纳亚波良纳 · 十九岁</p>
+        <h2 class="chapter rv" data-rv-delay="120">绿棍</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          他不是先有方法，再拿它去写人。他是先把自己当成标本，解剖了三十多年。
+        </p>
+      </div>
+    </div>
+
+    <div class="split-r">
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>绿棍（зелёная палочка）</h4>
+          <p>
+            托尔斯泰晚年回忆童年时，讲到哥哥尼古拉编的一个游戏：
+            他们自称为「蚂蚁兄弟」（муравейные братья），
+            在老扎卡斯林里藏了一根「绿棍」，上面写着使所有人不再遭不幸的秘密。
+            谁找到它，谁就能让所有人幸福。
+          </p>
+          <p>
+            他说，他那时相信有这么一根棍子，就像相信必须找到它一样。
+            他一生都在找它——只是越到后来，他越不确定自己找的是那根棍子，
+            还是「相信有那根棍子」的那种能力。
+          </p>
+          <p class="meta-cn" style="margin-top:.9em">据托尔斯泰晚年回忆文字 · 详见后文第 08 节</p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>他留下的原始材料</h4>
+          <p>
+            托尔斯泰从 1847 年起记日记，直到去世前四天，中间几乎没有长期间断。
+            这些日记不是记事，而是<b>审讯记录</b>：他记录自己的懒惰、虚荣、情欲、赌瘾，
+            并给自己编号列出一条条「生活规则」。
+          </p>
+          <p>
+            这是理解「心灵辩证法」的来源：这套方法的第一个实验对象，
+            就是他自己，而实验持续了六十三年。
+          </p>
+        </aside>
+      </div>
+
+      <div class="prose">
+        <p class="rv">
+          1847 年 3 月，十九岁的托尔斯泰从喀山大学退学。他给的理由不是「功课太重」，而是
+          ——大学没有培养出他求知的欲望。他回到亚斯纳亚波良纳，回到那座有桦树大道和白房子的庄园，
+          然后做了一件此后伴随他一生的动作：<b>给自己立法。</b>
+        </p>
+        <p class="rv">
+          那年 3 月 17 日的日记里，他写下要为自己一生订立规则的决定。
+          这份《生活规则》不是一个少年的一时心血来潮，而是一部越写越厚的法典，
+          分门别类，逐条编号：如何对待情欲，如何对待名誉，如何对待金钱，
+          如何对待自己身体里那个总想偷懒的人。
+        </p>
+        <p class="rv">
+          值得注意的是这些规则的性质。它们几乎全部是<b>拆解式的</b>：
+          不是「我要成为一个好人」，而是「我不在背后议论人」「我不为了别人的称赞而活」——
+          把笼统的道德愿望切成可以逐项检查的动作。
+        </p>
+        <p class="rv">
+          这正是一种显微镜式的自我观察。他必须先把自己切成足够小的单位，
+          才能看见那些藏在动作之间的东西。
+        </p>
+
+        <blockquote class="pull rv" data-rv-y="26">
+          <p>他在这份手稿上反复增补、修订、编号，像在起草一份永远不会生效的法律。</p>
+          <cite>《生活规则》手稿 · 见《托尔斯泰全集》第二十一卷</cite>
+        </blockquote>
+
+        <p class="rv">
+          接下来发生的事情，才是关键。他很快就发现自己根本做不到。
+          于是日记变成了一份<b>失败的账本</b>：他在页边记下违背了自己哪一条规则，
+          用越来越难听的话骂自己。
+        </p>
+        <p class="rv">
+          这个循环——<span class="hl">立法、违背、自我审判、重新立法</span>——
+          就是「心灵辩证法」最早的形态。它不是从文学技巧开始的，
+          它是从一种失败开始的：一个想彻底看清自己的人，永远看不清。
+        </p>
+      </div>
+    </div>
+
+    <!-- 交互：1847 规则手稿 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 2 · 手稿</span>
+        <p>《生活规则》的条目结构。点击任一条，展开这一类规则在做什么。</p>
+      </figcaption>
+
+      <div class="ms">
+        <div class="ms-page">
+          <div class="ms-head">
+            <span class="meta-cn">亚斯纳亚波良纳 · 1847</span>
+            <span class="meta-cn">№ 21 / 7—21</span>
+          </div>
+          <div class="ms-rule" role="list">
+            <button type="button" class="ms-item" role="listitem" data-ms="0" aria-expanded="false">
+              <span class="ms-i">Ⅰ</span>
+              <span class="ms-t">关于情欲</span>
+            </button>
+            <button type="button" class="ms-item" role="listitem" data-ms="1" aria-expanded="false">
+              <span class="ms-i">Ⅱ</span>
+              <span class="ms-t">关于名誉与他人</span>
+            </button>
+            <button type="button" class="ms-item" role="listitem" data-ms="2" aria-expanded="false">
+              <span class="ms-i">Ⅲ</span>
+              <span class="ms-t">关于金钱与占有</span>
+            </button>
+            <button type="button" class="ms-item" role="listitem" data-ms="3" aria-expanded="false">
+              <span class="ms-i">Ⅳ</span>
+              <span class="ms-t">关于身体与懒惰</span>
+            </button>
+            <button type="button" class="ms-item" role="listitem" data-ms="4" aria-expanded="false">
+              <span class="ms-i">Ⅴ</span>
+              <span class="ms-t">关于写作</span>
+            </button>
+          </div>
+          <p class="ms-foot meta-cn">
+            条目按主题归并，编号体系见《托尔斯泰全集》第二十一卷所收《生活规则》。
+          </p>
+        </div>
+
+        <div class="ms-note" id="msNote">
+          <p class="meta" id="msNoteHead">选择左侧任一条目</p>
+          <p id="msNoteBody">
+            这份手稿真正的方法论意义不在于它规定了什么，
+            而在于它把「成为一个更好的人」从一句愿望，
+            变成了一份可以逐条核对的清单——以及随之而来的、
+            永无止境的自我审计。
+          </p>
+        </div>
+      </div>
+    </figure>
+
+    <div class="breath">
+      <q class="rv">所有的自我认识都从一次失败开始。</q>
+      <span class="meta rv">1847 → 1910</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     03 · 显微镜
+     ============================================================ -->
+<section class="ch" id="method" data-ch="03" data-title="显微镜">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">03</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">方法的机制 · 意识如何在一句话里分裂</p>
+        <h2 class="chapter rv" data-rv-delay="120">显微镜</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          「心灵辩证法」不是「写得很细的心理描写」。它是三个可以拆开检查的具体动作。
+        </p>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="prose">
+        <p class="rv">
+          如果我们把车尔尼雪夫斯基的发现翻译成写作技术，它包含三个可验证的动作。
+          认清这三个动作，全站后面的所有场景都会变得可读。
+        </p>
+
+        <div class="mech rv" data-rv-y="28">
+          <div class="mech-n">动作一</div>
+          <h3>让两个相反的念头同时在场</h3>
+          <p>
+            不止写「他犹豫了」，而是把犹豫的<b>双方都写出来</b>，让它们在一句话之内互相反驳，
+            谁也不肯退场。这种状态不是「矛盾心理」这个标签能概括的——
+            它是两种完整的、各自有理的立场共用一个身体。
+          </p>
+        </div>
+
+        <div class="mech rv" data-rv-y="28">
+          <div class="mech-n">动作二</div>
+          <h3>不写结论，写通往结论的那一步</h3>
+          <p>
+            人物的转变很少被交代「因为他想通了」。相反，转变发生在一个很小的具体刺激上：
+            一个手势、一块布、一句无意听见的话。
+            托尔斯泰把镜头架在<b>刺激与反应之间那道极窄的缝</b>上。
+          </p>
+        </div>
+
+        <div class="mech rv" data-rv-y="28">
+          <div class="mech-n">动作三</div>
+          <h3>让身体说出意识不肯说的话</h3>
+          <p>
+            当一个人的内心话与他自己承认的版本不一致时，托尔斯泰就让身体出面：
+            脸红了、手抖了、膝盖软了、打了个寒噤。
+            身体是不会撒谎的证人，它把那个<b>「不一致」本身</b>暴露出来。
+          </p>
+        </div>
+
+        <p class="rv">
+          三个动作合起来，就是那个著名的效果：读者会突然意识到，
+          自己读到的不是一个人物的性格，而是<b>一个意识的实时运作</b>。
+        </p>
+      </div>
+
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>它与「意识流」不是一回事</h4>
+          <p>
+            很多人把托尔斯泰当成意识流的先驱。作为技术史的说法可以理解，但两者有一个根本区别：
+          </p>
+          <p>
+            <b>意识流</b>通常放弃外部视角，让读者完全泡在人物的语言里，没有出口。<br>
+            <b>托尔斯泰</b>始终保留一个站在旁边的人——叙述者。他陪着你走进人物内部，
+            然后在关键时刻退开一步，用一句冷静的评论或一个外部的动作，
+            把人物照出来。
+          </p>
+          <p>
+            所以托尔斯泰的心理描写从来不是封闭的。它有<b>内外两个机位</b>，
+            并且随时切换。这种切换本身，才是「辩证」的来源。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>术语辨析</h4>
+          <p>
+            <b>内心独白</b>是一种形式（让读者听见人物自己说话）。<br>
+            <b>心灵辩证法</b>是一个对象（写这个过程的形态与规律）。<br>
+            托尔斯泰大量使用前者，但前者不等于后者——
+            用一整页内心独白记录一个不矛盾的想法，仍然是内心独白，不是心灵辩证法。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <!-- 交互：两个声音 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 3 · 两个声音</span>
+        <p>
+          安娜·卡列尼娜在生命最后一分钟里的意识。
+          托尔斯泰把同一瞬间劈成两种声音，让它们互相否定。
+          <span class="hint">切换开关，看这两种声音如何交替。</span>
+        </p>
+      </figcaption>
+
+      <div class="duo">
+        <div class="duo-track">
+          <div class="duo-rail" aria-hidden="true"><i id="duoRail"></i></div>
+          <article class="duo-slot" data-voice="a">
+            <p class="meta duo-tag">声音 A · 意志</p>
+            <p class="duo-line" id="duoA">「到那儿去，到正中间去，我要惩罚他，我要摆脱所有人，也摆脱我自己。」</p>
+          </article>
+          <article class="duo-slot" data-voice="b">
+            <p class="meta duo-tag">声音 B · 身体</p>
+            <p class="duo-line" id="duoB">她忽然对自己所做的事感到恐惧。「我在哪儿？我在做什么？为什么？」</p>
+          </article>
+        </div>
+
+        <div class="duo-ctrl">
+          <div class="seg" role="group" aria-label="意识状态">
+            <button type="button" class="seg-b" data-duo="0" aria-pressed="true">分裂之前</button>
+            <button type="button" class="seg-b" data-duo="1" aria-pressed="false">两个声音</button>
+            <button type="button" class="seg-b" data-duo="2" aria-pressed="false">最后一闪</button>
+          </div>
+          <div class="duo-note" id="duoNote">
+            <p class="meta" id="duoNoteHead">完整的一句话</p>
+            <p id="duoNoteBody">
+              在分裂之前，安娜的意识是连贯的、单向的。
+              她有一个明确的目标，句子结构完整，因果清楚。这是「两个末端」里的末端。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="pull rv" data-rv-y="26" style="margin-top:clamp(2rem,5vh,3.4rem)">
+        <p>而那支蜡烛——她借着它读过那本充满忧虑、欺骗、悲伤与恶的书——
+          <span class="hl">爆出比任何时候都明亮的光</span>，把她先前在黑暗中的一切都照亮了，
+          <span class="hl2">噼啪作响，开始黯淡，永远熄灭了。</span></p>
+        <cite>《安娜·卡列尼娜》第七部 · 第三十一章末</cite>
+      </blockquote>
+      <p class="src-note">
+        原文：「И свеча, при которой она читала исполненную тревог, обманов, горя и зла книгу,
+        вспыхнула более ярким, чем когда-нибудь, светом, осветила ей все то, что прежде было во мраке,
+        затрещала, стала меркнуть и навсегда потухла.」——中文为笔者据俄文译出。
+      </p>
+      <p class="src-note" style="color:var(--ink-1)">
+        请注意这一句的构造：烛火<b>先变亮，才熄灭</b>。托尔斯泰拒绝让死亡成为一次单纯的黑暗降临。
+        他用一个「更亮」否定了读者对「熄灭」的预期——这就是心灵辩证法在句子层面的样子。
+      </p>
+    </figure>
+
+    <div class="breath">
+      <q class="rv">一个人的最后一分钟里，不是只有一种想法。</q>
+      <span class="meta rv">心灵辩证法的全部赌注</span>
+    </div>
+
+    <!-- 细读抽屉：把三个判据展开成证据 -->
+    <div class="dr rv" data-rv-y="30" style="margin-top:clamp(2rem,5vh,3.4rem)">
+      <div class="dr-head">
+        <span class="meta">细读 · 三个判据的证据</span>
+      </div>
+      <button type="button" class="dr-row" data-dr="dr1" aria-expanded="false">
+        <span class="dr-yr">判据 一</span>
+        <span class="dr-ttl">怎样判断一段心理描写是不是「心灵辩证法」</span>
+        <span class="dr-cue">展开 →</span>
+      </button>
+      <div class="dr-body" id="drb-dr1"><div class="dr-body-in"><p>载入中…</p></div></div>
+
+      <button type="button" class="dr-row" data-dr="dr2" aria-expanded="false">
+        <span class="dr-yr">判据 二</span>
+        <span class="dr-ttl">为什么他必须先观察自己，才能观察战争</span>
+        <span class="dr-cue">展开 →</span>
+      </button>
+      <div class="dr-body" id="drb-dr2"><div class="dr-body-in"><p>载入中…</p></div></div>
+
+      <button type="button" class="dr-row" data-dr="dr3" aria-expanded="false">
+        <span class="dr-yr">代价</span>
+        <span class="dr-ttl">当同一种方法被用在自己身上三十年</span>
+        <span class="dr-cue">展开 →</span>
+      </button>
+      <div class="dr-body" id="drb-dr3"><div class="dr-body-in"><p>载入中…</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 · 同一支笔，两副面孔
+     ============================================================ -->
+<section class="ch" id="reader" data-ch="04" data-title="两副面孔">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">04</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1852 — 1863 · 早期作品 · 方法的练习期</p>
+        <h2 class="chapter rv" data-rv-delay="120">同一支笔，两副面孔</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          在写出那两个伟人之前，他先在一连串短篇里把同一个动作重复了十年：
+          让「我以为的我」撞上「实际上的我」。
+        </p>
+      </div>
+    </div>
+
+    <div class="prose rv" style="margin-bottom:clamp(2.4rem,6vh,4.2rem)">
+      <p>
+        早期托尔斯泰有一个几乎可以称为公式的场景类型。它长这样：
+      </p>
+      <p>
+        一个人物陷入某种自我欣赏的情绪——他在牺牲、他在悲伤、他在宽恕。
+        然后，就在这个情绪最饱满的一刻，一件极小的事发生了：
+        他注意到别人在看他，或者他闻到了一股气味，或者他想到自己这会儿的样子多么好看。
+        <b>整个情绪就在这一瞬间垮掉</b>，而垮掉之后剩下的东西，才是托尔斯泰真正要写的东西。
+      </p>
+      <p>
+        他反复使用这个公式，几乎到了不知疲倦的程度。这不是重复，是练习：
+        他在用同一个动作，测不同的人能承受多少自我暴露。
+      </p>
+    </div>
+
+    <!-- 交互：三卡细读 -->
+    <div class="cards" id="cards">
+      <article class="card" data-card="0">
+        <div class="card-side card-front">
+          <p class="meta">1852 · 《童年》</p>
+          <h3>母亲的葬礼上</h3>
+          <p>他哭了很久，非常伤心。然后他注意到有人在看他。</p>
+          <span class="card-flip">翻过来 · 内心事实</span>
+        </div>
+        <div class="card-side card-back">
+          <p class="meta">表面之下</p>
+          <p>
+            他发现自己开始<b>在意自己悲伤的样子</b>。这个发现让他比母亲去世本身更恐惧：
+            他害怕自己是在表演。
+          </p>
+          <p>
+            一个十岁的孩子，在葬礼上第一次意识到自己心里住着一个观众。
+            托尔斯泰把这种自我背叛写得比死亡更令人不安。
+          </p>
+        </div>
+      </article>
+
+      <article class="card" data-card="1">
+        <div class="card-side card-front">
+          <p class="meta">1857 · 《青年》</p>
+          <h3>comme il faut 的分裂</h3>
+          <p>他把自己分成两类人：体面的人，和不体面的人。</p>
+          <span class="card-flip">翻过来 · 内心事实</span>
+        </div>
+        <div class="card-side card-back">
+          <p class="meta">表面之下</p>
+          <p>
+            「体面」（comme il faut）本是一套外在的社交标准——指甲、法语口音、领带打法。
+            他却把它当成了一种<b>形而上的等级</b>，用它来判决所有人的价值，包括他自己。
+          </p>
+          <p>
+            于是一个关于指甲的标准，变成了灵魂的分类学。
+            这是他一生「用一个抽象原则审判具体生活」这个习惯的第一次发作。
+          </p>
+        </div>
+      </article>
+
+      <article class="card" data-card="2">
+        <div class="card-side card-front">
+          <p class="meta">1863 · 《哥萨克》</p>
+          <h3>奥列宁的自我牺牲</h3>
+          <p>他决定放弃贵族身份，把自己献给一个哥萨克姑娘。</p>
+          <span class="card-flip">翻过来 · 内心事实</span>
+        </div>
+        <div class="card-side card-back">
+          <p class="meta">表面之下</p>
+          <p>
+            当他把礼物送出去、把姿态摆好之后，他忽然发现自己在<b>享受这个牺牲</b>。
+            那个优雅的、慷慨的、被自己感动的人，恰恰是他最想摆脱的那个人。
+          </p>
+          <p>
+            小说的结尾不是和解。是他离开，而群山毫无表示——
+            自然对他的内心戏完全不感兴趣。这个「无动于衷」的背景，
+            此后会一直留在托尔斯泰的书里。
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <!-- 交互：双态滑块 —— 同一个人的两份记录 -->
+    <figure class="fig rv" data-rv-y="30" style="margin-top:clamp(2.6rem,7vh,4.6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 4 · 两份记录</span>
+        <p>
+          托尔斯泰的人物几乎都善于为自己辩护。他们的内心话与对外承认的版本之间，
+          隔着一道缝。<span class="hint">拖动滑块，把这道缝拉开。</span>
+        </p>
+      </figcaption>
+      <div class="mir" data-lean="0">
+        <div class="mir-grid">
+          <div>
+            <div class="mir-side" data-pole="self">
+              <span class="lab">内在叙述 · 他对自己说的话</span>
+              <p class="mir-text" id="mirSelf">我以为：我在为妹妹的幸福奔走。</p>
+            </div>
+            <div class="mir-sep" aria-hidden="true">
+              <span class="ln"></span><span class="dot"></span><span class="ln"></span>
+            </div>
+            <div class="mir-side" data-pole="real">
+              <span class="lab">被压下的一半 · 他不敢说完的那句</span>
+              <p class="mir-text" id="mirReal">实际上：我在意的是自己在这件事里显得崇高。</p>
+            </div>
+          </div>
+          <div>
+            <div class="mir-vis" aria-hidden="true">
+              <svg viewBox="0 0 340 80">
+                <path id="mirAxis" d="" fill="none" stroke="#8A6E4B" stroke-opacity=".34" stroke-width="1"/>
+                <circle id="mirKnob" cx="10" cy="40" r="4" fill="#9C4A2F"/>
+              </svg>
+            </div>
+            <div class="mir-ctrl">
+              <label for="mirRange" class="meta">把「我以为」推到「实际上」</label>
+              <input id="mirRange" type="range" min="0" max="100" value="0" step="1"
+                     aria-label="在自我叙述与被压下的一半之间移动">
+              <div class="mir-scale">
+                <span>自我叙述</span><span>两道声音同时在场</span><span>被压下的一半</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="src-note">
+        以上三组对照是据《少年》《青年》《哥萨克》中同一类情节重写的，用于呈现结构，
+        <b>不是原著逐字引文</b>。原文中托尔斯泰让这两种声音同时出现，而不是先后出现。
+      </p>
+    </figure>
+    <p class="src-note rv" style="margin-top:1.2em">
+      三张卡片概括的三处情节分别出自《童年》《青年》《哥萨克》。
+      细节以原著为准；此处为便于呈现做了概括，读者可回到文本核对。
+    </p>
+
+    <div class="split" style="margin-top:clamp(3.4rem,9vh,6.5rem)">
+      <div class="prose">
+        <h3 class="sub-h rv">一个更冷的证据：叙述者自己也会翻脸</h3>
+        <p class="rv">
+          早期作品里还有一个更大胆的做法：托尔斯泰让<b>叙述者本人</b>推翻自己刚刚说过的话。
+        </p>
+        <p class="rv">
+          在《五月的塞瓦斯托波尔》里，叙述者先带着你参观战争，
+          然后停下来，直接对你说：你们看到的英雄主义，很多是虚荣；
+          而真正的痛苦，往往发生在没人看见的地方。
+          他甚至把小说分成两半——前半是「虚荣」，后半是「真实」，
+          并且明说这是同一场战争的两副面孔。
+        </p>
+        <p class="rv">
+          这意味着「心灵辩证法」的应用对象不只是人物，也包括<b>讲述这件事本身</b>。
+          作家不能站在道德高地上：他要么承认自己也在虚荣里，
+          要么他的诚实就是假的。
+        </p>
+      </div>
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>为什么这一条重要</h4>
+          <p>
+            一个只解剖人物的作家，仍然可以是高高在上的。
+            但一个把解剖刀转向自己叙述的作家，就失去了豁免权。
+          </p>
+          <p>
+            托尔斯泰晚期会把这一点推到极致：他晚年怀疑小说这种形式本身是否合法。
+            这个念头的种子，在这里已经埋下了。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>读者当心</h4>
+          <p>
+            「心灵辩证法」这个术语后来在苏联文学批评里被用得太顺手，
+            变成了一句万能评语，贴在任何一个写得比较细的段落上。
+          </p>
+          <p>
+            这不是车尔尼雪夫斯基的原意。他指的是一个<b>非常具体的技术对象</b>——
+            过程的形式与规律。把它当形容词用，就把它弄丢了。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="breath">
+      <q class="rv">他一生反复写同一件事：<span class="hl">发现自己在表演的那一刻</span>。</q>
+      <span class="meta rv">1852 — 1910</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     05 · 天空与橡树
+     ============================================================ -->
+<section class="ch" id="warpeace" data-ch="05" data-title="天空与橡树">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">05</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1863 — 1869 · 《战争与和平》 · 一部「不属于任何体裁」的书</p>
+        <h2 class="chapter rv" data-rv-delay="120">天空与橡树</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          在这里，「心灵辩证法」第一次被放大到史诗的尺寸——
+          而放大之后，一个问题暴露了出来：外部世界究竟改变了人，还是只被人用来解释自己？
+        </p>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="prose">
+        <p class="rv">
+          1863 年，三十五岁的托尔斯泰开始写一部关于 1812 年的书。
+          他原计划写一部中篇，结果写了六年，写出了一部既不像小说、也不像历史、也不像哲学论著的东西。
+          1868 年他自己写了一篇短文回应读者的困惑，坦率地承认：这不是长篇小说，不是长诗，更不是历史演义。
+        </p>
+        <p class="rv">
+          这部书的两个书名关键词——「战争」与「和平」——在俄文里还有一个双关：
+          <b>мир</b> 同时意味着「和平」与「世界」。
+          所以它真正的题目是「战争与世界」：战争如何发生，而人如何在这世界之中活着。
+        </p>
+        <p class="rv">
+          全书有五百多个人物，跨越十五年。但托尔斯泰的野心并不在规模上。
+          他把「心灵辩证法」从一个人的内心扩展成一套<b>关于历史如何被制造的模型</b>：
+          如果一个人的决定已经是他内部无数矛盾冲撞的产物，
+          那么一场有几十万人参加的战斗，又怎么能被归功于某一个指挥官的命令？
+        </p>
+        <p class="rv">
+          这就是这部书最深的一层：<b>微观的心灵辩证法，推到了宏观的历史怀疑论。</b>
+        </p>
+
+        <blockquote class="pull rv" data-rv-y="26">
+          <p>这不是长篇小说，不是长诗，更不是历史演义。
+          《战争与和平》是作者想要并且能够用它所采取的形式表达出来的东西。</p>
+          <cite>托尔斯泰 · 1868 年回应读者</cite>
+        </blockquote>
+        <p class="src-note">
+          1868 年托尔斯泰发表短文《关于〈战争与和平〉一书的几句话》。
+          原文为俄文，此处为大意翻译。
+        </p>
+      </div>
+
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>一个提醒</h4>
+          <p>
+            「心灵辩证法」这个术语本来是车尔尼雪夫斯基针对 1850 年代的短篇作品提出的。
+            把它用到《战争与和平》上是一种<b>推广</b>，不是原意。
+          </p>
+          <p>
+            这种推广有用，因为方法确实是同一个。但我们要记住这是一次跨尺度的搬运——
+            而这次搬运本身，就是本章要观察的事情。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>两种时间</h4>
+          <p>
+            这部书里有两个完全不同的时钟。
+          </p>
+          <p>
+            <b>历史时钟：</b>按年、按月推进，由军队、外交和偶然事件驱动。<br>
+            <b>心灵时钟：</b>按分钟、按秒推进，由一次抬头、一次握手驱动。
+          </p>
+          <p>
+            托尔斯泰的技法核心，就是让这两个时钟<b>互相同步又互相错位</b>。
+            一个人一生的转折，可以发生在历史时钟完全静止的一秒半里。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <!-- 交互：同一棵树，两次看见 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 4 · 同一棵树，两次看见</span>
+        <p>
+          安德烈公爵在旅途中两次经过路边同一棵老橡树。树没有变。
+          <span class="hint">点击两个时刻，比较他「看见」了什么。</span>
+        </p>
+      </figcaption>
+
+      <div class="oak">
+        <div class="oak-stage">
+          <svg viewBox="0 0 460 380" aria-hidden="true" id="oakSvg">
+            <g id="oakTree"></g>
+          </svg>
+          <div class="oak-weather" id="oakWeather" aria-hidden="true"></div>
+        </div>
+        <div class="oak-panel">
+          <div class="seg seg-col" role="group" aria-label="两次经过">
+            <button type="button" class="seg-b" data-oak="0" aria-pressed="true">
+              <span class="seg-n">第一次</span> 早春 · 他刚从战场与丧妻中回来
+            </button>
+            <button type="button" class="seg-b" data-oak="1" aria-pressed="false">
+              <span class="seg-n">第二次</span> 六月初 · 他从奥特拉德诺耶回来
+            </button>
+          </div>
+          <div class="oak-quote" id="oakQuote" aria-live="polite"></div>
+          <p class="src-note" id="oakNote"></p>
+        </div>
+      </div>
+
+      <div class="prose rv" style="margin-top:clamp(1.6rem,4vh,2.6rem)">
+        <p>
+          第一次，他看见的是一棵「不愿向春天的魔法屈服」的老树，
+          枝叶间只有几片病态的绿，它像一个愤怒的、轻蔑的怪物。
+          那时他刚刚失去妻子，刚刚从战场上回来，觉得一切都结束了。
+        </p>
+        <p>
+          第二次，六月初，同一棵树上「爆发出嫩叶的鲜绿帐篷」，
+          他在夜里听见窗内的少女说话，心里升起一个念头：
+          不，生命在三十一岁上并没有结束。
+        </p>
+        <p class="hl-para">
+          问题在于：这两次，树都只是树。改变的不是世界，是那个看世界的意识。
+          托尔斯泰把这个过程的<b>两边</b>都写出来了——先是树对他的判决，后来是他对树的判决。
+        </p>
+      </div>
+    </figure>
+
+    <!-- 微缩人物弧线 -->
+    <div class="arcs rv" data-rv-y="30" style="margin-top:clamp(3.4rem,9vh,6rem)">
+      <h3 class="sub-h">四个意识的轨迹</h3>
+      <p class="meta" style="margin-bottom:1.8em">点开任一人，看他的「心灵辩证法」走过哪几步</p>
+      <div class="arc-grid" id="arcGrid">
+        <button type="button" class="arc-item" data-arc="0" aria-expanded="false">
+          <span class="arc-name">安德烈公爵</span>
+          <span class="arc-line">雄心 → 天空 → 复仇 → 宽恕</span>
+        </button>
+        <button type="button" class="arc-item" data-arc="1" aria-expanded="false">
+          <span class="arc-name">皮埃尔</span>
+          <span class="arc-line">放纵 → 决斗 → 共济会 → 俘虏营 → 平静</span>
+        </button>
+        <button type="button" class="arc-item" data-arc="2" aria-expanded="false">
+          <span class="arc-name">娜塔莎</span>
+          <span class="arc-line">充盈 → 晕眩 → 背叛 → 照护</span>
+        </button>
+        <button type="button" class="arc-item" data-arc="3" aria-expanded="false">
+          <span class="arc-name">尼古拉</span>
+          <span class="arc-line">荣耀梦 → 羞耻 → 责任</span>
+        </button>
+      </div>
+      <div class="arc-detail" id="arcDetail" aria-live="polite"></div>
+      <p class="src-note">
+        以上四条轨迹为对小说情节的概括，用于呈现结构；
+        具体章节与文句请以原著为准。
+      </p>
+    </div>
+
+    <div class="breath">
+      <q class="rv">改变的不是世界，是那个看世界的意识。</q>
+      <span class="meta rv">《战争与和平》的全部方法</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     06 · 反点
+     ============================================================ -->
+<section class="ch" id="anna" data-ch="06" data-title="反点">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">06</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1873 — 1877 · 《安娜·卡列尼娜》 · 一部被误认为「家庭小说」的书</p>
+        <h2 class="chapter rv" data-rv-delay="120">反点</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          同一个方法，这次被用来同时做两件事：让一个人的意识逐渐散架，
+          让另一个人的意识逐渐聚拢。这两件事在同一个句子里发生。
+        </p>
+      </div>
+    </div>
+
+    <div class="split-r">
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>卷首那句题词</h4>
+          <p>
+            小说的题词是一句经文：<b>「伸冤在我，我必报应。」</b>
+          </p>
+          <p>
+            这句题词通常被读成对安娜的道德判词——她犯了错，上帝会罚她。
+            但这个读法有个困难：托尔斯泰并不需要一个上帝来惩罚安娜，
+            因为安娜已经在惩罚自己了，而且比任何外部判决都更彻底。
+          </p>
+          <p>
+            另一种读法是：这句话拒绝把审判权交给读者。
+            你们不是法官——它说。而托尔斯泰自己，也没有在这部书里扮演法官。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>两条线，不是道德对照</h4>
+          <p>
+            安娜与列文这两条线索，长期以来被解释成「堕落」与「升华」的对照。
+            这样读会漏掉一件更要紧的事：
+          </p>
+          <p>
+            两人面对的是<b>同一个问题</b>——当生活失去意义时，人怎么办？
+            安娜找不到出口，列文也几乎找不到。
+            区别不在于谁更道德，而在于列文在一个农民的一句无心话里，
+            抓住了一个他还说不清楚的东西。
+          </p>
+          <p>
+            托尔斯泰没有让列文「想通」。他让列文<b>暂时安静下来</b>，
+            并且明确说，他仍然会在明天为这件事发火。
+          </p>
+        </aside>
+      </div>
+
+      <div class="prose">
+        <p class="rv">
+          1873 年，托尔斯泰开始写一部关于一个「失了足的上流社会妇女」的小说。
+          他最初的构思相当传统，甚至有几分道德训诫的意思。
+          但写到第七年，这部书变成了别的东西。
+        </p>
+        <p class="rv">
+          写作过程本身留下了一个证据。1876 年，他的妻子索菲娅在日记里写道，
+          她丈夫有时会坐在那里，脸上是一种奇怪的表情，
+          然后说：这个人（指安娜）变得不听话了，她做出的事情不是他想要的。
+        </p>
+        <p class="src-note">
+          ⚠ 关于这段话的具体措辞与日期，须以索菲娅日记原文为准。
+          此处仅述其大意，细节见第 09 节的史料边界。
+        </p>
+        <p class="rv">
+          这不是一句关于灵感的浪漫故事。它说明了一件事：
+          在托尔斯泰这里，「心灵辩证法」不只是描述人物的工具，
+          它也可能产生一个<b>抵抗作者的人物</b>。
+          当你把一个人物的内部写得足够完整，她就会开始按照自己的逻辑走。
+        </p>
+        <p class="rv">
+          这正是为什么这部书不能被读成道德寓言。安娜不是一个论证，
+          她是一个自主的意识体。
+        </p>
+
+        <h3 class="sub-h rv" style="margin-top:clamp(2rem,5vh,3.2rem)">对位：两个人在同一个夏天</h3>
+        <p class="rv">
+          小说的结构核心是「对位」——不是两条平行线，而是两个声部互相进入。
+          安娜的意识在第七部逐渐碎裂，与此同时，列文的意识在第八部逐渐安静。
+        </p>
+        <p class="rv">
+          托尔斯泰让这两种过程共享同一个季节、同一个国家、同一片天空。
+          这就是「反点」（counterpoint）的含义：两个旋律不是互相替换，
+          而是必须同时被听见。
+        </p>
+      </div>
+    </div>
+
+    <!-- 交互：对位图 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 5 · 对位</span>
+        <p>
+          两条意识线索的展开。颜色越亮表示此处被写得越密。
+          <span class="hint">点任一格，看那一段在写什么。</span>
+        </p>
+      </figcaption>
+      <div class="cp">
+        <div class="cp-head">
+          <span class="meta-cn">安娜 / 弗龙斯基</span>
+          <span class="meta-cn">列文 / 吉蒂</span>
+        </div>
+        <div class="cp-grid" id="cpGrid"></div>
+        <div class="cp-detail" id="cpDetail" aria-live="polite">
+          <p class="meta">共八部 · 点击网格查看</p>
+          <p>两条线不是交替出现，而是同时存在。托尔斯泰的力量来自让它们在同一个时刻互相解释。</p>
+        </div>
+      </div>
+    </figure>
+
+    <div class="split" style="margin-top:clamp(3.4rem,9vh,6rem)">
+      <div class="prose">
+        <h3 class="sub-h rv">列文的那个夜晚</h3>
+        <p class="rv">
+          在小说的后半，列文的哥哥病重。列文守在旁边，疲惫、惊慌、
+          对死亡感到一种生理上的反感。然后，在某个夜里，他走出去。
+        </p>
+        <p class="rv">
+          托尔斯泰写他抬头看天。天上有一片云，几颗星。
+          他在那一刻想到的不是宗教命题，而是一件很具体的事：
+          他害怕的东西，究竟在哪个方向？
+        </p>
+        <p class="rv">
+          这一段的写法与安娜临终那段<b>使用同一套技术</b>：
+          都是外部景物突然打开，都是一句极短的内心话，都是身体感受先到、理解后到。
+        </p>
+        <p class="hl-para rv">
+          一个坠入黑暗，一个从黑暗里浮起来。用的是同一个镜头，同一个焦点，
+          甚至连光的处理都相似——这就是托尔斯泰式的对位：
+          <b>他不是在对比善恶，他是在对比同一种意识在两种命运中的表现。</b>
+        </p>
+      </div>
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>蜡烛的两种用法</h4>
+          <p>
+            注意安娜临终时那支蜡烛：它<b>先亮后灭</b>。
+          </p>
+          <p>
+            而在小说的另一头，光的功能恰好相反——它是在黑暗里被慢慢认出来的，
+            不是一闪，而是「终于看清」。
+          </p>
+          <p>
+            托尔斯泰晚期会把这两个动作换位：死亡不再是熄灭，而是照亮。
+            这个转向发生在七年之后，见第 07 节。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>陀思妥耶夫斯基的一句话</h4>
+          <p>
+            1877 年，陀思妥耶夫斯基在《作家日记》里评论这部小说，
+            提出了一个当时的争论：这样写，究竟是「文学」还是「事实」。
+          </p>
+          <p>
+            他的判断是：托尔斯泰写的<b>不是虚构的文学</b>，
+            而是一种以事实的密度出现的东西。
+            这句话来自一位与他方法完全不同的对手，所以格外值得记住。
+          </p>
+          <p class="meta-cn" style="margin-top:.8em">⚠ 具体措辞见第 09 节所引原文</p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="breath">
+      <q class="rv">同一个镜头，对准两个方向：<span class="hl2">一个坠下去，一个浮上来。</span></q>
+      <span class="meta rv">1873 — 1877</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     07 · 阿尔扎马斯
+     ============================================================ -->
+<section class="ch" id="crisis" data-ch="07" data-title="阿尔扎马斯">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">07</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1869 — 1882 · 《战争与和平》之后 · 方法的转向</p>
+        <h2 class="chapter rv" data-rv-delay="120">阿尔扎马斯</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          写完了人类最广阔的一部小说之后，他发现自己无法再活下去。
+          这一次，显微镜对准了持显微镜的那只手。
+        </p>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="prose">
+        <p class="rv">
+          1869 年 9 月，四十一岁的托尔斯泰出门去买一处庄园。
+          他住在奔萨省阿尔扎马斯城的一家客栈里，夜里两点，突然发生了那件事。
+        </p>
+        <p class="rv">
+          关于那一夜的记录，他生前没有发表，标题是《一个疯子的笔记》。
+          它是托尔斯泰全部作品里最可怕的一页，也是最著名的一页。
+        </p>
+
+        <blockquote class="pull rv" data-rv-y="26">
+          <p>一间刷得雪白的方形小屋。<br>
+          我记得，这间屋子是<span class="hl">方的</span>，这让我痛苦得要命。</p>
+          <cite>《一个疯子的笔记》 · 1869 年阿尔扎马斯之夜</cite>
+        </blockquote>
+        <p class="src-note">
+          原文：「Чисто выбеленная квадратная комнатка. Как, я помню, мучительно мне было,
+          что комнатка эта была именно квадратная.」——中文为笔者据俄文译出。
+        </p>
+
+        <p class="rv">
+          他没有写鬼、没有写幻象。他写的是几何形状让人无法忍受。
+          这种写法本身就是「心灵辩证法」的极端形态：
+          <b>把无法命名的恐惧，全部交给最具体的感官细节去承载。</b>
+        </p>
+
+        <blockquote class="pull rv" data-rv-y="26">
+          <p>我为什么会到这里来？我把什么、运到哪里去？我在逃避什么，为什么逃不掉？<br>
+          <span class="hl">我永远和我自己在一起，而那个「我」，就是折磨我的人。</span></p>
+          <cite>同上</cite>
+        </blockquote>
+        <p class="src-note">
+          原文：「Зачем я сюда заехал. Куда я везу себя. От чего, куда я убегаю? —
+          Я убегаю от чего-то страшного и не могу убежать. Я всегда с собою, и я-то и мучителен себе.」
+        </p>
+
+        <p class="rv">
+          接着他做了一件事：他开始祈祷，二十年来第一次。
+          而托尔斯泰记录这个动作时，加了一个让整段文字变得可怕的细节——
+          他一边磕头，一边<b>回头张望，害怕被人看见</b>。
+        </p>
+        <p class="rv">
+          连向上帝求助的时刻，他都在意自己的姿势好不好看。
+          这就是那个从《童年》开始、贯穿一生的发现，此刻用在了自己身上，
+          而且毫不留情。
+        </p>
+      </div>
+
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>恐惧的形状</h4>
+          <p>
+            注意这段描写里反复出现的是什么：<b>红色、白色、方形</b>。
+            恐惧在他的记录里不是情绪，是颜色和几何。
+          </p>
+          <p>
+            这是一种罕见的能力——把一种无法言说的状态，
+            兑换成可以被眼睛验证的东西。
+            十年之后写《忏悔录》时，他仍然用这个方法：
+            用一则东方的寓言，把抽象的绝望变成一幅可以画出来的图。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>1869 → 1879 的十年</h4>
+          <p>
+            阿尔扎马斯不是一次性的发作。它在此后十年里反复回来，
+            并且在 1879 年前后变成了一场持续的危机。
+          </p>
+          <p>
+            有意思的是，中间这十年他写出了《安娜·卡列尼娜》——
+            一部关于意义崩塌的小说。
+            也就是说：他在病中写下了对这场病的诊断书，
+            而且是最好的那一本。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <!-- 交互/滚动：下坠剖面 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 6 · 一口井</span>
+        <p>
+          《忏悔录》里那则东方寓言（восточная басня）：一个人逃进枯井，井底有张着嘴的龙（дракон），
+          他抓住一根树枝，两只老鼠——一黑一白，就是昼与夜——正在啃它。
+          他抬头看见叶子上有几滴蜜（капли меда），伸出舌头去舔。
+          <span class="hint">向下滚动，穿过这口井。</span>
+        </p>
+      </figcaption>
+
+      <div class="well" id="well">
+        <div class="well-sticky">
+          <svg viewBox="0 0 600 600" class="well-svg" aria-hidden="true" id="wellSvg">
+            <!-- 井壁 -->
+            <path d="M120 40 L120 560 M480 40 L480 560" stroke="#8A6E4B" stroke-opacity=".34" stroke-width="1.2" fill="none"/>
+            <!-- 树枝 -->
+            <g id="wellBranch">
+              <path d="M120 250 Q300 236 480 250" stroke="#5B6148" stroke-opacity=".6" stroke-width="2" fill="none"/>
+              <path d="M300 243 L300 300" stroke="#5B6148" stroke-opacity=".5" stroke-width="1.4" fill="none" id="wellStem"/>
+            </g>
+            <!-- 蜜滴 -->
+            <g id="wellHoney"></g>
+            <!-- 井底的龙（极简，只给暗示） -->
+            <g id="wellDragon" opacity=".8">
+              <path d="M200 590 Q300 520 400 590" stroke="#17140F" stroke-opacity=".5" stroke-width="1.4" fill="none"/>
+              <path d="M262 556 l14 22 l14 -22" stroke="#9C4A2F" stroke-opacity=".7" stroke-width="1.2" fill="none"/>
+              <path d="M310 556 l14 22 l14 -22" stroke="#9C4A2F" stroke-opacity=".7" stroke-width="1.2" fill="none"/>
+            </g>
+            <!-- 两只老鼠 -->
+            <g id="wellMice">
+              <ellipse cx="256" cy="243" rx="7" ry="5" fill="#17140F" opacity=".68"/>
+              <ellipse cx="344" cy="243" rx="7" ry="5" fill="#EDE6D8" stroke="#8A6E4B" stroke-opacity=".7" stroke-width="1"/>
+            </g>
+            <!-- 人（抽象剪影） -->
+            <g id="wellMan">
+              <circle cx="300" cy="196" r="15" fill="#2A251D" opacity=".82"/>
+              <path d="M300 211 L300 262 M282 226 L318 226 M300 262 L288 300 M300 262 L312 300"
+                    stroke="#2A251D" stroke-opacity=".82" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </g>
+          </svg>
+          <div class="well-side">
+            <p class="meta" id="wellStage">井口 · 0 m</p>
+            <div class="well-text" id="wellText">
+              <p>上面是旷野，一头猛兽在等他。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="pull rv" data-rv-y="26" style="margin-top:clamp(2rem,5vh,3.4rem)">
+        <p>那两滴蜜——比别的蜜更久地替我遮住残酷真相的那两滴——
+          <span class="hl">是对家庭的爱，和对我称之为艺术的写作的爱</span>——<br>
+          它们已经不再甜了。</p>
+        <cite>《忏悔录》 · 第四部</cite>
+      </blockquote>
+      <p class="src-note">
+        原文：「Те две капли меда, которые дольше других отводили мне глаза от жестокой истины, —
+        любовь к семье и к писательству, которое я называл искусством, — уже не сладки мне.」
+        《忏悔录》写于 1879—1880 年。
+      </p>
+      <p class="src-note" style="color:var(--ink-1)">
+        这一步是决定性的。在此之前，文学是他的避难所；
+        在这里，他第一次把「写作」本身列为<b>用来麻痹自己的甜味</b>。
+        此后三十年，他都在为这句话付代价。
+      </p>
+    </figure>
+
+    <div class="breath">
+      <q class="rv">我永远和我自己在一起，而那个「我」，就是折磨我的人。</q>
+      <span class="meta rv">阿尔扎马斯 · 1869</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     08 · 绿棍之路
+     ============================================================ -->
+<section class="ch" id="doctrine" data-ch="08" data-title="不抵抗">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">08</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1880 — 1910 · 教义、实践与最后的出走</p>
+        <h2 class="chapter rv" data-rv-delay="120">不抵抗</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          当显微镜转向自己之后，托尔斯泰得出了结论，然后花三十年试图按照结论生活——
+          并且失败了。这三十年的失败，比他的任何一部小说都更接近「心灵辩证法」的本意。
+        </p>
+      </div>
+    </div>
+
+    <div class="prose rv" style="max-width:38em">
+      <p>
+        危机之后，托尔斯泰做的事情可以概括成一句：
+        <b>他把小说里的方法，变成了一种生活方式，然后要求自己严格遵守。</b>
+      </p>
+      <p>
+        而这一要求立刻产生了一个他从未解决的矛盾——
+        一个他早在 1847 年那份《生活规则》里就埋下的矛盾：
+        越是精细地检查自己，越是发现自己不合格；
+        越是不合格，越要加强检查。
+      </p>
+    </div>
+
+    <div class="tri rv" data-rv-y="30" style="margin-top:clamp(2.4rem,6vh,4rem)">
+      <article class="tri-c">
+        <p class="meta">1880s</p>
+        <h3>弃</h3>
+        <p>他放弃肉食、酒、烟、打猎。他穿农民的上衣，自己做靴子，自己挑水。
+          他把这称为" simplification "——把生活简到不能再简，直到剩下的东西无法被怀疑。</p>
+      </article>
+      <article class="tri-c">
+        <p class="meta">1880s — 1890s</p>
+        <h3>写</h3>
+        <p>他写《我的信仰是什么》《论生命》《艺术论》《天国在你心中》，
+          以及大量给普通人看的小故事。他越来越怀疑「高雅艺术」，
+          认为它只是少数人自我娱乐的工具。</p>
+      </article>
+      <article class="tri-c">
+        <p class="meta">1901</p>
+        <h3>被逐</h3>
+        <p>教会宣布他与东正教会的关系已经断绝。他没有反驳，也没有离开教会。
+          他继续去教堂，也继续写他的批评。这个暧昧的姿态本身就是他。</p>
+      </article>
+    </div>
+
+    <!-- 交互：绿棍之路 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 7 · 一根棍子，走了六十三年</span>
+        <p>
+          从童年游戏里那根藏在小树林里的绿棍，到亚斯纳亚波良纳林中那座没有十字架的土丘。
+          <span class="hint">拖动或点击年份。</span>
+        </p>
+      </figcaption>
+
+      <div class="road">
+        <svg viewBox="0 0 1000 300" preserveAspectRatio="none" class="road-svg" aria-hidden="true" id="roadSvg">
+          <path id="roadBase" d="M40 220 C 180 150, 260 240, 380 178 S 560 106, 660 150 S 830 210, 960 128"
+                fill="none" stroke="#8A6E4B" stroke-opacity=".22" stroke-width="1.4"/>
+          <path id="roadGrow" d="M40 220 C 180 150, 260 240, 380 178 S 560 106, 660 150 S 830 210, 960 128"
+                fill="none" stroke="#9C4A2F" stroke-opacity=".75" stroke-width="2"/>
+          <g id="roadNodes"></g>
+        </svg>
+        <div class="road-ctrl">
+          <input id="roadRange" type="range" min="0" max="100" value="0" step="1" aria-label="年份进度">
+          <div class="road-years" id="roadYears"></div>
+        </div>
+        <div class="road-card" id="roadCard" aria-live="polite">
+          <p class="meta" id="roadYear">童年</p>
+          <h4 id="roadTitle">蚂蚁兄弟与绿棍</h4>
+          <p id="roadBody">
+            哥哥尼古拉告诉他们，在老扎卡斯林的某个沟壑边埋着一根绿棍，
+            上面写着使所有人不再遭不幸的秘密。托尔斯泰晚年说，
+            他那时相信有这么一根棍子——就像相信必须找到它一样。
+          </p>
+        </div>
+        <p class="src-note" id="roadSrc">
+          据托尔斯泰晚年回忆文字。
+        </p>
+      </div>
+    </figure>
+
+    <div class="split" style="margin-top:clamp(3.4rem,9vh,6rem)">
+      <div class="prose">
+        <h3 class="sub-h rv">不抵抗：一个被误读到今天的论点</h3>
+        <p class="rv">
+          托尔斯泰最著名的、也最容易被人误用的主张，出现在《天国在你心中》一类的著作里：
+          面对暴力，不以暴力回应。
+        </p>
+        <p class="rv">
+          这个主张常被读成「消极」或「顺从」。要理解他为什么得出这个结论，
+          必须回到「心灵辩证法」：
+        </p>
+        <p class="hl-para rv">
+          如果一个人的内心已经是一团互相反驳的力量，
+          那么用外力去压服另一个人，就只是把外在的暴力叠加上去，
+          而他真正想改变的那个东西——<b>一个人的内部状态</b>——一步也不会动。
+        </p>
+        <p class="rv">
+          换言之：不抵抗不是道德上的软弱，
+          它是<b>从「人只能从内部改变」这个前提出发的推论</b>。
+          你可以不同意这个前提，但你不能把它读成怯懦。
+        </p>
+        <p class="rv">
+          这个结论后来走出了俄国。它被一位在印度打官司的律师读到，
+          又被一位在美国南方讲道的牧师读到。他们各自把它变成了别的样子。
+        </p>
+      </div>
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>1910 年 10 月 28 日</h4>
+          <p>
+            八十二岁的托尔斯泰在夜里离开亚斯纳亚波良纳。
+            他只带了极少的东西，由医生陪同，没有告诉妻子。
+          </p>
+          <p>
+            十天后，他在阿斯塔波沃车站的一间小屋里死于肺炎。
+            那是他一生中最后一次出走，也是他唯一一次成功地从自己的家里逃脱。
+          </p>
+          <p>
+            他被葬在亚斯纳亚波良纳的林中。没有十字架，没有墓碑，
+            只有一个长满草的土丘——据说是埋在童年那根绿棍所在的地方。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>他失败了，而这正是重点</h4>
+          <p>
+            托尔斯泰晚年没有做到他要求自己做的事。
+            他继续住在庄园里，继续拥有财产，继续和他的妻子争吵，
+            继续写作并获得版税——而他的教义说这些都是错的。
+          </p>
+          <p>
+            他记录了这个失败。他的日记里充满了对自己的指责，
+            用词和他十九岁时写《生活规则》时几乎一样。
+          </p>
+          <p>
+            <b>一个人花六十年检查自己而始终不合格</b>——
+            这件事本身，就是「心灵辩证法」最后的样子。
+            它不是一个方法，是一个人的一生。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="breath">
+      <q class="rv">他一生都在找那根写着「让所有人幸福」的棍子。<br>
+        最后他埋在了一根棍子旁边。</q>
+      <span class="meta rv">亚斯纳亚波良纳 · 1910</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     09 · 未完成的圆
+     ============================================================ -->
+<section class="ch" id="legacy" data-ch="09" data-title="未完成的圆">
+  <div class="wrap">
+    <div class="ch-head">
+      <div class="ch-num rv" data-rv-y="14">09</div>
+      <div>
+        <p class="meta rv" data-rv-delay="60">1880 — 今天 · 一个方法的代价与它的折射</p>
+        <h2 class="chapter rv" data-rv-delay="120">未完成的圆</h2>
+        <p class="lede prose rv" data-rv-delay="200" style="margin-top:1.4em">
+          一个把自我审视推到极限的人，最后会遇到什么问题？
+          不是道德问题，是认识论问题：当你看得足够清楚，你还剩什么可以行动。
+        </p>
+      </div>
+    </div>
+
+    <div class="split-r">
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>方法的三个代价</h4>
+          <p>
+            <b>一、分析的瘫痪。</b>把每一个动机都拆开，就没有一个动机还站得住。
+            托尔斯泰晚年几乎无法写作小说，因为他一落笔就开始怀疑这个动作本身。
+          </p>
+          <p>
+            <b>二、无法被爱的人。</b>一个持续检查自己的人，
+            也持续检查与他一起生活的人。他的妻子与他共同生活了四十八年，
+            留下了一部同样厚的日记，里面是另一半的证词。
+          </p>
+          <p>
+            <b>三、教义的僵化。</b>当他终于得出结论，
+            他就开始要求别人也接受。一个终生反对暴力的人，
+            在家庭里并不总是温和的。
+          </p>
+        </aside>
+        <aside class="aside rv" data-rv-y="30" data-rv-delay="140">
+          <h4>为什么它仍然是活的</h4>
+          <p>
+            因为这三个代价恰好是它诚实的证据。
+            一个没有代价的方法，通常是因为它没有真的被使用。
+          </p>
+          <p>
+            托尔斯泰没有解决这个矛盾。他把矛盾写下来了，
+            并且允许我们看见他在里面挣扎到最后一刻。
+          </p>
+        </aside>
+      </div>
+
+      <div class="prose">
+        <h3 class="sub-h rv">他启发了谁，又被谁改写了</h3>
+        <p class="rv">
+          托尔斯泰晚期的思想越出俄国，但它在每一个地方都被改造成了当地的形状。
+        </p>
+
+        <div class="refract rv" data-rv-y="28">
+          <div class="refract-row">
+            <span class="refract-where">印度</span>
+            <p>
+              一位在南非打官司的印度律师读到了他的《致一个印度人》，
+              写信给他，并把自己的一个社区命名为「托尔斯泰农场」。
+              托尔斯泰在去世前两个月回了最后一封长信。
+              那位律师后来把「不抵抗」变成了一个大规模政治运动的策略——
+              这是托尔斯泰本人没有预料到的用途。
+            </p>
+          </div>
+          <div class="refract-row">
+            <span class="refract-where">美国</span>
+            <p>
+              半个世纪后，一位在南方讲道的牧师把同样的原则用于争取民权。
+              他读的是那位印度律师的著作，而不是托尔斯泰的书——
+              也就是说，托尔斯泰的思想到那里时，已经过了一次翻译。
+            </p>
+          </div>
+          <div class="refract-row">
+            <span class="refract-where">俄国 · 1901</span>
+            <p>
+              教会宣布他与东正教会的关系已经断绝。这件事的实际效力一直被高估——
+              被「逐出教会」是一个不准确的说法。但他的名字从此成了一个符号，
+              被各方向相反的方向拉扯。
+            </p>
+          </div>
+          <div class="refract-row">
+            <span class="refract-where">苏联 · 1920s — 1980s</span>
+            <p>
+              他的作品被大规模印行，成为国民读物；他的道德学说被批判，
+              但他的「心灵辩证法」却成了文学教科书里的标准术语。
+              一个术语一旦进入教科书，就会开始磨损——
+              它从「过程的形式与规律」退化成「写得细」。
+              这正是车尔尼雪夫斯基那句话在今天最容易遭遇的命运。
+            </p>
+          </div>
+          <div class="refract-row">
+            <span class="refract-where">今天</span>
+            <p>
+              小说这种形式后来又被他之后的作家反复分解。
+              但托尔斯泰提出的那个问题没有被解决：
+              <b>我们能不能在盯着自己内心的同时，仍然把一件事做完？</b>
+              他的答案是一生没有做到。
+            </p>
+          </div>
+        </div>
+
+        <p class="src-note rv" style="margin-top:1.6em">
+          说明：以上为思想传播脉络的概述，未逐条引用原文献。
+          涉及个人的具体通信与日期，请以相关文献为准。
+        </p>
+      </div>
+    </div>
+
+    <!-- 交互：争议边界 -->
+    <figure class="fig rv" data-rv-y="34" style="margin-top:clamp(3rem,8vh,6rem)">
+      <figcaption class="fig-cap">
+        <span class="meta">图 8 · 知道什么，不知道什么</span>
+        <p>
+          一个诚实的托尔斯泰页面，必须说明哪些事是有记录的，哪些只能推测。
+          <span class="hint">点击切换。</span>
+        </p>
+      </figcaption>
+      <div class="honest">
+        <div class="seg" role="group" aria-label="史料类别">
+          <button type="button" class="seg-b" data-honest="0" aria-pressed="true">有确切记录</button>
+          <button type="button" class="seg-b" data-honest="1" aria-pressed="false">有争议</button>
+          <button type="button" class="seg-b" data-honest="2" aria-pressed="false">无从得知</button>
+        </div>
+        <div class="honest-list" id="honestList"></div>
+      </div>
+    </figure>
+
+    <div class="split" style="margin-top:clamp(3.4rem,9vh,6rem)">
+      <div class="prose">
+        <h3 class="sub-h rv">最后一份证词：他自己的日记</h3>
+        <p class="rv">
+          托尔斯泰从 1847 年记到 1910 年，中间几乎没有断过。
+          这些日记不是文学，也没有打算发表。
+          它们是他那套方法的原始实验记录。
+        </p>
+        <p class="rv">
+          早期他用最严厉的词骂自己懒惰和虚荣。
+          晚期他仍然在用同样的词，只是对象换成了别的：
+          他没有放弃财产，他还在享受名声，他对妻子不够温和。
+        </p>
+        <p class="hl-para rv">
+          如果这本书有一个结论，它大概是这个：
+          <b>心灵辩证法不是一种让人变好的技术，它是一种让人无法停止看的技术。</b>
+          它不提供出口。它只让你无法假装看不见。
+          <b>这也是全书最后留下的问题：一个人能否真正知道自己为什么做一件事？</b>
+        </p>
+      </div>
+      <div class="stack">
+        <aside class="aside rv" data-rv-y="30">
+          <h4>另一半的证词</h4>
+          <p>
+            索菲娅·安德烈耶夫娜·托尔斯塔娅为他抄了数十年的手稿，
+            包括《战争与和平》和《安娜·卡列尼娜》的全部清样。
+            她自己也写了日记，一直写到她八十多岁。
+          </p>
+          <p>
+            读这两部日记会得到一种罕见的经验：
+            同一段婚姻，两种完全不相容的记录，而且两份都是真诚的。
+          </p>
+          <p>
+            如果你想知道「心灵辩证法」在现实中是什么样的，
+            这两部日记放在一起，比任何文学分析都更有说服力。
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="breath">
+      <q class="rv">它不提供出口。<br>它只让你无法假装看不见。</q>
+      <span class="meta rv">1847 — 1910</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     尾声
+     ============================================================ -->
+<section class="ch coda" id="coda" data-ch="10" data-title="尾声">
+  <div class="wrap">
+    <div class="coda-inner">
+      <p class="meta rv">尾声</p>
+      <h2 class="coda-h rv" data-rv-y="18">两个末端之间，<br>是我们待着的地方。</h2>
+      <div class="prose coda-p rv" data-rv-y="22">
+        <p>
+          车尔尼雪夫斯基在一百六十多年前指出：普通作家给你情感的起点和终点，
+          托尔斯泰给你中间那一整段。他当时是在称赞一种技法。
+        </p>
+        <p>
+          但托尔斯泰把这件事做了一辈子之后，它变成了别的东西。
+          中间那段不再只是技法上的选择，而是他认定的人唯一真实的位置——
+          我们从来不在起点，也从来不到终点。
+          我们一直在中途，一边被白鼠和黑鼠啃着那根树枝，一边舔叶子上的蜜。
+        </p>
+        <p>
+          他没有告诉我们该怎么办。他只是拒绝把镜头移开。
+        </p>
+      </div>
+
+      <div class="coda-rule rv" aria-hidden="true"></div>
+
+      <div class="coda-src rv">
+        <p class="meta">全站所依据的一手材料</p>
+        <ul>
+          <li>车尔尼雪夫斯基评《童年与少年》《战争小说集》，1856 年，《现代人》第 12 期</li>
+          <li>托尔斯泰《生活规则》与日记，1847 年起，《托尔斯泰全集》第二十一卷</li>
+          <li>托尔斯泰《一个疯子的笔记》（阿尔扎马斯之夜，1869）</li>
+          <li>托尔斯泰《忏悔录》（1879—1880）及其所引东方寓言</li>
+          <li>《战争与和平》（1863—1869）、《安娜·卡列尼娜》（1873—1877）</li>
+          <li>《伊万·伊里奇之死》（1886）、《克莱采奏鸣曲》（1889）、《谢尔盖神父》等后期作品</li>
+        </ul>
+        <p class="src-note">
+          站内所有外文引文均为笔者据俄文译出，标为「[译]」或在注中说明。
+          涉及个人生平、通信与逸事的表述，凡未能核验到原始文献者，
+          已在正文中明确标注「存疑」或不作断言。
+        </p>
+      </div>
+
+      <div class="colophon rv">
+        <p class="meta">Colophon</p>
+        <p>
+          单文件网页 · 无外部依赖 · 无网络请求 · 可离线阅读<br>
+          排版：思源宋体系（回退宋体）与等宽字体的档案式分层<br>
+          动画：单一 requestAnimationFrame 循环 + 目标值插值，可逆、抗快速滚动<br>
+          尊重系统的「减少动效」设置
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ============================================================
+   《心灵辩证法》 — 滚动引擎 / 动画核心
+   设计约束：
+   · 单一 rAF 循环，lerp 阻尼，绝不在 scroll 事件里直接写样式
+   · 所有入场以“目标值插值”实现 → 可逆、抗快速滚动、不堆积
+   · 尊重 prefers-reduced-motion
+   ============================================================ */
+(() => {
+'use strict';
+document.body.classList.remove('no-js');
+
+const REDUCED_SYS = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let REDUCED = REDUCED_SYS;
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+const easeOut = t => 1 - Math.pow(1 - t, 3);
+const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+/* ------------------------------------------------------------
+   1. 视口与尺寸
+   ------------------------------------------------------------ */
+const V = { w: innerWidth, h: innerHeight, dpr: Math.min(devicePixelRatio || 1, 2), scroll: 0, max: 1, prog: 0 };
+function measure() {
+  V.w = innerWidth; V.h = innerHeight;
+  V.max = Math.max(1, document.documentElement.scrollHeight - V.h);
+}
+addEventListener('resize', () => { measure(); resizeCanvas(); }, { passive: true });
+addEventListener('orientationchange', () => setTimeout(() => { measure(); resizeCanvas(); }, 220), { passive: true });
+
+/* ------------------------------------------------------------
+   2. 观察器：只负责“标记激活”，不直接改布局
+   ------------------------------------------------------------ */
+const revealTargets = [];
+const io = new IntersectionObserver(entries => {
+  for (const e of entries) {
+    const el = e.target;
+    // 单向锁存：一旦进入过就保持“已展开”，避免滚动时反复闪回
+    if (e.isIntersecting) {
+      el.dataset.inview = '1';
+      if (el.__rv) el.__rv.on = true;
+    }
+  }
+}, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+function observe(el) { io.observe(el); return el; }
+
+/* 章节激活 → 导航 / 书脊 */
+const sections = [];
+let activeSection = null;
+
+/* ------------------------------------------------------------
+   3. 主循环
+   ------------------------------------------------------------ */
+let lastT = performance.now(), slowFrames = 0, quality = 1;
+const tickers = [];
+
+function frame(now) {
+  rafAlive = true;
+  const dt = Math.min(now - lastT, 60); lastT = now;
+  if (dt > 24) { slowFrames++; if (slowFrames > 34 && quality > .5) { quality = .5; slowFrames = 0; } }
+  else if (slowFrames > 0) slowFrames--;
+
+  V.scroll = scrollY;
+  V.prog = clamp(V.scroll / V.max);
+
+  // 书脊
+  spineFill.style.height = (V.prog * 100).toFixed(3) + '%';
+  spineLabel.textContent = activeSection || '00';
+
+  // 激活章节
+  const mid = V.scroll + V.h * .42;
+  let cur = sections[0];
+  for (const s of sections) { if (s.el.offsetTop <= mid) cur = s; else break; }
+  if (cur && cur !== activeSection) { activeSection = cur; setNav(cur); }
+
+  for (const t of tickers) t(now, dt, V.prog);
+  requestAnimationFrame(frame);
+}
+
+/* ------------------------------------------------------------
+   3.5 安全网
+   万一时钟循环完全没有启动（某些无头/省电环境不派发 rAF），
+   1.5 秒后把所有内容强制置为可见。
+   一旦循环正常跑起来，这个网就会自己作废——不影响滚动入场效果。
+   ------------------------------------------------------------ */
+let rafAlive = false, safetyFired = false;
+setTimeout(() => {
+  if (rafAlive || safetyFired) return;
+  safetyFired = true;
+  document.documentElement.classList.add('no-motion');
+  document.querySelectorAll('.rv').forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.clipPath = 'none';
+    el.style.filter = 'none';
+  });
+  const cvEl = document.getElementById('threads');
+  if (cvEl) cvEl.style.display = 'none';
+}, 1500);
+
+/* ------------------------------------------------------------
+   4. 入场动画：目标值插值
+   ------------------------------------------------------------ */
+function initReveals() {
+  document.querySelectorAll('.rv').forEach((el, i) => {
+    const st = {
+      el, on: false, p: 0,
+      y: parseFloat(el.dataset.rvY ?? 20),
+      d: parseFloat(el.dataset.rvDelay ?? 0),
+      wipe: el.classList.contains('wipe'),
+      blur: el.dataset.rvBlur === '1',
+      sc: parseFloat(el.dataset.rvScale ?? 1),
+      fired: 0
+    };
+    el.__rv = st; revealTargets.push(st); observe(el);
+    // 循环内插值
+    tickers.push(() => {
+      const goal = (st.on && !REDUCED) ? 1 : (REDUCED ? 1 : 0);
+      if (goal === 1 && st.fired === 0) st.fired = performance.now();
+      const t = clamp(st.p + (goal - st.p) * .085);
+      if (Math.abs(t - st.p) < .0006 && t === st.p) return;
+      st.p = t;
+      const e = easeOut(clamp((st.p - 0) / 1));
+      const e2 = REDUCED ? 1 : e;
+      el.style.opacity = e2.toFixed(4);
+      const ty = (1 - e2) * st.y;
+      el.style.transform = `translate3d(0,${ty.toFixed(2)}px,0)` + (st.sc !== 1 ? ` scale(${(st.sc + (1 - st.sc) * e2).toFixed(4)})` : '');
+      if (st.wipe) el.style.clipPath = `inset(0 0 ${((1 - e2) * 100).toFixed(2)}% 0)`;
+      if (st.blur) el.style.filter = e2 > .995 ? 'none' : `blur(${((1 - e2) * 7).toFixed(2)}px)`;
+    });
+  });
+}
+
+/* ------------------------------------------------------------
+   5. 章节进度条：为每章计算局部进度 lp（0→1 进入，1→0 离开由 lp2 表示）
+   ------------------------------------------------------------ */
+function chapterProgress(el) {
+  const top = el.offsetTop, h = el.offsetHeight;
+  const v = V.scroll + V.h;
+  // 进入：元素顶部从视口底部到视口 35% 处
+  const enter = clamp((v - top) / (V.h * .85));
+  // 离开：元素底部从视口 65% 到视口顶部
+  const exit = clamp(((V.scroll + V.h * .62) - (top + h)) / (V.h * .6));
+  return { enter: easeOut(enter), leave: exit, seen: enter * (1 - exit) };
+}
+
+/* ------------------------------------------------------------
+   6. 纸张纤维 / 光斑呼吸
+   ------------------------------------------------------------ */
+const blobs = [...document.querySelectorAll('[data-blob]')].map((el, i) => ({
+  el, base: parseFloat(el.style.opacity || '0'),
+  target: i === 0 ? .5 : i === 1 ? .3 : .42, ph: i * 2.1
+}));
+tickers.push((now) => {
+  if (REDUCED) { blobs.forEach(b => b.el.style.opacity = String(b.target * .8)); return; }
+  const t = now * .00006;
+  for (const b of blobs) {
+    const o = b.target * (.72 + .28 * Math.sin(t * 6.2 + b.ph));
+    b.el.style.opacity = o.toFixed(4);
+    b.el.style.transform = `translate3d(${(Math.sin(t * 3.1 + b.ph) * 3).toFixed(2)}vw,${(Math.cos(t * 2.3 + b.ph) * 2.4).toFixed(2)}vh,0) scale(${(1 + .05 * Math.sin(t * 4.4 + b.ph)).toFixed(4)})`;
+  }
+});
+
+/* ------------------------------------------------------------
+   7. 双线画布 —— 全站母题 A
+   ------------------------------------------------------------ */
+const cv = document.getElementById('threads');
+const ctx = cv.getContext('2d', { alpha: true });
+let CW = 0, CH = 0;
+function resizeCanvas() {
+  CW = cv.width = Math.floor(V.w * .55 * V.dpr);
+  CH = cv.height = Math.floor(V.h * V.dpr);
+  cv.style.width = V.w + 'px'; cv.style.height = V.h + 'px';
+}
+resizeCanvas();
+
+/* 噪声：用于让“情感线”不可预测地抖动 */
+function noise1(x) {
+  return Math.sin(x * 1.7) * .5 + Math.sin(x * .63 + 1.3) * .32 + Math.sin(x * 3.1 + 2.7) * .18;
+}
+function getCss(v) { return cssCache[v] || (cssCache[v] = getComputedStyle(document.documentElement).getPropertyValue(v).trim()); }
+var cssCache = {};
+
+/* 两条线的形态由全站进度驱动：
+   在 6 个关键“状态”之间切换，形成时而靠近、时而背离、时而交换位置 */
+const STATES = [
+  // [分离度, 相位偏移, 交叉点(0-1 之间), 理性线振幅, 情感线振幅]
+  { sep: .16, ph: 0, cross: -1, aR: .10, aE: .20 },  // 00 首屏：初分
+  { sep: .05, ph: 0, cross: .30, aR: .06, aE: .12 },  // 01 定义：几乎重合（两端之间）
+  { sep: .30, ph: .5, cross: -1, aR: .16, aE: .26 },  // 02 起源：分裂（绿棍/规则）
+  { sep: .10, ph: .2, cross: .55, aR: .08, aE: .30 },  // 03 方法：显微镜下的贴近
+  { sep: .38, ph: .8, cross: -1, aR: .22, aE: .18 },  // 04 早期：摇摆
+  { sep: .20, ph: .1, cross: .35, aR: .12, aE: .34 },  // 05 战争与和平：天空
+  { sep: .44, ph: .6, cross: .70, aR: .26, aE: .26 },  // 06 安娜：反点
+  { sep: .58, ph: .9, cross: -1, aR: .34, aE: .10 },  // 07 危机：理性坠落
+  { sep: .12, ph: .3, cross: .48, aR: .10, aE: .16 },  // 08 教义：合流
+  { sep: .26, ph: .4, cross: -1, aR: .14, aE: .22 },  // 09 遗产：余响
+  { sep: .06, ph: 0, cross: .5, aR: .05, aE: .08 }   // 10 尾：归于平静
+];
+
+function stateAt(p) {
+  const n = STATES.length - 1;
+  const x = clamp(p) * n, i = Math.min(Math.floor(x), n - 1), f = x - i;
+  const a = STATES[i], b = STATES[i + 1], e = easeInOut(f);
+  return {
+    sep: lerp(a.sep, b.sep, e), ph: lerp(a.ph, b.ph, e),
+    cross: lerp(a.cross, b.cross, e),
+    aR: lerp(a.aR, b.aR, e), aE: lerp(a.aE, b.aE, e)
+  };
+}
+
+/* 把一条线画成：中轴 + 分离偏移 + 正弦波动 +（情感线的）低频噪声
+   crossing 通过 sepOff 乘上 tanh 符号翻转实现 —— 平滑、连续、可逆，
+   两条线在 cross 处相触后交换上下位置，象征“价值重估”。 */
+function linePath(yCenter, amp, sepOff, phase, jitter, cross, steps) {
+  const pts = [];
+  for (let i = 0; i <= steps; i++) {
+    const u = i / steps;
+    const x = u * CW;
+    // 交叉符号：cross<0 时不交叉；否则在 cross 附近由 -1 平滑翻到 +1
+    let off = sepOff;
+    if (cross >= 0) off = sepOff * Math.tanh((u - cross) * 26);
+    // 交汇处轻微收束，让“触碰”更真实
+    const pinch = cross >= 0 ? Math.exp(-((u - cross) ** 2) / .0016) : 0;
+    let y = yCenter + off * (1 - pinch * .55)
+          + Math.sin(u * Math.PI * 2.15 + phase) * amp * CH * (1 - pinch * .7);
+    if (jitter > 0) y += noise1(u * 5.4 + phase * 3) * jitter * CH;
+    pts.push([x, y]);
+  }
+  return pts;
+}
+
+function strokePath(pts, color, width, dash, alpha, wobble) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.strokeStyle = color; ctx.lineWidth = width * V.dpr;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  if (dash) ctx.setLineDash(dash.map(d => d * V.dpr));
+  ctx.beginPath();
+  for (let i = 0; i < pts.length; i++) {
+    let [x, y] = pts[i];
+    if (wobble) y += Math.sin(i * .7 + performance.now() * .0004) * wobble * V.dpr;
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+/* 画布只占据页面右侧，左侧留白保证文字可读。
+   指针靠近时线条变清晰（"被注意到的思绪"），离开后重新隐去。
+   左缘用 canvas 自身的渐变淡出，确保任何情况下都不与正文争夺注意力。 */
+let near = 0, nearOn = false;
+cv.style.cssText = 'position:fixed;left:52%;top:0;pointer-events:auto;z-index:2';
+cv.addEventListener('pointerenter', () => { nearOn = true; });
+cv.addEventListener('pointerleave', () => { nearOn = false; });
+cv.setAttribute('role', 'presentation');
+
+const NODE_SLOTS = 7;
+tickers.push((now) => {
+  const s = stateAt(V.prog);
+  near = lerp(near, nearOn ? 1 : 0, .07);
+  ctx.clearRect(0, 0, CW, CH);
+  const yC = CH * .5;
+  const phase = REDUCED ? 0 : now * .00016 + s.ph * 3;
+  const steps = Math.round(150 * quality);
+  const sepPx = s.sep * CH * .5;
+  const boost = near * .45;
+
+  const pR = linePath(yC, s.aR, -sepPx, phase * .8, 0, s.cross, steps);
+  const pE = linePath(yC, s.aE, sepPx, phase * 1.35 + 1.1, .022, s.cross, steps);
+
+  // 左缘渐隐：用 destination-out 擦掉靠左的部分
+  const fadeW = CW * .3;
+
+  strokePath(pR, getCss('--slate'), 1.15, null, .2 + boost);
+  strokePath(pE, getCss('--sepia'), 1.5, null, .18 + boost);
+  // 情感线的第二层柔化描边，制造"墨渗"感
+  strokePath(pE, getCss('--rust'), 3.4, null, .04 + near * .04, 2.2);
+
+  // 节点
+  ctx.save();
+  ctx.globalAlpha = .22 + near * .26;
+  ctx.fillStyle = getCss('--slate');
+  for (let k = 1; k <= NODE_SLOTS; k++) {
+    const pt = pR[Math.round(k / (NODE_SLOTS + 1) * steps)];
+    if (pt) ctx.fillRect(pt[0] - 2.1 * V.dpr, pt[1] - 2.1 * V.dpr, 4.2 * V.dpr, 4.2 * V.dpr);
+  }
+  ctx.restore();
+  ctx.save();
+  ctx.globalAlpha = .2 + near * .26;
+  ctx.fillStyle = getCss('--sepia');
+  for (let k = 1; k <= NODE_SLOTS; k++) {
+    const pt = pE[Math.round(k / (NODE_SLOTS + 1) * steps)];
+    if (pt) { ctx.beginPath(); ctx.arc(pt[0], pt[1], 2.5 * V.dpr, 0, 6.2832); ctx.fill(); }
+  }
+  ctx.restore();
+
+  // 左侧擦除（在画布上直接做遮罩，比 CSS mask 更可控）
+  ctx.save();
+  ctx.globalCompositeOperation = 'destination-out';
+  const g = ctx.createLinearGradient(0, 0, fadeW, 0);
+  g.addColorStop(0, 'rgba(0,0,0,1)');
+  g.addColorStop(.55, 'rgba(0,0,0,.72)');
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, fadeW, CH);
+  ctx.restore();
+});
+
+/* ------------------------------------------------------------
+   8. 导航
+   ------------------------------------------------------------ */
+const navlist = document.getElementById('navlist');
+const nav = document.getElementById('nav');
+const spineFill = document.querySelector('#spine i');
+const spineLabel = document.querySelector('#spine b');
+let navBtns = {};
+
+function buildNav() {
+  navlist.innerHTML = '';
+  sections.forEach(s => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = `<span aria-hidden="true">${s.no}</span> ${s.title}`;
+    b.setAttribute('aria-label', `第 ${s.no} 节：${s.title}`);
+    b.onclick = () => scrollTo({ top: s.el.offsetTop - (innerWidth > 900 ? 64 : 96), behavior: REDUCED ? 'auto' : 'smooth' });
+    li.appendChild(b); navlist.appendChild(li);
+    navBtns[s.no] = b;
+  });
+}
+function setNav(s) {
+  for (const k in navBtns) navBtns[k].setAttribute('aria-current', k === s.no ? 'true' : 'false');
+  const b = navBtns[s.no];
+  if (b) {
+    const r = b.getBoundingClientRect(), pr = navlist.getBoundingClientRect();
+    if (r.left < pr.left + 8 || r.right > pr.right - 8)
+      navlist.scrollTo({ left: navlist.scrollLeft + (r.left - pr.left) - 40, behavior: 'smooth' });
+  }
+}
+
+/* 导航自动隐藏（向下滚时），向上滚立即出现 */
+let lastY = 0;
+const backCorner = document.getElementById('backCorner');
+addEventListener('scroll', () => {
+  const y = scrollY;
+  if (y > lastY + 6 && y > 260) nav.classList.add('hide'); else if (y < lastY - 6) nav.classList.remove('hide');
+  lastY = y;
+  /* 返回角标与顶部导航互斥：导航上滑隐藏后才出现。
+     放在同一处滚动处理里，避免两个监听器各自读 scrollY 而互相打架。 */
+  if (backCorner) backCorner.classList.toggle('on', nav.classList.contains('hide') && y > 300);
+}, { passive: true });
+
+/* ------------------------------------------------------------
+   9. 工具
+   ------------------------------------------------------------ */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+window.TOL = {
+  V, tickers, lerp, clamp, easeOut, easeInOut, observe, chapterProgress,
+  $, $$, getCss, REDUCED: () => REDUCED, setReduced(v) { REDUCED = v; },
+  isSystemReduced: () => REDUCED_SYS, quality: () => quality,
+  registerSection(el, no, title) { const s = { el, no, title }; sections.push(s); return s; },
+  boot() { measure(); buildNav(); initReveals(); requestAnimationFrame(frame); }
+};
+})();
+
+</script>
+<script>
+/* ============================================================
+   首屏墨线刻版 —— 程序生成（等高线版）
+   立意：一个意识的"体量场"。
+   低处是同一个隆起；越往外，等高线分裂成互相追逐的两支——
+   这正是全站母题 A（一个意识裂成两条线）的静态形态。
+   纯数学生成，不是照片，也不是卡通。
+   ============================================================ */
+(() => {
+'use strict';
+const SVGNS = 'http://www.w3.org/2000/svg';
+const plate = document.getElementById('inkPlate');
+const hatch = document.getElementById('inkHatch');
+if (!plate || !hatch) return;
+const el = (t, a, p) => {
+  const n = document.createElementNS(SVGNS, t);
+  for (const k in a) n.setAttribute(k, a[k]);
+  (p || plate).appendChild(n); return n;
+};
+
+/* 体量场：两个明显分开的隆起。
+   上半部的等高线仍是同一个环；到了腰部被挤成"8"字，
+   再往外彻底分成两支互相追逐的曲线——全站母题的静态形态。 */
+const SRC = [
+  { x: 158, y: 196, r: 132, w: 1.00 },   // 左隆起
+  { x: 248, y: 252, r: 128, w: 0.94 },   // 右隆起（错开，形成斜向的"8"）
+  { x: 204, y: 286, r: 240, w: 0.26 }    // 宽底盘
+];
+const DIP = [
+  { x: 152, y: 262, r: 30, w: 0.24 },
+  { x: 252, y: 200, r: 30, w: 0.22 }
+];
+
+function field(x, y) {
+  let s = 0;
+  for (const s0 of SRC) {
+    const d = Math.hypot(x - s0.x, y - s0.y) / s0.r;
+    if (d < 1) s += s0.w * Math.pow(1 - d, 1.35);
+  }
+  for (const d0 of DIP) {
+    const d = Math.hypot(x - d0.x, y - d0.y) / d0.r;
+    if (d < 1) s -= d0.w * Math.pow(1 - d, 1.6);
+  }
+  return s;
+}
+
+/* Marching squares：按层级抽取等高线 */
+const N = 108;
+const X0 = 8, X1 = 392, Y0 = 8, Y1 = 392;
+const DX = (X1 - X0) / N, DY = (Y1 - Y0) / N;
+
+function contour(level) {
+  const segs = [];
+  const V = new Float32Array((N + 1) * (N + 1));
+  for (let j = 0; j <= N; j++)
+    for (let i = 0; i <= N; i++)
+      V[j * (N + 1) + i] = field(X0 + i * DX, Y0 + j * DY) - level;
+
+  const ip = (va, vb) => va / (va - vb);
+  for (let j = 0; j < N; j++) {
+    for (let i = 0; i < N; i++) {
+      const ax = X0 + i * DX, ay = Y0 + j * DY;
+      const bx = ax + DX, by = ay + DY;
+      const v00 = V[j * (N + 1) + i], v10 = V[j * (N + 1) + i + 1];
+      const v11 = V[(j + 1) * (N + 1) + i + 1], v01 = V[(j + 1) * (N + 1) + i];
+      const idx = (v00 > 0 ? 8 : 0) | (v10 > 0 ? 4 : 0) | (v11 > 0 ? 2 : 0) | (v01 > 0 ? 1 : 0);
+      if (idx === 0 || idx === 15) continue;
+      const T = [ax + DX * ip(v00, v10), ay];
+      const R = [bx, ay + DY * ip(v10, v11)];
+      const B = [ax + DX * ip(v01, v11), by];
+      const L = [ax, ay + DY * ip(v00, v01)];
+      const push = (p, q) => segs.push([p, q]);
+      switch (idx) {
+        case 1: case 14: push(L, T); break;
+        case 2: case 13: push(B, R); break;
+        case 3: case 12: push(L, R); break;
+        case 4: case 11: push(T, R); break;
+        case 5: push(L, T); push(B, R); break;
+        case 6: case 9: push(T, B); break;
+        case 7: case 8: push(L, B); break;
+        case 10: push(L, B); push(T, R); break;
+      }
+    }
+  }
+  return segs;
+}
+
+/* 1) 主等高线 */
+const LEVELS = 20;
+for (let k = 1; k <= LEVELS; k++) {
+  const t = k / LEVELS;
+  // 让层级在内圈稀、外圈也稀，中段密 —— 避免外缘堆成一圈死线
+  const lv = 0.055 + Math.pow(t, 1.32) * 0.80;
+  const segs = contour(lv);
+  if (segs.length < 3) continue;
+
+  // 用短线段连接成 path；按象限分段避免长距离乱连
+  const paths = [];
+  const used = new Uint8Array(segs.length);
+  const key = p => (Math.round(p[0] * 2) << 12) ^ Math.round(p[1] * 2);
+  const index = new Map();
+  segs.forEach((s, i) => {
+    for (const p of s) {
+      const kk = key(p);
+      if (!index.has(kk)) index.set(kk, []);
+      index.get(kk).push(i);
+    }
+  });
+  for (let i = 0; i < segs.length; i++) {
+    if (used[i]) continue;
+    used[i] = 1;
+    let d = `M${segs[i][0][0].toFixed(1)} ${segs[i][0][1].toFixed(1)}L${segs[i][1][0].toFixed(1)} ${segs[i][1][1].toFixed(1)}`;
+    let cur = segs[i][1];
+    for (let guard = 0; guard < 400; guard++) {
+      const cand = index.get(key(cur));
+      if (!cand) break;
+      const nx = cand.find(j => !used[j]);
+      if (nx === undefined) break;
+      used[nx] = 1;
+      const s2 = segs[nx];
+      const other = (Math.abs(s2[0][0] - cur[0]) < .01 && Math.abs(s2[0][1] - cur[1]) < .01) ? s2[1] : s2[0];
+      d += `L${other[0].toFixed(1)} ${other[1].toFixed(1)}`;
+      cur = other;
+    }
+    paths.push(d);
+  }
+
+  const g = el('g', {
+    'stroke-width': (0.45 + t * 1.05).toFixed(2),
+    'stroke-opacity': (0.66 - t * 0.30).toFixed(3)
+  });
+  for (const d of paths) el('path', { d }, g);
+}
+
+/* 2) 交叉排线：在腰部（两支交汇的"8"字颈处）加密，暗示分裂点 */
+(() => {
+  const g = el('g', { 'stroke-opacity': .24, 'stroke-width': .6 });
+  for (let i = 0; i < 30; i++) {
+    const x = 152 + i * 4.4;
+    const yTop = 232 + Math.sin(i * .38) * 9;
+    const len = 24 + Math.cos(i * .51) * 13;
+    el('path', { d: `M${x.toFixed(1)} ${yTop.toFixed(1)}L${(x + 3).toFixed(1)} ${(yTop + len).toFixed(1)}` }, g);
+  }
+  const g2 = el('g', { 'stroke-opacity': .18, 'stroke-width': .55 });
+  for (let i = 0; i < 22; i++) {
+    const x = 172 + i * 4.0;
+    const yTop = 158 + Math.sin(i * .44 + 1) * 9;
+    el('path', { d: `M${x.toFixed(1)} ${yTop.toFixed(1)}L${(x - 3).toFixed(1)} ${(yTop + 21).toFixed(1)}` }, g2);
+  }
+})();
+
+/* 3) 两个"核"：最内层留白里的一个小点，像地图上的测站点 */
+el('circle', { cx: 158, cy: 196, r: 2.2, fill: '#17140F', opacity: .5 });
+el('circle', { cx: 248, cy: 252, r: 2.2, fill: '#17140F', opacity: .42 });
+
+/* 4) 缓慢呼吸：整组线的透明度轻微起伏 */
+(() => {
+  if (!window.TOL) return;
+  const paths = [...plate.querySelectorAll('path'), ...hatch.querySelectorAll('path')];
+  paths.forEach((p, i) => {
+    p.dataset.base = p.getAttribute('stroke-opacity') || '0.4';
+    p.dataset.ph = ((i % 17) * 0.37).toFixed(2);
+  });
+  window.TOL.tickers.push((now) => {
+    if (window.TOL.REDUCED()) return;
+    const t = now * .00019;
+    for (const p of paths) {
+      const b = parseFloat(p.dataset.base);
+      p.setAttribute('stroke-opacity', (b * (.88 + .16 * Math.sin(t + parseFloat(p.dataset.ph)))).toFixed(3));
+    }
+  });
+})();
+})();
+
+</script>
+<script>
+/* ============================================================
+   《心灵辩证法》 — 章节交互组件
+   依赖 02-engine.js 暴露的 window.TOL
+   ============================================================ */
+(() => {
+'use strict';
+if (!window.TOL) return;
+const { V, tickers, lerp, clamp, easeOut, easeInOut, observe, chapterProgress, $, $$, getCss } = window.TOL;
+const SVGNS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, parent) => {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+};
+
+/* ------------------------------------------------------------
+   1. 端点—过程对照器（第 01 章）
+   ------------------------------------------------------------ */
+(() => {
+  const range = $('#epRange'); if (!range) return;
+  const path = $('#epPath'), pathE = $('#epPathE'), dots = $('#epDots'), labels = $('#epLabels');
+  const modeLabel = $('#epModeLabel'), text = $('#epText');
+  const btns = $$('[data-ep]');
+
+  // 一个真实的心灵过程：12 个中间状态
+  const STEPS = [
+    { t: '开端', x: '他听见身后一声巨响。', k: 'start' },
+    { t: '', x: '第一个念头：大概不会炸。我白趴下了。', k: '' },
+    { t: '', x: '第二个念头：万一炸了呢？', k: '' },
+    { t: '', x: '会炸到谁？会落到哪儿？', k: '' },
+    { t: '', x: '他想起了自己还欠谁的钱。', k: '' },
+    { t: '', x: '他想起了他心里那个女人的脸。', k: '' },
+    { t: '', x: '他觉得自己被震伤了——是震伤了吗？', k: '' },
+    { t: '', x: '他数了数身边的人。少了一个。', k: '' },
+    { t: '', x: '他想喊，但喊不出声。', k: '' },
+    { t: '', x: '土块把他埋住了。', k: '' },
+    { t: '', x: '他伸手去推那些土块。', k: '' },
+    { t: '结局', x: '他死了。', k: 'end' }
+  ];
+
+  let cur = 6, target = 6, dragging = false;
+  const N = STEPS.length;
+
+  function pathFor(density) {
+    // density 0 → 只有两端；1 → 完整曲折
+    const d = clamp(density);
+    const pts = [];
+    const COUNT = Math.max(2, Math.round(2 + d * (N - 2)));
+    for (let i = 0; i < COUNT; i++) {
+      const u = i / (COUNT - 1);
+      const idx = u * (N - 1);
+      // 中间点：上下起伏（心理的波动）
+      const wob = Math.sin(idx * 1.15) * (0.5 + 0.5 * Math.sin(idx * .47 + 1.2));
+      const y = 200 - wob * 62 * d - Math.sin(idx * .8) * 18 * d;
+      pts.push([30 + u * 840, y]);
+    }
+    return pts;
+  }
+
+  function d3(pts) {
+    if (pts.length < 2) return '';
+    let s = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const a = pts[i], b = pts[i + 1];
+      const cx = (a[0] + b[0]) / 2;
+      s += ` Q${cx.toFixed(1)} ${a[1].toFixed(1)} ${cx.toFixed(1)} ${((a[1] + b[1]) / 2).toFixed(1)}`;
+      s += ` Q${cx.toFixed(1)} ${b[1].toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`;
+    }
+    return s;
+  }
+
+  function paint(density) {
+    const pts = pathFor(density);
+    path.setAttribute('d', d3(pts));
+    // “情感线”：同一过程的另一种读法（更抖）
+    const pe = pts.map(([x, y], i) => [x, y + Math.sin(i * 2.1) * 16 * density]);
+    pathE.setAttribute('d', d3(pe));
+    pathE.style.opacity = (density * .55).toFixed(3);
+
+    dots.textContent = ''; labels.textContent = '';
+    const count = Math.max(2, Math.round(2 + density * (N - 2)));
+    for (let i = 0; i < count; i++) {
+      const u = count === 1 ? 0 : i / (count - 1);
+      const pi = Math.round(u * (pts.length - 1));
+      const p = pts[pi];
+      const isEnd = i === 0 || i === count - 1;
+      el('circle', {
+        cx: p[0], cy: p[1], r: isEnd ? 4.2 : 2.4,
+        fill: isEnd ? getCss('--ink-0') : getCss('--slate'),
+        opacity: isEnd ? .9 : .42
+      }, dots);
+    }
+    const idx = Math.round(clamp(density) * (N - 1));
+    const st = STEPS[idx];
+    modeLabel.textContent = density < .12 ? '普通写法 · 两个端点'
+      : density > .9 ? '托尔斯泰的写法 · 完整过程'
+      : `中间状态 · ${Math.round(density * 100)}% 的过程`;
+    text.textContent = density < .12
+      ? '开端：他害怕了。结局：他逃开了。'
+      : (st.k === 'start' ? STEPS[0].x + ' ' + STEPS[N - 1].x
+        : st.x);
+    btns.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.ep === Math.round(density * 100))));
+  }
+
+  range.addEventListener('input', () => {
+    target = +range.value / 100; dragging = true;
+    setTimeout(() => { dragging = false; }, 90);
+  });
+  btns.forEach(b => b.addEventListener('click', () => {
+    target = +b.dataset.ep / 100;
+    range.value = String(b.dataset.ep);
+  }));
+
+  tickers.push(() => {
+    if (Math.abs(target - cur) < .0008) return;
+    cur = lerp(cur, target, .1);
+    paint(cur);
+  });
+  paint(0.06);
+})();
+
+/* ------------------------------------------------------------
+   2. 手稿规则（第 02 章）
+   ------------------------------------------------------------ */
+(() => {
+  const note = $('#msNote'); if (!note) return;
+  const head = $('#msNoteHead'), body = $('#msNoteBody');
+  const NOTES = [
+    ['Ⅰ · 关于情欲',
+      '这一类规则把最难控制的东西拆成了可检查的动作。它的方法不是"戒除"，而是"记录"——每次违背都要记下来，用词越严厉越好。',
+      '这个方法有一个内建的缺陷：检查得越细，失败就越多。而失败越多，就越需要更细的检查。托尔斯泰在这个循环里待了六十三年。'],
+    ['Ⅱ · 关于名誉与他人',
+      '这一类规则处理的是"被看见"这件事：不为了别人的称赞而活，不在背后议论人。',
+      '这正是他后来在小说里反复解剖的东西——从《童年》葬礼上那个在意自己悲伤姿势的孩子，到《哥萨克》里享受自己牺牲的奥列宁。他先在自己身上发现了这个机制，然后才把它给了人物。'],
+    ['Ⅲ · 关于金钱与占有',
+      '十九岁的托尔斯泰已经在规则里处理财产问题。这一点很值得注意：它比他的"弃产"早了三十多年。',
+      '也就是说，1880 年代那场著名的、与妻子激烈冲突的弃产主张，并不是突然的转变。它在这份手稿里已经是一行字了——只是那时候，他还做得到把它写下来，不需要真的执行。'],
+    ['Ⅳ · 关于身体与懒惰',
+      '这一类规则对付的是疲惫、拖延、睡懒觉、无所事事。托尔斯泰终生与自己的体力作斗争，晚年还坚持做体操和体力劳动。',
+      '身体在他的方法里有特殊地位：它是唯一不会撒谎的证人。所以管理身体不只是卫生问题，而是认识论问题——一个失控的身体会让自我观察失效。'],
+    ['Ⅴ · 关于写作',
+      '这一类规则规定了每天写多少、什么时候写、写不下去的时候怎么办。托尔斯泰一生产量惊人，靠的就是这套自我强制。',
+      '但他晚年会把这个规则也拆开：如果写作本身只是"用来遮住真相的一滴蜜"，那么写得再多又有什么意义？这个怀疑最终让他几乎放弃了小说。']
+  ];
+  const items = $$('.ms-item');
+  function open(i) {
+    const was = items[i].getAttribute('aria-expanded') === 'true';
+    items.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (was) return;
+    items[i].setAttribute('aria-expanded', 'true');
+    head.textContent = NOTES[i][0];
+    body.textContent = NOTES[i][1];
+    if (NOTES[i][2]) {
+      body.textContent = NOTES[i][1] + '\n\n' + NOTES[i][2];
+      body.style.whiteSpace = 'pre-line';
+    }
+  }
+  items.forEach((b, i) => {
+    b.addEventListener('click', () => open(i));
+    b.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); items[Math.min(i + 1, items.length - 1)].focus(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); items[Math.max(i - 1, 0)].focus(); }
+    });
+  });
+  open(0);
+})();
+
+/* ------------------------------------------------------------
+   3. 两个声音（第 03 章）
+   ------------------------------------------------------------ */
+(() => {
+  const rail = $('#duoRail'); if (!rail) return;
+  const slots = $$('.duo-slot');
+  const noteHead = $('#duoNoteHead'), noteBody = $('#duoNoteBody');
+  const A = $('#duoA'), B = $('#duoB');
+  const STATES = [
+    {
+      dim: [0, 1],
+      a: '"到那儿去，到正中间去，我要惩罚他，我要摆脱所有人，也摆脱我自己。"',
+      b: '（此刻还没有第二个声音。）',
+      h: '分裂之前 · 一个完整的方向',
+      n: '在分裂之前，安娜的意识是连贯的、单向的。她有一个明确的目标，句子结构完整，因果清楚——"我要惩罚他，我要摆脱"。"心灵辩证法"里的"两个末端"，指的就是这种状态的起点与终点。托尔斯泰的兴趣不在这里。'
+    },
+    {
+      dim: [0, 0],
+      a: '"到那儿去，到正中间去……"',
+      b: '"我在做什么？为什么？"——她忽然对自己正在做的事感到恐惧。',
+      h: '两个声音 · 同一秒',
+      n: '注意这里发生的事：托尔斯泰没有写"她犹豫了"。他让两个完整的、各自有理的声音同时存在于同一秒里。一个在说"我要惩罚他"，另一个在问"我在做什么"。这两个声音属于同一个人，而且谁也没有赢。这就是车尔尼雪夫斯基说的"过程本身，它的形式，它的规律"。'
+    },
+    {
+      dim: [1, 0],
+      a: '（那个方向熄灭了。）',
+      b: '"上帝，请宽恕我的一切！"——她感到斗争已不可能。',
+      h: '最后一闪 · 光的反转',
+      n: '紧接着，托尔斯泰做了一件所有后来的读者都记得的事：他没有让黑暗降临。他让光照亮了一切——然后才熄灭。这个顺序的颠倒，把死亡从"终结"改写成了一次"看清"。这一笔否定了读者对结局的全部预期，也是心灵辩证法在句子层面最精确的一次示范。'
+    }
+  ];
+  const btns = $$('[data-duo]');
+  function set(i) {
+    const s = STATES[i];
+    btns.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.duo === i)));
+    slots.forEach((sl, k) => sl.dataset.dim = String(s.dim[k]));
+    A.textContent = s.a; B.textContent = s.b;
+    noteHead.textContent = s.h; noteBody.textContent = s.n;
+    rail.style.top = (i * 42) + '%';
+  }
+  btns.forEach(b => b.addEventListener('click', () => set(+b.dataset.duo)));
+  set(1);
+})();
+
+/* ------------------------------------------------------------
+   4. 三卡细读（第 04 章）
+   ------------------------------------------------------------ */
+(() => {
+  const cards = $$('.card'); if (!cards.length) return;
+  cards.forEach(c => {
+    c.setAttribute('tabindex', '0');
+    c.setAttribute('role', 'button');
+    const flip = () => {
+      const on = c.dataset.open === '1';
+      c.dataset.open = on ? '0' : '1';
+      c.setAttribute('aria-expanded', String(!on));
+    };
+    c.addEventListener('click', flip);
+    c.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+    c.setAttribute('aria-expanded', 'false');
+  });
+})();
+
+/* ------------------------------------------------------------
+   5. 橡树（第 05 章）
+   ------------------------------------------------------------ */
+(() => {
+  const svg = $('#oakTree'); if (!svg) return;
+  const wrap = $('.oak');
+  const quote = $('#oakQuote'), note = $('#oakNote');
+  const btns = $$('[data-oak]');
+
+  // 画一棵树：树形由季节参数控制（叶的密度与颜色）
+  const TRUNK = 'M230 360 C228 300 224 268 222 236 C220 206 226 184 232 166';
+  el('path', { d: TRUNK, fill: 'none', stroke: getCss('--sepia'), 'stroke-width': 5.5, 'stroke-linecap': 'round' }, svg);
+  el('path', { d: 'M230 360 C234 306 240 276 250 250 M232 300 C214 276 200 262 186 246 M231 258 C252 240 268 232 286 228',
+    fill: 'none', stroke: getCss('--sepia'), 'stroke-width': 3.4, 'stroke-linecap': 'round', 'stroke-opacity': .9 }, svg);
+  el('path', { d: 'M222 236 C204 214 190 202 172 194 M232 166 C246 146 262 136 280 130 M232 190 C254 176 274 172 296 174 M222 214 C200 200 184 194 164 194',
+    fill: 'none', stroke: getCss('--sepia'), 'stroke-width': 2.4, 'stroke-linecap': 'round', 'stroke-opacity': .8 }, svg);
+
+  const LEAVES = el('g', { id: 'oakLeaves' }, svg);
+  const BARE = el('g', { id: 'oakBare' }, svg);
+
+  // 病态的稀疏叶（第一次）
+  const few = [[196, 176], [268, 152], [300, 178], [172, 200], [252, 200], [216, 140], [292, 206]];
+  few.forEach(([x, y], i) => {
+    el('path', {
+      d: `M${x} ${y} q7 -9 15 -2 q-6 11 -15 2`,
+      fill: getCss('--olive'), opacity: '.5'
+    }, BARE);
+  });
+  el('path', { d: 'M170 168 q10 -14 22 -4 q-9 16 -22 4', fill: getCss('--olive'), opacity: '.34' }, BARE);
+
+  // 繁茂的嫩叶（第二次）
+  const many = [];
+  for (let i = 0; i < 46; i++) {
+    const a = i * 2.399, r = Math.sqrt(i / 46) * 108;
+    many.push([236 + Math.cos(a) * r * 1.18, 176 + Math.sin(a) * r * .78]);
+  }
+  many.forEach(([x, y], i) => {
+    el('path', {
+      d: `M${x.toFixed(1)} ${y.toFixed(1)} q8 -11 17 -3 q-7 13 -17 3`,
+      fill: i % 7 === 0 ? getCss('--brass') : getCss('--olive'),
+      opacity: (0.34 + (i % 5) * 0.11).toFixed(2)
+    }, LEAVES);
+  });
+  // 地面
+  el('path', { d: 'M120 360 L360 360', stroke: getCss('--sepia'), 'stroke-opacity': .3, 'stroke-width': 1 }, svg);
+
+  const STATES = [
+    {
+      season: 'winter',
+      leaves: 0,
+      q: '路边立着一棵橡树。它大概有十倍于林中最高的桦树那么粗，<b>两抱</b>也抱不过来。它那巨大的、笨拙的、不对称的枝干，向四面八方伸出去，像一只愤怒的、轻蔑的怪物。它站在那些微笑着的桦树之间，<span class="w">不愿向春天的魔法屈服</span>。',
+      n: '《战争与和平》第六卷第一段（第二部第三篇第一章大意）。安德烈此时刚失去妻子、刚从战场回来，觉得自己的一生已经结束。',
+      src: '情节出自《战争与和平》第二部第三篇；此处为据俄文原著概括与译写。'
+    },
+    {
+      season: 'spring',
+      leaves: 1,
+      q: '老橡树完全变了样，<b>展开一片鲜绿嫩叶的帐篷</b>，在夕阳里微微摇动。没有疙疙瘩瘩的枝干，没有疤痕，没有旧的怀疑和痛苦——什么也没有了。',
+      n: '同一棵树，六月初。他在夜里听见楼上少女的说话声，心里升起一个念头：不，生命在三十一岁上并没有结束。',
+      src: '情节出自《战争与和平》第二部第三篇；此处为据俄文原著概括与译写。'
+    }
+  ];
+
+  function set(i) {
+    const s = STATES[i];
+    btns.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.oak === i)));
+    if (wrap) wrap.dataset.season = s.season;
+    LEAVES.style.transition = 'opacity 1s ease';
+    BARE.style.transition = 'opacity 1s ease';
+    LEAVES.style.opacity = s.leaves ? '1' : '0';
+    BARE.style.opacity = s.leaves ? '0' : '1';
+    quote.style.opacity = '0';
+    setTimeout(() => {
+      quote.innerHTML = s.q;
+      note.innerHTML = s.n + '<br>' + s.src;
+      quote.style.opacity = '1';
+    }, 180);
+  }
+  btns.forEach(b => b.addEventListener('click', () => set(+b.dataset.oak)));
+  set(0);
+})();
+
+/* ------------------------------------------------------------
+   6. 人物弧线（第 05 章）
+   ------------------------------------------------------------ */
+(() => {
+  const grid = $('#arcGrid'); if (!grid) return;
+  const detail = $('#arcDetail');
+  const DATA = [
+    ['安德烈公爵', [
+      ['第一步 · 雄心', '他崇拜拿破仑，把"自己的土伦"当作人生目标。他上战场不是为了俄国，是为了从人群中脱颖而出。'],
+      ['第二步 · 天空', '在奥斯特利茨，他举着军旗冲上去，被击倒。躺在地上时他看见了天空——"除了这无限高远的天空，一切都是空的，一切都是欺骗"。他心中那个伟大的拿破仑，在这一刻变得渺小。'],
+      ['第三步 · 复仇', '他活了下来，回到家里，妻子死于生产。此后他变得冷酷、刻薄、封闭自己，把余生当作一种惩罚。橡树那一段就是他走出这一步的过程。'],
+      ['第四步 · 宽恕', '在重伤临死前，他最终原谅了娜塔莎，也原谅了情敌。但托尔斯泰没有把这个结局写成"升华"——他写的是恐惧与解脱同时到来，而死亡打断了这一切。']
+    ]],
+    ['皮埃尔', [
+      ['第一步 · 放纵', '私生子出身、突然得到巨额遗产，他把自由花在了酒、赌和荒唐的婚姻上。他并不快乐，但他不知道自己缺什么。'],
+      ['第二步 · 决斗', '与妻子的情人决斗，他差点被打死，却在开枪时几乎不知道自己在做什么。事后他一个人坐在路边想：这一切有什么意义？这是他与"心灵辩证法"的第一次正面相遇。'],
+      ['第三步 · 寻求体系', '他加入共济会，想用一套现成的道理解决人生问题。托尔斯泰冷静地写了这套体系如何失效——皮埃尔用它来管理庄园，结果被管家骗了。'],
+      ['第四步 · 俘虏营', '被法军俘虏后，他遇见了农民士兵普拉东·卡拉塔耶夫。这个人不解释任何道理，只是活得很圆。皮埃尔从他身上第一次看到了"不需要论证的活法"。'],
+      ['第五步 · 平静', '他做了一个梦：一个由无数水滴组成的活的球体，每一滴都在努力扩大、同时被中心的整体吸住。醒来后他回到了普通生活——不是解决了问题，而是不再要求解决。']
+    ]],
+    ['娜塔莎', [
+      ['第一步 · 充盈', '她第一次出场时是一个"不漂亮但活得过分满"的女孩。托尔斯泰给了她一种过剩的生命力，以至于她常常在无理由地笑。'],
+      ['第二步 · 晕眩', '在剧院里，她第一次进入上流社会的镜子阵。阿纳托利只用了几句话，就把她的世界抽空了。托尔斯泰写的是"晕眩"，不是"堕落"——她并没有被说服，她只是失去了方向。'],
+      ['第三步 · 崩塌', '私奔失败、婚约解除、安德烈重伤。托尔斯泰让她几乎死去，并且让她自己请求原谅。这是全书最不留情的一段。'],
+      ['第四步 · 照护', '战争和死亡把她的过剩精力转化成了另一种东西：她开始照顾伤兵、照顾母亲、照顾垂死的安德烈。托尔斯泰没有让她回到从前的样子。她变得安静，也变得更有重量。']
+    ]],
+    ['尼古拉', [
+      ['第一步 · 荣耀梦', '他是个老实、不聪明、也不善于反省的青年。他唯一的梦是立功、见沙皇一面、被所有人看见。'],
+      ['第二步 · 觉醒的羞耻', '在战场上，他终于靠近了沙皇，一心想喊出那个准备好的口号，却一个字也喊不出来——因为他在枪声里意识到自己快要死了，而那个荣耀的梦在这一秒变得荒唐。他抓过一匹别人的马就逃了。托尔斯泰把这一幕写成了一次羞耻，而不是一次成长。'],
+      ['第三步 · 责任', '他最终成了家里唯一的支柱，接手债务，照顾母亲，娶了玛丽亚。他没有变成英雄，但他学会了承担。托尔斯泰认为这也是一个人可以达到的高度。']
+    ]]
+  ];
+  const items = $$('.arc-item', grid);
+  function open(i) {
+    const was = items[i].getAttribute('aria-expanded') === 'true';
+    items.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (was) return;
+    items[i].setAttribute('aria-expanded', 'true');
+    detail.innerHTML = DATA[i][1].map(([s, t]) =>
+      `<div class="stage"><span class="step">${s}</span><p>${t}</p></div>`).join('');
+  }
+  items.forEach((b, i) => b.addEventListener('click', () => open(i)));
+  open(0);
+})();
+
+/* ------------------------------------------------------------
+   7. 对位网格（第 06 章）
+   ------------------------------------------------------------ */
+(() => {
+  const grid = $('#cpGrid'); if (!grid) return;
+  const detail = $('#cpDetail');
+  const CELLS = [
+    ['a', 1, '第一部', '莫斯科车站。安娜与弗龙斯基第一次相遇，一个巡道工被火车压死。这个死亡将在地铁站里回来。'],
+    ['b', 1, '第一部', '列文在莫斯科向吉蒂求婚，被拒绝。他回到乡下，把羞辱埋进农活里。'],
+    ['a', 2, '第二部', '舞会。吉蒂看着弗龙斯基与安娜跳舞，明白了自己在其中的位置。托尔斯泰用吉蒂的眼睛写安娜的魅力，也用安娜的脸写吉蒂的绝望。'],
+    ['b', 2, '第二部', '列文在乡下割草。他和农民一起干了整整一天，累到失去思考能力——那是他唯一感到平静的时候。'],
+    ['a', 3, '第三部', '赛马。弗龙斯基坠马。安娜当众失态，对丈夫喊出"我爱他"。她在回家的车上第一次意识到：她在撒谎，而且已经无法停止。'],
+    ['b', 3, '第三部', '列文去看望病重的哥哥尼古拉。他在死亡面前完全无用，只能旁观。这一段是全书对"无能为力"写得最狠的地方。'],
+    ['a', 4, '第四部', '生产。安娜生下女儿，几乎死掉，在病床上请求丈夫宽恕。弗龙斯基开枪自杀未遂。三个人都做了一件不像自己的事。'],
+    ['b', 4, '第四部', '列文与吉蒂在莫斯科重逢，用粉笔在桌布上写字来求婚。他只能写出首字母——因为有些话说不出口。'],
+    ['a', 5, '第五部', '剧院。安娜去看戏，被社交界当众拒绝。她在包厢里感到的不是羞辱，而是一种奇怪的确定：她终于被排除在外了。'],
+    ['b', 5, '第五部', '结婚与尼古拉之死。列文与吉蒂一起守在临终的哥哥身边。吉蒂做到了列文做不到的事——她只是坐着，握着病人的手。'],
+    ['a', 6, '第六部', '乡间别墅的夏天。安娜与弗龙斯基的关系开始腐坏。她读很多书，但每一本都在提醒她自己的处境。'],
+    ['b', 6, '第六部', '吉蒂在生产，列文在隔壁房间里听着妻子的叫声，祈祷一个他并不真正相信的上帝。'],
+    ['a', 7, '第七部', '崩溃。安娜被嫉妒、猜疑与自我怀疑耗尽。托尔斯泰让她在最后一天里把所有人的脸都读成敌意——包括她自己。'],
+    ['b', 7, '第七部', '列文去莫斯科，沉迷于对死亡的恐惧。他在旅馆里度过了一个与阿尔扎马斯之夜极像的夜晚。'],
+    ['a', 8, '第八部', '安娜死去。灯亮到极点，然后熄灭。弗龙斯基去了战场，想死。'],
+    ['b', 8, '第八部', '列文在田野里听农民福卡尼奇讲一个人"为灵魂活着，不图回报"。他忽然明白了一件事，虽然他仍然说不清那是什么。']
+  ];
+  const cells = [];
+  CELLS.forEach(([line, part, where, txt], i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cp-cell';
+    b.dataset.line = line;
+    b.dataset.sel = '0';
+    b.innerHTML = `<i style="height:${30 + (i * 37 % 62)}%"></i><span>${part}</span>`;
+    b.setAttribute('aria-label', `第${part}部 · ${line === 'a' ? '安娜' : '列文'}`);
+    b.addEventListener('click', () => {
+      cells.forEach(c => c.dataset.sel = '0');
+      b.dataset.sel = '1';
+      detail.innerHTML = `<p class="meta">${where} · ${line === 'a' ? '安娜 / 弗龙斯基' : '列文 / 吉蒂'}</p><p>${txt}</p>`;
+    });
+    grid.appendChild(b); cells.push(b);
+  });
+})();
+
+/* ------------------------------------------------------------
+   8. 井（第 07 章）
+   ------------------------------------------------------------ */
+(() => {
+  const well = $('#well'); if (!well) return;
+  const honey = $('#wellHoney'), mice = $('#wellMice'), man = $('#wellMan');
+  const stage = $('#wellStage'), text = $('#wellText');
+  // 蜜滴
+  [[286, 246], [300, 252], [314, 244], [292, 236], [308, 234]].forEach(([x, y], i) => {
+    el('circle', { cx: x, cy: y, r: 3.2 - i * .2, fill: getCss('--brass'), opacity: '.85' }, honey);
+  });
+
+  const STAGES = [
+    { at: 0, m: '井口 · 旷野', t: '上面是旷野，一头猛兽在等他。他跳进一口枯井。' },
+    { at: .2, m: '井壁 · 下落', t: '井里没有水。井底有一条<b>张着嘴的龙</b>，等着吃他。' },
+    { at: .4, m: '半空 · 抓住', t: '他不敢上去，也不敢下去。他抓住井壁裂缝里长出来的一根野灌木的枝条。' },
+    { at: .6, m: '手上 · 两只老鼠', t: '手在发软。他看见<b>两只老鼠</b>——一黑一白——绕着枝条均匀地啃，马上就要啃断。' },
+    { at: .78, m: '叶上 · 几滴蜜', t: '就在悬挂的这段时间里，他四下张望，在枝条的叶子上找到<b>几滴蜜</b>，伸出舌头去舔。' },
+    { at: .93, m: '舌头 · 不甜了', t: '托尔斯泰说：我也抓着生命的枝条，知道无可避免地等着我的是龙。<br>而那两滴蜜——<b>对家庭的爱和写作</b>——<b>已经不再甜了。</b>' }
+  ];
+
+  let cur = -1;
+  tickers.push(() => {
+    const p = chapterProgress(well).seen;
+    // 0 → 1 的下落进度
+    const f = clamp((V.scroll + V.h * .55 - well.offsetTop) / (well.offsetHeight - V.h * .6));
+    if (Math.abs(f - cur) < .002) return;
+    cur = f;
+    // 人向下移动
+    const dy = f * 250;
+    man.setAttribute('transform', `translate(0 ${dy.toFixed(1)})`);
+    mice.setAttribute('transform', `translate(${(Math.sin(f * 40) * 3).toFixed(2)} 0)`);
+    // 蜜滴随之下沉／淡出
+    honey.setAttribute('transform', `translate(0 ${(f * 250).toFixed(1)})`);
+    honey.style.opacity = String(clamp(1 - f * .35));
+    well.classList.toggle('late', f > .8);
+    let s = STAGES[0];
+    for (const k of STAGES) if (f >= k.at) s = k;
+    if (stage.textContent !== s.m) {
+      stage.textContent = s.m;
+      text.innerHTML = '<p>' + s.t + '</p>';
+    }
+  });
+})();
+
+/* ------------------------------------------------------------
+   9. 绿棍之路（第 08 章）
+   ------------------------------------------------------------ */
+(() => {
+  const road = $('#roadSvg'); if (!road) return;
+  const grow = $('#roadGrow'), nodes = $('#roadNodes'), range = $('#roadRange');
+  const year = $('#roadYear'), title = $('#roadTitle'), body = $('#roadBody'), src = $('#roadSrc');
+  const years = $('#roadYears');
+
+  const L = grow.getTotalLength ? grow.getTotalLength() : 1200;
+  grow.style.strokeDasharray = L;
+  grow.style.strokeDashoffset = L;
+
+  const STOPS = [
+    { p: 0, y: '童年 · 1830s', t: '蚂蚁兄弟与绿棍',
+      b: '哥哥尼古拉告诉他们，在老扎卡斯林的某个沟壑边埋着一根绿棍，上面写着使所有人不再遭不幸的秘密。托尔斯泰晚年说，他那时相信有这么一根棍子——就像相信必须找到它一样。',
+      s: '据托尔斯泰晚年回忆文字。' },
+    { p: .18, y: '1847 · 十九岁', t: '《生活规则》',
+      b: '他退学回家，给自己列出一部逐条编号的法典：如何对待情欲、名誉、金钱、懒惰。这不是少年的心血来潮，它此后伴随了他一生。',
+      s: '《托尔斯泰全集》第二十一卷。' },
+    { p: .36, y: '1852 — 1869', t: '把手伸进别人的心里',
+      b: '从《童年》到《战争与和平》，他把自己那套自我观察的方法，一个一个地交给了人物。车尔尼雪夫斯基在 1856 年给这件事起了名字。',
+      s: '见第 01 节。' },
+    { p: .52, y: '1869 — 1879', t: '阿尔扎马斯与十年危机',
+      b: '在奔萨省的一家客栈里，他第一次知道了那种"无法命名"的恐惧。此后十年，它反复回来，并且越来越频繁。他把它写进了《安娜·卡列尼娜》。',
+      s: '《一个疯子的笔记》《忏悔录》。' },
+    { p: .68, y: '1880s', t: '试着按结论生活',
+      b: '他放弃肉食、酒、烟、打猎，穿农民的上衣，自己做靴子。他得出结论，然后试图让生活服从结论——并且不断失败。',
+      s: '见第 08 节正文。' },
+    { p: .84, y: '1901 — 1908', t: '一个符号，被各方向拉扯',
+      b: '教会宣布他与东正教会的关系断绝。他的思想越出国境，被一位印度律师改造成了一场政治运动的策略。他本人对此几乎没有参与。',
+      s: '见第 09 节。' },
+    { p: 1, y: '1910 · 十一月', t: '林中那座没有十字架的土丘',
+      b: '八十二岁的他在夜里离开亚斯纳亚波良纳，十天后死于阿斯塔波沃车站。他被葬在亚斯纳亚波良纳的林中，没有十字架，没有墓碑，只有一个长满草的土丘。',
+      s: '据葬礼记录。' }
+  ];
+
+  // 年份刻度
+  STOPS.forEach(s => {
+    const sp = document.createElement('span');
+    sp.textContent = s.y.split(' · ')[0];
+    years.appendChild(sp);
+  });
+
+  let curP = -1;
+  function apply(p) {
+    grow.style.strokeDashoffset = String(L * (1 - p));
+    // 节点显隐
+    nodes.textContent = '';
+    STOPS.forEach((s, i) => {
+      const on = p >= s.p - .008;
+      el('circle', {
+        cx: 40 + s.p * 920, cy: 220 - Math.sin(s.p * 3.1) * 10 + (s.p > .5 ? -s.p * 42 : -s.p * 62),
+        r: on ? 4 : 2.4,
+        fill: on ? getCss('--rust') : getCss('--sepia'),
+        opacity: on ? .95 : .35
+      }, nodes);
+    });
+    let s = STOPS[0];
+    for (const k of STOPS) if (p >= k.p - .008) s = k;
+    if (year.textContent !== s.y) {
+      year.textContent = s.y; title.textContent = s.t;
+      body.textContent = s.b; src.textContent = s.s;
+    }
+  }
+  range.addEventListener('input', () => { curP = -1; apply(+range.value / 100); });
+  // 滚动也驱动一次（进入视口时给一个初始推进）
+  let shown = 0;
+  tickers.push(() => {
+    const seen = chapterProgress($('#doctrine')).seen;
+    if (range.dataset.touched === '1') return;
+    if (Math.abs(seen - shown) < .004) return;
+    shown = seen;
+    const v = Math.round(clamp(seen * 1.25) * 100);
+    range.value = String(v);
+    curP = -1; apply(v / 100);
+  });
+  range.addEventListener('pointerdown', () => range.dataset.touched = '1');
+  apply(0);
+})();
+
+/* ------------------------------------------------------------
+   10. 争议边界（第 09 章）
+   ------------------------------------------------------------ */
+(() => {
+  const list = $('#honestList'); if (!list) return;
+  const DATA = [
+    [0, [
+      ['他活了八十二岁，从 1828 到 1910', '出生与去世的日期有确切的教区与医学记录。新旧历相差十二天，所以你会看到"11 月 7 日"和"11 月 20 日"两种说法，两者都对。'],
+      ['他从 1847 年记日记到去世前四天', '日记手稿保存完整，是研究他一生的主要材料之一。'],
+      ['《战争与和平》写了六年，《安娜·卡列尼娜》写了四年多', '有出版记录、校样和书信可查。'],
+      ['《忏悔录》写于 1879—1880 年', '手稿与出版记录清楚。'],
+      ['他结过婚，妻子为他抄写了数十年的手稿', '索菲娅·安德烈耶夫娜的抄本大量保存至今。']
+    ]],
+    [1, [
+      ['他为什么在 1910 年出走', '有他的日记、给妻子的信和同行医生的记录。但这些材料本身互相矛盾——他给出的理由不止一个，而且前后不一致。这不是记录缺失，这是真实的人。'],
+      ['他是否真的想放弃全部版权', '他确实在 1890 年代多次表达过这个意愿，并签署过相关文件。但他同时继续领取版税并维持庄园开支。两者都是事实。'],
+      ['他和妻子的关系究竟谁"有错"', '两个人各自留下了长篇日记，两份都真诚，两份都指控对方。这不是一个可以裁决的问题。'],
+      ['教会的"逐出教会"决定到底意味着什么', '那份文件的实际措辞与它后来的名声之间存在差距。它的法律与教规效力，长期被双方各自夸大。']
+    ]],
+    [2, [
+      ['他在阿尔扎马斯那一夜究竟经历了什么', '我们只有他自己的文字，而那是十年之后追写的。意识的记录与意识的经历之间，本来就有一道无法消除的缝。'],
+      ['他晚年对自己的判断是否准确', '他反复说自己虚伪、懒惰、贪图名声。这些判断有多少是准确的自我认识，有多少是那套自我审计机制的产物，无法分开。'],
+      ['一个人能否真正知道自己为什么做一件事', '这是全书最后留下的问题，也是"心灵辩证法"最终撞上的墙。']
+    ]]
+  ];
+  const MARK = ['✓', '~', '?'];
+  const KIND = ['有确切记录', '有争议', '无从得知'];
+  function set(k) {
+    $$('[data-honest]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.honest === k)));
+    list.innerHTML = DATA[k][1].map(([h, p]) =>
+      `<div class="honest-item" data-kind="${DATA[k][0]}">
+         <span class="honest-mark" aria-hidden="true">${MARK[DATA[k][0]]}</span>
+         <div><h5>${h}</h5><p>${p}</p></div>
+       </div>`).join('');
+  }
+  $$('[data-honest]').forEach(b => b.addEventListener('click', () => set(+b.dataset.honest)));
+  set(0);
+})();
+
+/* ------------------------------------------------------------
+   11. 导航 / 动效开关 / 回到顶部
+   ------------------------------------------------------------ */
+(() => {
+  const btnM = $('#btn-motion'), btnT = $('#btn-top');
+  let manual = null;
+  function reflect() {
+    const reduced = manual === null ? window.TOL.isSystemReduced() : manual;
+    btnM.setAttribute('aria-pressed', String(reduced));
+    btnM.setAttribute('aria-label', reduced ? '恢复动效' : '减少动效');
+    btnM.title = reduced ? '恢复动效' : '减少动效';
+    window.TOL.setReduced(reduced);
+    document.documentElement.style.setProperty('--motion', reduced ? '0' : '1');
+  }
+  if (btnM) btnM.addEventListener('click', () => {
+    const reduced = manual === null ? window.TOL.isSystemReduced() : manual;
+    manual = !reduced; reflect();
+  });
+  if (btnT) btnT.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+  reflect();
+})();
+
+/* ------------------------------------------------------------
+   12. 章节注册 + 启动
+   ------------------------------------------------------------ */
+(() => {
+  $$('section.ch, header#hero').forEach(s => {
+    const no = s.dataset.ch || '00';
+    const title = s.dataset.title || '';
+    window.TOL.registerSection(s, no, title);
+  });
+  window.TOL.boot();
+})();
+})();
+
+</script>
+<script>
+/* ============================================================
+   阅读推进系统
+   · 可挖点：在正文里按锚点注入隐藏层，读者点击才展开
+   · 细读抽屉 / 双态滑块 / 阅读轨迹 / 章节转场 / 下一步提示
+   ============================================================ */
+(() => {
+'use strict';
+if (!window.TOL) return;
+const { V, tickers, lerp, clamp, easeOut, chapterProgress, $, $$ } = window.TOL;
+
+/* ------------------------------------------------------------
+   0. 工具
+   ------------------------------------------------------------ */
+const dec = s => String(s).replace(/&quot;/g, '"').replace(/&amp;/g, '&')
+  .replace(/&#39;/g, "'").replace(/&nbsp;/g, '\u00a0');
+
+/* 在元素里取纯文本（递归全部后代，但跳过已注入的可挖点） */
+function textOf(el) {
+  let s = '';
+  for (const n of el.childNodes) {
+    if (n.nodeType === 3) s += n.nodeValue;
+    else if (n.nodeType === 1) {
+      if (n.classList && (n.classList.contains('dig') || n.classList.contains('dig-out'))) continue;
+      s += textOf(n);
+    }
+  }
+  return s;
+}
+const CANDIDATE = 'p, li, h4, h3, h2, q, cite, span, b, em';
+function elements(root) {
+  return [...root.querySelectorAll(CANDIDATE)].filter(e => !e.closest('.dig-out'));
+}
+
+/* 找到承载 needle 的【最深的】那个文本节点，并把它切开插入按钮。
+   这样可以处理锚点落在 <b> / <em> 内部的情况。 */
+function deepestTextNode(root, needle) {
+  const walk = (node) => {
+    for (const n of node.childNodes) {
+      if (n.nodeType === 1) {
+        if (n.classList && (n.classList.contains('dig') || n.classList.contains('dig-out'))) continue;
+        const r = walk(n);
+        if (r) return r;
+      }
+    }
+    // 先尝试子元素；没有则在自身的直接文本子节点里找
+    for (const n of node.childNodes) {
+      if (n.nodeType === 3 && n.nodeValue.indexOf(needle) !== -1) return n;
+    }
+    return null;
+  };
+  return walk(root);
+}
+
+/* 把某处的 `needle` 换成 <button class="dig">needle</button>
+   并把隐藏层插到该元素的父块之后。返回是否成功。 */
+function injectDig(host, needle, payload) {
+  // 先找承载锚点的最外层候选元素（用于确定插入隐藏层的位置）
+  let block = null;
+  for (const e of elements(host)) {
+    if (textOf(e).includes(needle)) { block = e; break; }
+  }
+  if (!block) return false;
+
+  const tn = deepestTextNode(block, needle);
+  if (!tn) return false;
+
+  const i = tn.nodeValue.indexOf(needle);
+  const before = tn.nodeValue.slice(0, i);
+  const after = tn.nodeValue.slice(i + needle.length);
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'dig';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.dataset.digKey = payload.key;
+  btn.textContent = needle;
+  const frag = document.createDocumentFragment();
+  if (before) frag.appendChild(document.createTextNode(before));
+  frag.appendChild(btn);
+  if (after) frag.appendChild(document.createTextNode(after));
+  tn.parentNode.replaceChild(frag, tn);
+
+  // 隐藏层：插到"段落所在的列容器"里，紧跟着那个段落 ——
+  // 关键：绝不能作为 .split / .split-r 网格的直接子元素，
+  // 否则它会被当成网格项而挤进窄列，把正文压到一字一行。
+  const COL = ['.prose', '.stack', '.wrap', 'figure', 'aside'];
+  let anchor = btn.parentElement;
+  while (anchor && anchor !== document.body) {
+    const par = anchor.parentElement;
+    if (!par) break;
+    if (COL.some(s => par.matches(s))) break;
+    anchor = par;
+  }
+  if (!anchor || anchor === document.body) anchor = btn.parentElement;
+
+  const out = document.createElement('div');
+  out.className = 'dig-out';
+  out.setAttribute('role', 'region');
+  out.setAttribute('aria-label', '展开的细节');
+  out.innerHTML =
+    '<div class="dig-in"><span class="dig-bar" aria-hidden="true"></span>' +
+    '<div class="dig-body"><span class="lab">' + dec(payload.lab) + '</span>' +
+    payload.body + '<span class="dig-src">' + dec(payload.src) + '</span></div></div>';
+  anchor.parentNode.insertBefore(out, anchor.nextSibling);
+  btn.__out = out;
+  return true;
+}
+
+/* ------------------------------------------------------------
+   1. 可挖点数据
+   ------------------------------------------------------------ */
+const DIGS = [
+  /* ---------- 01 两个末端之间 ---------- */
+  ['#definition', '他后来会成为俄国最著名的激进批评家', {
+    key: 'd01a', lab: '这一句的原文',
+    body: '<p>车尔尼雪夫斯基用的是 <em>«диалектика души»</em>——"心灵的辩证法"。' +
+      '他紧接着说明了为什么需要这个术语：因为通常的写法里，这条链条只剩两个环。</p>' +
+      '<p>请注意他给托尔斯泰的两条天赋是<b>并列</b>的：一条是看穿心灵隐秘运动的能力，' +
+      '另一条是"道德感的直接纯洁"。少了后一条，前一条会变成犬儒。</p>' +
+      '<p>写下这篇书评的人当时二十七岁，立场与这位贵族作家相距极远。' +
+      '这是全站最值得注意的一个事实：<b>说清一个作家在做什么的人，往往不是他的同路人。</b></p>',
+    src: '《现代人》1856 年第 12 期'
+  }],
+  ['#definition', '两个末端', {
+    key: 'd01b', lab: '为什么"两个末端"不够',
+    body: '<p>只给两端的写法，读者拿到的是<b>结论</b>：他害怕，他逃了。' +
+      '这两件事都对，但它们之间没有<b>可辨认的因果</b>——你没法反驳，也没法同意，' +
+      '因为过程被省略了。</p>' +
+      '<p>托尔斯泰把过程补上之后，读者被迫做一件事：<b>自己判断</b>。' +
+      '这才是"心灵辩证法"真正的效果——它把判断权交还给读者。</p>',
+    src: '同上 · 参见本页图 1'
+  }],
+  ['#definition', '道德感的直接纯洁', {
+    key: 'd01c', lab: '第二条支柱后来变成了负担',
+    body: '<p>1890 年代，托尔斯泰开始用这条标准审判自己的全部作品。' +
+      '他在《艺术论》里论证：如果艺术只是少数人的娱乐，它就不配称为艺术。</p>' +
+      '<p>一个"未被败坏的道德判断力"，' +
+      '最终使他几乎无法再写小说。这两条支柱在他身上互相撕扯了三十年。</p>',
+    src: '参见《艺术论》（1897）与第 08 节'
+  }],
+
+  /* ---------- 02 绿棍 ---------- */
+  ['#origin', '那年 3 月 17 日的日记里', {
+    key: 'd02a', lab: '这份手稿的规模',
+    body: '<p>不是几行字。《生活规则》按主题分门别类，条目逐条编号，' +
+      '覆盖情欲、名誉、金钱、身体、写作、社交——几乎是一部法典的框架。</p>' +
+      '<p>而且它不断被修订。托尔斯泰在页边增补、删除、重新编号，' +
+      '像一个永远不满足的立法者。</p>',
+    src: '《托尔斯泰全集》第二十一卷，第 7—21 页'
+  }],
+  ['#origin', '把笼统的道德愿望切成可以逐项检查的动作', {
+    key: 'd02b', lab: '他用的方法是"可检查性"',
+    body: '<p>把"我要成为好人"换成"我不在背后议论人"，' +
+      '这一步转换的实质是：<b>让规则变得可以核对</b>。</p>' +
+      '<p>这是一个惊人的早熟。十九岁的托尔斯泰已经懂得：' +
+      '无法被检验的道德愿望，等于没有愿望。</p>' +
+      '<p>而这套办法后来被他搬进了小说：他给人物设计的也是一份"可核对的清单"——' +
+      '脸红了吗，手抖了吗，身体先做出了什么反应。</p>',
+    src: '据《生活规则》条目结构'
+  }],
+  ['#origin', '于是日记变成了一份', {
+    key: 'd02c', lab: '他记录失败的方式近乎残酷',
+    body: '<p>他在日记里用最难听的词骂自己，而且日复一日。' +
+      '关键在于：这套自我审计在<b>结构上不可能成功</b>——' +
+      '检查得越细，发现的失败就越多；失败越多，就越需要更细的检查。</p>' +
+      '<p>他在这套机制里待了六十三年。它既是他的方法，也是他的病。' +
+      '而"心灵辩证法"作为文学技术，正是从这个病里长出来的。</p>',
+    src: '1847—1910 年日记'
+  }],
+
+  /* ---------- 03 显微镜 ---------- */
+  ['#method', '让两个相反的念头同时在场', {
+    key: 'd03a', lab: '一个可检验的判据',
+    body: '<p>检验方法很简单：把那段文字里的一个念头删掉，' +
+      '看剩下的部分是否还成立。</p>' +
+      '<p>如果删掉之后一切照旧，那只是重复；' +
+      '如果删掉之后整段塌了——两个念头互相支撑、也互相拆台——' +
+      '那才是"心灵辩证法"。</p>',
+    src: '据车尔尼雪夫斯基"过程的形式与规律"'
+  }],
+  ['#method', '不写结论，写通往结论的那一步', {
+    key: 'd03b', lab: '这个技术在《安娜·卡列尼娜》里的用法',
+    body: '<p>安娜生命的最后一分钟，触发点是一连串极小的具体事物：' +
+      '一个红手袋、画十字的习惯动作、车厢之间转动的轮子。</p>' +
+      '<p>托尔斯泰从不写"她绝望了"。他写下<b>她的手在做什么</b>。' +
+      '绝望是读者的推论，不是作者的交代。</p>',
+    src: '《安娜·卡列尼娜》第七部第三十一章'
+  }],
+  ['#method', '身体是不会撒谎的证人', {
+    key: 'd03c', lab: '为什么身体在托尔斯泰这里特别重要',
+    body: '<p>因为他的人物几乎全都<b>善于自我解释</b>。' +
+      '他们能为一件事找出五个理由，而且每个理由听起来都成立。</p>' +
+      '<p>在这种人身上，语言是不可信的。' +
+      '于是他在旁边放一个不会说话的证人：脸、手、膝盖、呼吸。</p>',
+    src: '参见第 04 节三张细读卡'
+  }],
+  ['#method', '噼啪作响，开始黯淡', {
+    key: 'd03d', lab: '这个顺序不是修辞',
+    body: '<p>如果写成"光渐渐暗下去，最后灭了"，那是物理过程。' +
+      '托尔斯泰写的是<b>先爆出比任何时候都亮的光</b>，照亮了她先前在黑暗中的一切，' +
+      '然后才熄灭。</p>' +
+      '<p>于是死亡被改写为一次<b>看清</b>。这一笔否定了读者对结局的全部预期——' +
+      '而七年之后，他会把这个动作彻底反过来：在《伊万·伊里奇之死》里，' +
+      '取代死亡的，是光。</p>',
+    src: '原文见本页引文与注 · 对照见第 07 节'
+  }],
+
+  /* ---------- 04 同一支笔，两副面孔 ---------- */
+  ['#reader', '他注意到有人在看他', {
+    key: 'd04a', lab: '这套公式的完整形状',
+    body: '<p>公式是：<b>饱满的情绪 → 一个极小的外部刺激 → 情绪垮掉 → 剩下真实的东西</b>。</p>' +
+      '<p>托尔斯泰用这个公式写了十年，几乎不知疲倦。' +
+      '这不是重复——他在用同一个动作，测不同的人能承受多少自我暴露。</p>',
+    src: '《童年》《少年》《青年》《哥萨克》《卢塞恩》等'
+  }],
+  ['#reader', 'comme il faut', {
+    key: 'd04b', lab: '这个词是他的自造术语',
+    body: '<p>"comme il faut"本来是法语里的社交惯用语——"合乎体统"。' +
+      '托尔斯泰把它变成了一个<b>存在论等级</b>：人分成体面的和不体面的两类。</p>' +
+      '<p>而划分标准是：指甲、法语口音、领带的打法。' +
+      '一个十九世纪的年轻人，就是靠这些来判决灵魂的。</p>' +
+      '<p>他在自传性作品里对这件事的坦白异常彻底：' +
+      '他承认自己曾用这套标准去瞧不起人，' +
+      '而这份坦白本身，又成了一次新的自我表演。</p>',
+    src: '《青年》相关章节'
+  }],
+  ['#reader', '群山毫无表示', {
+    key: 'd04c', lab: '"无动于衷的自然"从此留在他的书里',
+    body: '<p>《哥萨克》的结尾，奥列宁离开，高加索的群山对他的内心戏毫无兴趣。' +
+      '这个"背景的冷淡"是托尔斯泰的一个持续设计。</p>' +
+      '<p>它后来变成《战争与和平》里那片无限高远的天空，' +
+      '也变成《安娜·卡列尼娜》结尾那支自顾自熄灭的蜡烛——' +
+      '自然与物永远不参与人的戏剧，而这正是它们的力量。</p>',
+    src: '《哥萨克》（1863）'
+  }],
+  ['#reader', '在《五月的塞瓦斯托波尔》里', {
+    key: 'd04d', lab: '这一步把作者也放了进去',
+    body: '<p>一个只解剖人物的作家，仍然是安全的。' +
+      '但一个把解剖刀转向自己叙述的作家，就失去了豁免权。</p>' +
+      '<p>托尔斯泰晚年把这一点推到极致：他开始怀疑小说这种形式本身是否正当。' +
+      '那个念头的种子，在 1855 年就已经埋下了。</p>',
+    src: '《五月的塞瓦斯托波尔》（1855）'
+  }],
+
+  /* ---------- 05 天空与橡树 ---------- */
+  ['#warpeace', '不是长篇小说', {
+    key: 'd05a', lab: '他为什么拒绝这些体裁名',
+    body: '<p>1868 年他写了一篇短文回应读者的困惑，大意是：' +
+      '这部书是作者想要并且能够用它所采取的形式表达出来的东西。</p>' +
+      '<p>这不是敷衍。它承认了一件事：<b>他找不到现成的容器</b>，' +
+      '于是造了一个。后来的文学史把它叫"史诗小说"，' +
+      '但那是事后追认的名字。</p>',
+    src: '《关于〈战争与和平〉一书的几句话》（1868）'
+  }],
+  ['#warpeace', '这就是这部书最深的一层', {
+    key: 'd05b', lab: '从一个人的内心推到一场战役',
+    body: '<p>如果一个人的决定已经是他内部无数矛盾冲撞的结果，' +
+      '那么一场几十万人参加的战斗，怎么能归功于某一个人的命令？</p>' +
+      '<p>托尔斯泰的结论是：不能。指挥官发出的命令，' +
+      '实际执行的只是其中极小一部分，剩下的由无数偶然与士兵的即时判断填满。' +
+      '历史学家看到的"决策"，是事后清理出来的秩序。</p>' +
+      '<p>这一步把文学技术变成了历史哲学：' +
+      '<b>同一个"过程比结果重要"的判断，从一个人的内心推到了整场战争。</b></p>',
+    src: '《战争与和平》第三卷与尾声的史论部分'
+  }],
+  ['#warpeace', '改变的不是世界，是那个看世界的意识', {
+    key: 'd05c', lab: '橡树那两段的结构',
+    body: '<p>第一次，树"不愿向春天的魔法屈服"——' +
+      '这是树对他下的判决。</p>' +
+      '<p>第二次，树"展开一片鲜绿嫩叶的帐篷"——' +
+      '这是他给树下的判决。</p>' +
+      '<p>树没有变。<b>托尔斯泰把这两次判决并列写出，读者自己就能看见那个变量是什么。</b></p>',
+    src: '《战争与和平》第二部第三篇'
+  }],
+  ['#warpeace', '五百多个人物', {
+    key: 'd05d', lab: '规模不是目的',
+    body: '<p>但规模带来一个技术后果：当每个人的内心都在按"心灵辩证法"运作，' +
+      '整部书就不再有一个<b>中心意识</b>。</p>' +
+      '<p>你不能说这部书是安德烈的，也不能说是皮埃尔的。' +
+      '它由许多个各自真实、互不相让的内部世界拼成——' +
+      '而"历史"就是这些东西加总之后产生的、谁也没打算要的结果。</p>',
+    src: '据全书结构'
+  }],
+
+  /* ---------- 06 反点 ---------- */
+  ['#anna', '小说的题词是一句经文', {
+    key: 'd06a', lab: '这句题词拒绝了读者',
+    body: '<p>它通常被读成对安娜的判词。但那样读有一个困难：' +
+      '托尔斯泰并不需要一个上帝来惩罚安娜，她自己已经在惩罚自己了，' +
+      '而且比任何外部判决都彻底。</p>' +
+      '<p>另一种读法是：这句话是在对读者说话。' +
+      '你们不是法官——它说。而托尔斯泰自己，也没有在这部书里坐上去。</p>',
+    src: '卷首题词，出自《罗马书》12:19'
+  }],
+  ['#anna', '安娜找不到出口', {
+    key: 'd06b', lab: '这段写的是"自我识别"',
+    body: '<p>安娜在小说的中段大量读书。托尔斯泰让她在书里的人物身上认出自己，' +
+      '然后<b>为这个认出感到羞耻</b>。</p>' +
+      '<p>注意这个机制的残酷之处：她在做的事，' +
+      '就是读者正在做的事。我们也在她身上认出了某样东西，' +
+      '而托尔斯泰知道这一点，并且没有放过我们。</p>',
+    src: '《安娜·卡列尼娜》第二、三部相关章节'
+  }],
+  ['#anna', '两条线，不是道德对照', {
+    key: 'd06c', lab: '托尔斯泰给列文的结局是"暂时"',
+    body: '<p>第八部里，列文从农民福卡尼奇的一句话里抓住了一样东西。' +
+      '但托尔斯泰明确写了：他还是会为马车、为琐事发火，' +
+      '他还是说不清自己到底明白了什么。</p>' +
+      '<p>这不是一个宗教性的圆满结局。' +
+      '这是一个<b>暂时安静下来</b>的人——而托尔斯泰认为，这已经是人能做到的全部。</p>',
+    src: '《安娜·卡列尼娜》第八部'
+  }],
+  ['#anna', '同一个镜头，同一个焦点', {
+    key: 'd06d', lab: '把两段叠在一起读',
+    body: '<p>安娜临终那段与列文仰望夜空那段，用的是同一套技术：' +
+      '外部景物突然打开 → 一句极短的内心话 → 身体感受先到、理解后到。</p>' +
+      '<p>甚至连光的处理都相似。区别只在方向：一个坠下去，一个浮上来。' +
+      '<b>这不是对比善恶，是对比同一种意识在两种命运中的表现。</b></p>',
+    src: '第七部第三十一章 与 第八部'
+  }],
+
+  /* ---------- 07 阿尔扎马斯 ---------- */
+  ['#crisis', '他写的是几何形状让人无法忍受', {
+    key: 'd07a', lab: '为什么几何形状能承载恐惧',
+    body: '<p>他没有写鬼、没有写幻象、没有写任何超自然的东西。' +
+      '他写的是墙壁的<b>直角</b>让人无法忍受。</p>' +
+      '<p>这是一种罕见的能力：把无法命名的状态，' +
+      '兑换成可以被眼睛验证的东西。他知道"恐怖"这个词救不了他，' +
+      '但"方的"可以。</p>',
+    src: '《一个疯子的笔记》（1869）'
+  }],
+  ['#crisis', '我永远和我自己在一起', {
+    key: 'd07b', lab: '这句是整段的核心',
+    body: '<p>他正在去外省买一座庄园的路上。' +
+      '于是他问自己：我为什么要去那里？我在逃避什么？' +
+      '然后他给出了那个答案——</p>' +
+      '<p><b>我逃避的是某个可怕的东西，而我逃不掉，因为我永远和我自己在一起，' +
+      '而那个"我"，就是折磨我的人。</b></p>' +
+      '<p>请把这句话和《生活规则》放在一起看：' +
+      '十九岁时，他以为通过检查自己可以改造自己；' +
+      '四十一岁时，他发现检查者就是被检查者。</p>',
+    src: '《一个疯子的笔记》'
+  }],
+  ['#crisis', '是对家庭的爱', {
+    key: 'd07c', lab: '这一步是不可逆的',
+    body: '<p>寓言里那两滴蜜，他明确指认为<b>家庭</b>与<b>写作</b>。' +
+      '在此之前，文学一直是他的避难所——一个可以合法地观察别人、' +
+      '而不必立刻行动的地方。</p>' +
+      '<p>在这里，他第一次把写作本身也列进了"用来遮住真相的甜味"。' +
+      '此后三十年，他都在为这一句话付代价。</p>',
+    src: '《忏悔录》第四部（1879—1880）'
+  }],
+  ['#crisis', '用一则东方的寓言', {
+    key: 'd07d', lab: '寓言在这里是认识工具',
+    body: '<p>他不是用寓言来讲道理，而是用寓言来<b>让一个说不清的状态变得可以画出来</b>。</p>' +
+      '<p>龙、枯井、黑白两只老鼠、几滴蜜——' +
+      '每一个元素都是可以视觉化的。这是他从阿尔扎马斯那一夜学到的方法：' +
+      '当语言失效时，交给图像。</p>' +
+      '<p>而这也正是本页的做法：这一节的滚动交互，就是那口井。</p>',
+    src: '《忏悔录》第四部'
+  }],
+
+  /* ---------- 08 不抵抗 ---------- */
+  ['#doctrine', '不以暴力回应', {
+    key: 'd08a', lab: '这个主张的推论链条',
+    body: '<p>它的前提不是"人不该反抗"，而是一个关于心灵的事实判断：' +
+      '<b>人的内部是一团互相反驳的力量，外力压不服它。</b></p>' +
+      '<p>推论是：用暴力去改变一个人，只是把外在的暴力叠加上去，' +
+      '而他真正需要改变的那个东西——他的内部状态——一步也没动。</p>' +
+      '<p>你可以不同意这个前提。但把它读成怯懦，是读错了。</p>',
+    src: '《天国在你心中》（1894）等'
+  }],
+  ['#doctrine', '十天后', {
+    key: 'd08b', lab: '出走的实际情形',
+    body: '<p>1910 年 10 月 28 日夜，八十二岁的托尔斯泰带着医生离开亚斯纳亚波良纳，' +
+      '只带了极少的东西，没有告诉妻子。</p>' +
+      '<p>途中他受凉，在阿斯塔波沃车站病倒，' +
+      '于 11 月 7 日（旧历）／11 月 20 日（新历）死于站长的屋子里。' +
+      '这是他一生中唯一一次成功地从自己的家里逃走。</p>',
+    src: '据随行医生与家人记录'
+  }],
+  ['#doctrine', '一个长满草的土丘', {
+    key: 'd08c', lab: '那座坟的位置',
+    body: '<p>他被葬在亚斯纳亚波良纳的林中，没有十字架，没有墓碑，' +
+      '只有一个长满草的土丘。</p>' +
+      '<p>据家人的记述，那个位置正是童年传说里绿棍所埋的地方。' +
+      '<b>他一生在找那根写着"让所有人幸福"的棍子，最后躺在了它旁边。</b></p>',
+    src: '据家人记述 · 具体位置见第 09 节史料说明'
+  }],
+  ['#doctrine', '他失败了', {
+    key: 'd08d', lab: '失败的清单',
+    body: '<p>他继续住在庄园里，继续拥有财产，继续领取版税，' +
+      '继续与妻子争吵到最后一刻——而他的教义说这一切都是错的。</p>' +
+      '<p>他把这些都写进了日记，用词和他十九岁时几乎一样。' +
+      '一个人花六十年检查自己而始终不合格——' +
+      '这件事本身，就是"心灵辩证法"最后的样子。</p>',
+    src: '1880—1910 年日记'
+  }],
+
+  /* ---------- 09 未完成的圆 ---------- */
+  ['#legacy', '把每一个动机都拆开', {
+    key: 'd09a', lab: '这是方法的必然代价',
+    body: '<p>把每一个动机都拆开，就没有一个动机还站得住。</p>' +
+      '<p>托尔斯泰晚年几乎无法写作小说，' +
+      '因为他一落笔就开始怀疑这个动作本身——' +
+      '它是不是也只是"一滴用来遮住真相的蜜"？</p>',
+    src: '参见第 07 节与《艺术论》'
+  }],
+  ['#legacy', '也持续检查与他一起生活的人', {
+    key: 'd09b', lab: '另一半的证词',
+    body: '<p>索菲娅·安德烈耶夫娜为他抄了数十年的手稿，' +
+      '包括《战争与和平》和《安娜·卡列尼娜》的全部清样。' +
+      '她自己也写了日记，写到八十多岁。</p>' +
+      '<p>读这两部日记会得到一种罕见的经验：' +
+      '同一段婚姻，两种完全不相容的记录，<b>而且两份都是真诚的</b>。</p>' +
+      '<p>这不是谁在撒谎。这是"心灵辩证法"在一个家庭里运行四十八年的实际结果。</p>',
+    src: '《我的一生》与托尔斯泰日记'
+  }],
+  ['#legacy', '这也是全书最后留下的问题', {
+    key: 'd09c', lab: '最后那道墙',
+    body: '<p>阿尔扎马斯那一夜，他究竟经历了什么？' +
+      '我们只有他自己的文字，而那是<b>十年之后</b>追写的。</p>' +
+      '<p>意识的记录与意识的经历之间，本来就有一道无法消除的缝。</p>',
+    src: '《一个疯子的笔记》写作时间与事件时间之差'
+  }]
+];
+
+/* ------------------------------------------------------------
+   2. 注入 + 展开逻辑
+   ------------------------------------------------------------ */
+const allDigs = [];
+for (const [sel, needle, payload] of DIGS) {
+  const host = document.querySelector(sel);
+  if (!host) { console.warn('dig host missing', sel); continue; }
+  if (injectDig(host, needle, payload)) {
+    const btn = host.querySelector('.dig[data-dig-key="' + payload.key + '"]');
+    if (btn) allDigs.push(btn);
+  } else {
+    console.warn('dig anchor not found', sel, needle);
+  }
+}
+
+/* 展开 / 收起（高度用 JS 过渡，避免 max-height 的跳动） */
+function openDig(btn) {
+  const out = btn.__out;
+  const on = btn.getAttribute('aria-expanded') === 'true';
+  if (on) {
+    out.style.height = out.scrollHeight + 'px';
+    requestAnimationFrame(() => { out.style.height = '0px'; out.style.opacity = '0'; });
+    btn.setAttribute('aria-expanded', 'false');
+    btn.classList.remove('open');
+  } else {
+    out.style.height = out.scrollHeight + 'px';
+    out.style.opacity = '1';
+    btn.setAttribute('aria-expanded', 'true');
+    btn.classList.add('open');
+    btn.dataset.seen = '1';
+    const done = () => { if (btn.getAttribute('aria-expanded') === 'true') out.style.height = 'auto'; };
+    setTimeout(done, 500);
+    // 记录发现
+    markDug(btn);
+  }
+}
+allDigs.forEach(btn => {
+  btn.addEventListener('click', () => openDig(btn));
+});
+addEventListener('resize', () => {
+  allDigs.forEach(b => { if (b.__out && b.getAttribute('aria-expanded') === 'true') b.__out.style.height = 'auto'; });
+}, { passive: true });
+
+/* ------------------------------------------------------------
+   3. 每章的挖掘计数器 + 下一步提示
+   ------------------------------------------------------------ */
+const sections = ['definition', 'origin', 'method', 'reader', 'warpeace', 'anna', 'crisis', 'doctrine', 'legacy'];
+const visited = new Set();
+const dugSet = new Set();
+
+try {
+  const sv = sessionStorage.getItem('tol.visited');
+  if (sv) sv.split(',').forEach(s => s && visited.add(s));
+} catch (e) { }
+
+const rail = document.getElementById('rail');
+const railBtns = {};
+
+function markDug(btn) {
+  const sec = btn.closest('section');
+  const id = sec ? sec.id : '';
+  dugSet.add(btn.dataset.digKey);
+  if (railBtns[id]) railBtns[id].dataset.dug = '1';
+  updateMeter(id);
+  updateRailDone();
+}
+
+function digsOf(id) { return allDigs.filter(b => b.closest('section') && b.closest('section').id === id); }
+
+function updateMeter(id) {
+  const m = document.querySelector('#meter-' + id);
+  if (!m) return;
+  const list = digsOf(id);
+  if (!list.length) return;
+  const n = list.filter(b => b.dataset.seen === '1').length;
+  m.querySelector('i').style.transform = 'scaleX(' + (n / list.length).toFixed(3) + ')';
+  m.querySelector('.dm-txt').textContent =
+    n === list.length ? '本章 ' + n + '/' + list.length + ' 处细节已全部展开'
+      : '已展开 ' + n + ' / ' + list.length + ' 处';
+  m.classList.toggle('done', n === list.length);
+}
+
+function updateRailDone() {
+  const done = sections.filter(id => {
+    const list = digsOf(id);
+    return list.length > 0 && list.every(b => b.dataset.seen === '1');
+  }).length;
+  const spine = document.getElementById('spine');
+  if (spine) spine.classList.toggle('done', done === sections.length);
+}
+
+/* 为每章末尾插入计数器与"下一步" */
+const NEXT = {
+  definition: ['origin', '02 绿棍'], origin: ['method', '03 显微镜'],
+  method: ['reader', '04 同一支笔，两副面孔'], reader: ['warpeace', '05 天空与橡树'],
+  warpeace: ['anna', '06 反点'], anna: ['crisis', '07 阿尔扎马斯'],
+  crisis: ['doctrine', '08 不抵抗'], doctrine: ['legacy', '09 未完成的圆'],
+  legacy: ['coda', '尾声']
+};
+sections.forEach(id => {
+  const sec = document.getElementById(id);
+  if (!sec) return;
+  const list = digsOf(id);
+  if (!list.length) return;
+  const last = list[list.length - 1].__out;
+  const wrap = document.createElement('div');
+  let html = '<div class="dig-meter" id="meter-' + id + '">' +
+    '<span class="dm-txt">已展开 0 / ' + list.length + ' 处</span>' +
+    '<span class="dm-track"><i></i></span>' +
+    '<span class="dm-txt" style="opacity:.7">点击正文中带虚线的词</span>' +
+    '</div>';
+  const nx = NEXT[id];
+  if (nx) {
+    html += '<div class="next-hint"><span class="nh-lab">继续 / NEXT</span>' +
+      '<button type="button" data-goto="' + nx[0] + '">' + nx[1] +
+      ' <span class="arrow" aria-hidden="true">→</span></button></div>';
+  }
+  wrap.innerHTML = html;
+  last.parentNode.insertBefore(wrap, last.nextSibling);
+  updateMeter(id);
+});
+$$('[data-goto]').forEach(b => b.addEventListener('click', () => {
+  const t = document.getElementById(b.dataset.goto);
+  if (t) scrollTo({ top: t.offsetTop - 72, behavior: window.TOL.REDUCED() ? 'auto' : 'smooth' });
+}));
+
+/* ------------------------------------------------------------
+   4. 阅读轨迹
+   ------------------------------------------------------------ */
+if (rail) {
+  sections.forEach((id, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rl';
+    b.dataset.goto = id;
+    b.setAttribute('aria-label', '前往第 ' + String(i + 1).padStart(2, '0') + ' 节');
+    b.innerHTML = '<span class="num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="mark" aria-hidden="true"></span><span class="tick" aria-hidden="true"></span>';
+    b.addEventListener('click', () => {
+      const t = document.getElementById(id);
+      if (t) scrollTo({ top: t.offsetTop - 72, behavior: window.TOL.REDUCED() ? 'auto' : 'smooth' });
+    });
+    rail.appendChild(b);
+    railBtns[id] = b;
+  });
+
+  let lastActive = '';
+  tickers.push(() => {
+    // 出现时机：进入第 01 节之后
+    const first = document.getElementById('definition');
+    rail.classList.toggle('on', !!(first && V.scroll > first.offsetTop - V.h * .5));
+
+    const mid = V.scroll + V.h * .42;
+    let cur = '';
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= mid) cur = id; else break;
+    }
+    if (cur && cur !== lastActive) {
+      lastActive = cur;
+      for (const k in railBtns) {
+        railBtns[k].setAttribute('aria-current', k === cur ? 'true' : 'false');
+        if (k === cur && !visited.has(cur)) {
+          visited.add(cur);
+          railBtns[k].dataset.visited = '1';
+          try { sessionStorage.setItem('tol.visited', [...visited].join(',')); } catch (e) { }
+        }
+      }
+    }
+  });
+  // 恢复本次会话的访问痕迹
+  visited.forEach(id => { if (railBtns[id]) railBtns[id].dataset.visited = '1'; });
+}
+
+/* ------------------------------------------------------------
+   5. 章节转场：墨线推移（每章顶部一条手绘感的线，进入时生长）
+   ------------------------------------------------------------ */
+sections.forEach((id, i) => {
+  const sec = document.getElementById(id);
+  if (!sec) return;
+  if (window.__TOL_NO_WIPE__) return;   // 诊断开关
+  // 作为 section 的直接子元素插入 .wrap 之前 ——
+  // 绝不进入任何网格容器内部，否则会被当成网格项而挤坏版式
+  const w = document.createElement('div');
+  w.className = 'ink-wipe';
+  w.setAttribute('aria-hidden', 'true');
+  const seed = i * 7 + 3;
+  const amp = 6 + (seed % 5) * 3;
+  let d = 'M0 20';
+  for (let x = 0; x <= 300; x += 10) {
+    const y = 20 + Math.sin((x / 300) * Math.PI * (1.6 + (seed % 3) * .5) + seed) * amp
+      + Math.sin(x * .13 + seed * 2) * (amp * .28);
+    d += ` L${x} ${y.toFixed(1)}`;
+  }
+  w.innerHTML = '<div class="ink-wipe-in">' +
+    '<svg viewBox="0 0 300 40" preserveAspectRatio="none">' +
+    '<path d="' + d + '" style="--len:340"/></svg>' +
+    '<span class="lb">' + (i === 0 ? '从这里开始' : '转入下一层') + '</span></div>';
+  const wrap = sec.querySelector('.wrap');
+  if (wrap) sec.insertBefore(w, wrap);
+});
+{
+  const wipes = $$('.ink-wipe');
+  const io = new IntersectionObserver(es => {
+    for (const e of es) if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  }, { rootMargin: '-10% 0px -20% 0px', threshold: .2 });
+  wipes.forEach(w => io.observe(w));
+}
+
+/* ------------------------------------------------------------
+   6. 完成度反馈：全部读完时书脊变色
+   ------------------------------------------------------------ */
+tickers.push(() => {
+  const last = document.getElementById('legacy');
+  if (!last || !rail) return;
+  const past = V.scroll > last.offsetTop + last.offsetHeight * .5;
+  const allVisited = sections.every(id => visited.has(id));
+  rail.classList.toggle('alldone', past && allVisited);
+});
+
+/* ------------------------------------------------------------
+   7. 细读抽屉：把关键年份展开成证据
+   ------------------------------------------------------------ */
+const drawers = $$('[data-dr]');
+if (drawers.length) {
+  const DATA = {
+    dr1: {
+      body: '<p>这一节要说明的是"心灵辩证法"最容易被忽略的部分：' +
+        '它<strong>不是</strong>写得细，而是写得<b>有过程</b>。' +
+        '细致的静态描写再多，如果没有"从 A 走到 B"的中间环节，仍然只是描写。</p>' +
+        '<p>判据只有一条：把中间那些环节删掉，读者是否还拿得到结论。' +
+        '如果拿得到，那些环节就是装饰；如果拿不到，它们就是方法本身。</p>',
+      q: '普通作家呈现链条的两个末端——心理过程的开端与结局；托尔斯泰伯爵感兴趣的是过程，而不是结果。',
+      cite: '车尔尼雪夫斯基 · 1856 · [译]'
+    },
+    dr2: {
+      body: '<p>1850 年代的托尔斯泰同时在做两件看起来矛盾的事：' +
+        '在战场上记录死亡（《塞瓦斯托波尔故事》），' +
+        '在日记里记录自己的虚荣。</p>' +
+        '<p>这两件事在他那里是同一件事——' +
+        '他都在观察"人在极限处境下，实际在想什么"，而不是"应该想什么"。</p>',
+      q: '他非常仔细地研究过人类精神的秘密，这给了他研究一般人类生活的基础。',
+      cite: '车尔尼雪夫斯基 · 1856 · [译]'
+    },
+    dr3: {
+      body: '<p>把写作与家庭列入"麻痹自己的甜味"，是一个不可逆的自我诊断。' +
+        '因为一旦你说出这句话，你就不能再假装不知道。</p>' +
+        '<p>此后他并没有停止写作——他写得更多，只是再也无法心安理得地写。' +
+        '这就是"心灵辩证法"用在一个人身上六十年的实际后果。</p>',
+      q: '那两滴蜜——比别的蜜更久地替我遮住残酷真相的那两滴——是对家庭的爱，和对我称之为艺术的写作的爱——它们已经不再甜了。',
+      cite: '《忏悔录》第四部 · [译]'
+    }
+  };
+  drawers.forEach(row => {
+    const key = row.dataset.dr;
+    const body = document.getElementById('drb-' + key);
+    if (!body) return;
+    const d = DATA[key];
+    if (d) {
+      body.querySelector('.dr-body-in').innerHTML =
+        '<div><p>' + d.body + '</p></div>' +
+        '<div class="dr-ev"><span class="lab">原文</span><q>' + d.q + '</q><cite>' + d.cite + '</cite></div>';
+    }
+    row.addEventListener('click', () => {
+      const on = row.getAttribute('aria-expanded') === 'true';
+      // 收起其它
+      drawers.forEach(r2 => {
+        if (r2 === row) return;
+        const b2 = document.getElementById('drb-' + r2.dataset.dr);
+        if (b2 && r2.getAttribute('aria-expanded') === 'true') {
+          b2.style.height = b2.scrollHeight + 'px';
+          requestAnimationFrame(() => { b2.style.height = '0px'; b2.style.opacity = '0'; });
+          r2.setAttribute('aria-expanded', 'false');
+        }
+      });
+      if (on) {
+        body.style.height = body.scrollHeight + 'px';
+        requestAnimationFrame(() => { body.style.height = '0px'; body.style.opacity = '0'; });
+        row.setAttribute('aria-expanded', 'false');
+      } else {
+        body.style.height = body.scrollHeight + 'px';
+        body.style.opacity = '1';
+        row.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+}
+
+/* ------------------------------------------------------------
+   8. 双态滑块：同一个人的两种自我描述
+   ------------------------------------------------------------ */
+const mirRange = document.getElementById('mirRange');
+if (mirRange) {
+  const SELF = document.getElementById('mirSelf');
+  const REAL = document.getElementById('mirReal');
+  const wrap = document.querySelector('.mir');
+  const knob = document.getElementById('mirKnob');
+  const AXIS = document.getElementById('mirAxis');
+  if (AXIS) {
+    AXIS.setAttribute('d', 'M10 40 L330 40 M10 40 L10 34 M170 40 L170 34 M330 40 L330 34');
+  }
+  const POLES = {
+    self: [
+      '我以为：我在为妹妹的幸福奔走。',
+      '我以为：我宽恕了所有人。',
+      '我以为：我是在为别人牺牲。'
+    ],
+    real: [
+      '实际上：我在意的是自己在这件事里显得崇高。',
+      '实际上：我想的是这样做的我在别人眼里好不好看。',
+      '实际上：我在享受这个牺牲，并且知道自己在享受。'
+    ]
+  };
+  let cur = 0, target = 0, resolved = false;
+
+  function apply(v) {
+    const t = clamp(v);
+    if (wrap) wrap.dataset.lean = t > .5 ? '1' : '0';
+    if (SELF && REAL) {
+      // 两端交叉淡出：越靠近另一端，这一端越淡
+      SELF.style.opacity = (1 - t * .82).toFixed(3);
+      REAL.style.opacity = (.18 + t * .82).toFixed(3);
+      const i = t < .45 ? 0 : t < .8 ? 1 : 2;
+      if (SELF.dataset.i !== String(i)) {
+        SELF.dataset.i = String(i);
+        SELF.textContent = POLES.self[i];
+        REAL.textContent = POLES.real[i];
+      }
+    }
+    if (knob) knob.setAttribute('cx', (10 + t * 320).toFixed(1));
+  }
+  mirRange.addEventListener('input', () => {
+    target = +mirRange.value / 100;
+    if (target > .5) resolved = true;
+  });
+  // 滚动时若用户还没操作过，缓慢自动推进一点，提示这是可拖的
+  let auto = 0;
+  tickers.push(() => {
+    if (mirRange.dataset.touched === '1' || resolved) { /* 用户接管 */ }
+    else {
+      auto += .0016;
+      const t = .12 + Math.sin(auto) * .1;
+      mirRange.value = String(Math.round(t * 100));
+      target = t;
+    }
+    if (Math.abs(target - cur) < .001) return;
+    cur = lerp(cur, target, .12);
+    apply(cur);
+  });
+  mirRange.addEventListener('pointerdown', () => mirRange.dataset.touched = '1');
+  mirRange.addEventListener('keydown', () => mirRange.dataset.touched = '1');
+  apply(0);
+}
+})();
+
+</script>
+</body>
+</html>
