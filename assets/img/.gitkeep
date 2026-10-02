@@ -1,0 +1,16 @@
+# 图像生成 AI 的输出目录（见 plan/05-图像生成提示词.md）
+#
+# 按提示词文档生成后，把图放在这里，文件名必须与文档一致：
+#   01-tolstoy-1848.jpg
+#   02-yasnaya-polyana.jpg
+#   03-war-and-peace-ms.jpg
+#   04-ballroom.jpg
+#   05-tolstoy-crisis.jpg
+#   06-tolstoy-1908-color.jpg
+#   07-astapovo.jpg
+#   08-grave.jpg
+#   09-ploughing.jpg
+#   10-copying.jpg
+#
+# 这个目录本身要保留在版本库里（所以放了这个 .gitkeep）；
+# 图片是交付物的一部分，不要加入 .gitignore。

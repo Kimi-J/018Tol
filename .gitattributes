@@ -1,0 +1,26 @@
+# 统一换行与二进制判定，避免 Windows 下 CRLF/LF 反复改动
+# 本项目是纯文本交付（单文件 HTML + Markdown），必须保证跨平台字节一致。
+
+* text=auto eol=lf
+
+# 明确的二进制类型（不做换行转换、不参与 diff）
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.woff binary
+*.woff2 binary
+
+# 图像生成 AI 的产出目录：避免 Git 误判为文本
+assets/img/* binary
+
+# 生成物 / 第三方语料：在 diff 与语言统计里折叠
+assets/shots/** linguist-generated=true
+research/raw/** linguist-vendored=true
+research/_A_raw/** linguist-vendored=true
+
+# 不参与语言统计（避免 Markdown 之外的噪音拉偏仓库语言构成）
+_dev/tools/** linguist-documentation=true
